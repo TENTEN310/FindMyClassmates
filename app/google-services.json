@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "298022016959",
+    "project_id": "meetmyclassmate-d7160",
+    "storage_bucket": "meetmyclassmate-d7160.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298022016959:android:cba869a6b3fb63112c730a",
+        "android_client_info": {
+          "package_name": "com.hfad.classmates"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298022016959-obf67us51ibj939r6djm6gtj1sas2cmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_QIQMeBXmaT7TteR6eJCsQFB0zsJu2CA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298022016959-obf67us51ibj939r6djm6gtj1sas2cmn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
