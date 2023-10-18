@@ -41,7 +41,7 @@
         android:layout_marginStart="88dp"
         android:layout_marginTop="16dp"
         android:text="Name: Tommy Trojan"
-        android:background="#FCFCFC"
+        android:background="@drawable/rounded_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/changeProfilePicture" />
 
@@ -51,7 +51,7 @@
         android:layout_height="24dp"
         android:layout_marginEnd="88dp"
         android:src="@drawable/ic_edit"
-        android:background="#FCFCFC"
+        android:background="@drawable/rounded_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/nameText" />
 
@@ -62,7 +62,7 @@
         android:layout_marginStart="88dp"
         android:layout_marginTop="16dp"
         android:text="Email: tommytrojan@usc.edu"
-        android:background="#FCFCFC"
+        android:background="@drawable/rounded_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nameText" />
 
@@ -72,7 +72,7 @@
         android:layout_height="24dp"
         android:layout_marginEnd="88dp"
         android:src="@drawable/ic_edit"
-        android:background="#FCFCFC"
+        android:background="@drawable/rounded_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/classesText" />
 
@@ -83,7 +83,7 @@
         android:layout_marginStart="88dp"
         android:layout_marginTop="16dp"
         android:text="Registered Classes:"
-        android:background="#FCFCFC"
+        android:background="@drawable/rounded_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emailText" />
 
@@ -93,7 +93,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="88dp"
         android:layout_marginTop="8dp"
-        android:background="#FCFCFC"
+        android:background="@drawable/rounded_background"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/classesText"
         app:layout_constraintStart_toStartOf="parent"/>
