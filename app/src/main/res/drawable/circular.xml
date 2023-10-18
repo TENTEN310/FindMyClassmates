@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <!-- res/drawable/circular.xml -->
     <!-- defines the circular shape and its properties -->
+    <!-- https://www.geeksforgeeks.org/how-to-create-a-circular-image-view-in-android-without-using-any-library/ -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
 android:innerRadius="0dp"
 android:shape="ring"
