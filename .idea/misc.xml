@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/ic_add.xml" value="0.2475" />
+        <entry key="app/src/main/res/drawable/ic_chat.xml" value="0.2475" />
+        <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.1925" />
+        <entry key="app/src/main/res/drawable/ic_friends.xml" value="0.2475" />
+        <entry key="app/src/main/res/drawable/ic_home.xml" value="0.2475" />
+        <entry key="app/src/main/res/drawable/ic_images.xml" value="0.208" />
+        <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.2475" />
+        <entry key="app/src/main/res/drawable/ic_users.xml" value="0.2475" />
+        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.1757852077001013" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.226856861943784" />
+        <entry key="app/src/main/res/layout/addingpost.xml" value="0.32472826086956524" />
+        <entry key="app/src/main/res/layout/fragment_adding_post.xml" value="0.32472826086956524" />
+        <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.32472826086956524" />
+        <entry key="app/src/main/res/layout/fragment_chats.xml" value="0.3614583333333333" />
+        <entry key="app/src/main/res/layout/fragment_classmates.xml" value="0.32472826086956524" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.32472826086956524" />
+        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.32472826086956524" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.18541666666666667" />
+        <entry key="app/src/main/res/menu/bottom.xml" value="0.36041666666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
