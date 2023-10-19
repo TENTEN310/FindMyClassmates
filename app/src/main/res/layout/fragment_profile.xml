@@ -1,101 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFEDED"
+    android:background="#730E07"
     tools:context=".ProfileFragment">
 
     <ImageView
-        android:id="@+id/profilePicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/image"
-        android:contentDescription="Profile Picture"
-        app:layout_constraintBottom_toTopOf="@+id/changeProfilePicture"
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="#370C0C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/image"
+            android:contentDescription="Profile Picture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/changeProfilePicture"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="28dp"
+            android:padding="1dp"
+            android:text="Change Profile Picture"
+            android:textSize="11sp"
+            app:backgroundTint="#933B3B"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/rounded_background"
+            android:text="Tommy Trojan"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/editName"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="24dp"
+            android:background="@drawable/rounded_background"
+            android:src="@drawable/ic_edit"
+            app:layout_constraintStart_toEndOf="@+id/nameText"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/emailText"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_background"
+            android:text="tommytrojan@usc.edu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameText" />
+
+        <Button
+            android:id="@+id/classes"
+            android:layout_width="80dp"
+            android:layout_height="92dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:padding="1dp"
+            android:text="CLASSES"
+            android:textSize="12sp"
+            app:backgroundTint="#933B3B"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailText" />
+
+        <Button
+            android:id="@+id/friends"
+            android:layout_width="80dp"
+            android:layout_height="92dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="30dp"
+            android:padding="1dp"
+            android:text="FRIENDS"
+            android:textSize="12sp"
+            app:backgroundTint="#933B3B"
+            app:layout_constraintEnd_toStartOf="@+id/changeProfilePicture"
+            app:layout_constraintTop_toBottomOf="@+id/emailText" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/itemsList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="100dp"
+            android:background="@drawable/rounded_background"
+            app:layout_constraintTop_toBottomOf="@+id/friends"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <Button
-        android:id="@+id/changeProfilePicture"
-        android:layout_width="wrap_content"
+        android:id="@+id/logout"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="16dp"
-        android:text="Change Profile Picture"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:padding="1dp"
+        android:text="Log Out"
+        android:textSize="13sp"
         app:backgroundTint="#933B3B"
-        app:layout_constraintBottom_toTopOf="@+id/nameText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
-
-    <TextView
-        android:id="@+id/nameText"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="16dp"
-        android:text="Name: Tommy Trojan"
-        android:background="@drawable/rounded_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/changeProfilePicture" />
-
-    <ImageView
-        android:id="@+id/editName"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="88dp"
-        android:src="@drawable/ic_edit"
-        android:background="@drawable/rounded_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/nameText" />
-
-    <TextView
-        android:id="@+id/emailText"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="16dp"
-        android:text="Email: tommytrojan@usc.edu"
-        android:background="@drawable/rounded_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nameText" />
-
-    <ImageView
-        android:id="@+id/editClasses"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="88dp"
-        android:src="@drawable/ic_edit"
-        android:background="@drawable/rounded_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/classesText" />
-
-    <TextView
-        android:id="@+id/classesText"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="16dp"
-        android:text="Registered Classes:"
-        android:background="@drawable/rounded_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailText" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/classesRecyclerView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/rounded_background"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/classesText"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
