@@ -2,6 +2,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Genia/Desktop/CSCI310/druzhini_Project2/FindMyClassmates/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1535" />
+        <entry key="..\:/Users/Genia/Desktop/CSCI310/druzhini_Project2/FindMyClassmates/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1535" />
+        <entry key="..\:/Users/Genia/Desktop/CSCI310/druzhini_Project2/FindMyClassmates/app/src/main/res/drawable/image.xml" value="0.1525" />
+        <entry key="..\:/Users/Genia/Desktop/CSCI310/druzhini_Project2/FindMyClassmates/app/src/main/res/drawable/rounded_background.xml" value="0.1525" />
+        <entry key="..\:/Users/Genia/Desktop/CSCI310/druzhini_Project2/FindMyClassmates/app/src/main/res/layout/circular.xml" value="0.10703125" />
+        <entry key="..\:/Users/Genia/Desktop/CSCI310/druzhini_Project2/FindMyClassmates/app/src/main/res/layout/fragment_profile.xml" value="0.45" />
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.2475" />
         <entry key="app/src/main/res/drawable/ic_chat.xml" value="0.2475" />
         <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.1925" />
@@ -24,7 +30,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_19" project-jdk-name="21" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
