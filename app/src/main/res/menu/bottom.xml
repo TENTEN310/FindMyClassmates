@@ -6,9 +6,9 @@
         android:icon="@drawable/ic_home"
         android:title="Home" />
     <item
-        android:id="@+id/nav_classmates"
+        android:id="@+id/nav_classes"
         android:icon="@drawable/ic_friends"
-        android:title="Classmates" />
+        android:title="Classes" />
     <item
         android:id="@+id/nav_post"
         android:icon="@drawable/ic_add"

@@ -1,15 +1,24 @@
 package com.hfad.classmates;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
@@ -33,7 +42,27 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+
+    public boolean onCreateOptionMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.top, menu);
+        MenuItem menuItem = menu.findItem(R.id.profile_image);
+        View view = MenuItemCompat.getActionProvider(menuItem).onCreateActionView();
+        CircleImageView profileImage = view.findViewById(R.id.tool_bar_profile_image);
+        Glide
+                .with(this)
+                .load("@drawable/img")
+                .into(profileImage);
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "profile clicked", Toast.LENGTH_SHORT);
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
     private BottomNavigationView.OnItemSelectedListener selectedListener = new BottomNavigationView.OnItemSelectedListener() {
+        @SuppressLint("NonConstantResourceId")
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             switch (menuItem.getItemId()) {
@@ -53,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction1.commit();
                     return true;
 
-                case R.id.nav_classmates:
+                case R.id.nav_classes:
                     toolbar.setTitle("FindMyClassmates");
-                    ClassmatesFragment fragment2 = new ClassmatesFragment();
+                    ClassesFragment fragment2 = new ClassesFragment();
                     FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction2.replace(R.id.content, fragment2, "");
                     fragmentTransaction2.commit();

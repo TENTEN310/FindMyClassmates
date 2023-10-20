@@ -15,9 +15,8 @@
             android:id="@+id/myToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/windowBackground"
+            android:background="@color/pink"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
             app:title = "FindMyClassmates"/>
 
         <EditText

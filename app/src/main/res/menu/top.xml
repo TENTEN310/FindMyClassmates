@@ -2,14 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/placeholder1"
-        android:title="placeholder1">
-    </item>
-    <item
-        android:id="@+id/placeholder2"
-        android:title="placeholder2">
-    </item>
+<!--    <item-->
+<!--        android:id="@+id/placeholder1"-->
+<!--        android:title="placeholder1">-->
+<!--    </item>-->
+
 
     <item
         android:id="@+id/search"
@@ -17,6 +14,13 @@
         android:title="Search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always">
+    </item>
+
+    <item
+        android:id="@+id/profile_image"
+        android:title="profileImage"
+        app:showAsAction="always"
+        app:actionLayout="@layout/profile_image">
     </item>
 
 </menu>

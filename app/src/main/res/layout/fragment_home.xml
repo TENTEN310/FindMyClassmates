@@ -12,16 +12,11 @@
         android:id="@+id/myToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:background="@color/pink"
         app:title = "FindMyClassmates"
         app:menu="@menu/top"/>
 
-    <TextView
-        android:layout_width="217dp"
-        android:layout_height="wrap_content"
-        android:text="This is the home page where all the posts will be displayed" />
 
 
 </FrameLayout>

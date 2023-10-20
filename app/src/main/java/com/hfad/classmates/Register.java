@@ -30,7 +30,7 @@ public class Register extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+       // getSupportActionBar().hide();
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_register);
         email = findViewById(R.id.editTextTextEmailAddress);

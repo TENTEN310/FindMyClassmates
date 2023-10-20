@@ -23,7 +23,7 @@ public class UserInit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
         setContentView(R.layout.activity_user_init);
         submit = findViewById(R.id.button2);
         Spinner spinner = findViewById(R.id.spinner);
