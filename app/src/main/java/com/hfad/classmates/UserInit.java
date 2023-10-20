@@ -14,6 +14,7 @@ public class UserInit extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_user_init);
         submit = findViewById(R.id.button2);
         Spinner spinner = findViewById(R.id.spinner);
