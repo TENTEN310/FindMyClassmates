@@ -1,10 +1,13 @@
 package com.hfad.classmates;
 
+import static androidx.fragment.app.FragmentManager.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +18,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 public class Register extends AppCompatActivity {
     EditText email, password, confirm_password;
@@ -51,8 +57,18 @@ public class Register extends AppCompatActivity {
                     email.requestFocus();
                     return;
                 }
+                if(!email1.endsWith("@usc.edu")){
+                    email.setError("Please enter an USC email");
+                    email.requestFocus();
+                    return;
+                }
                 else if(password1.isEmpty()){
                     password.setError("Please enter password");
+                    password.requestFocus();
+                    return;
+                }
+                else if(password1.length() < 6){
+                    password.setError("Password should be at least 6 characters");
                     password.requestFocus();
                     return;
                 }
@@ -66,10 +82,10 @@ public class Register extends AppCompatActivity {
                     confirm_password.requestFocus();
                     return;
                 }
-//              //----------------debug for skipping auth------------------/
-                Intent intent = new Intent(getApplicationContext(), UserInit.class);
-                startActivity(intent);
-                finish();
+                //----------------debug for skipping auth------------------/
+//                Intent intent = new Intent(getApplicationContext(), UserInit.class);
+//                startActivity(intent);
+//                finish();
                 //-----------------debug for skipping auth------------------/
                 mAuth.createUserWithEmailAndPassword(email1, password1)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -79,14 +95,12 @@ public class Register extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
 //                                    Log.d(TAG, "createUserWithEmail:success");
 //                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    //updateUI(user);
                                     Intent intent = new Intent(getApplicationContext(), UserInit.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    //Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(Register.this, "Authentication failed.",
+                                    Toast.makeText(Register.this, Objects.requireNonNull(task.getException()).toString(),
                                             Toast.LENGTH_SHORT).show();
                                     //updateUI(null);
                                 }
