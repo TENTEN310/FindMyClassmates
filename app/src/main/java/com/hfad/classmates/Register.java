@@ -65,6 +65,11 @@ public class Register extends AppCompatActivity {
                     confirm_password.requestFocus();
                     return;
                 }
+//              //----------------debug for skipping auth------------------/
+                Intent intent = new Intent(getApplicationContext(), UserInit.class);
+                startActivity(intent);
+                finish();
+                //-----------------debug for skipping auth------------------/
                 mAuth.createUserWithEmailAndPassword(email1, password1)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -74,7 +79,7 @@ public class Register extends AppCompatActivity {
 //                                    Log.d(TAG, "createUserWithEmail:success");
 //                                    FirebaseUser user = mAuth.getCurrentUser();
                                     //updateUI(user);
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), UserInit.class);
                                     startActivity(intent);
                                     finish();
                                 } else {

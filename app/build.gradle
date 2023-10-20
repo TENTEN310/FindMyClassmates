@@ -27,6 +27,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     namespace 'com.hfad.classmates'
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {

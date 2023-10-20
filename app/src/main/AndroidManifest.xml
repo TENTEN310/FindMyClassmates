@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Classmates"
         tools:targetApi="31">
         <activity
+            android:name=".UserInit"
+            android:exported="false" />
+        <activity
             android:name=".Register"
             android:exported="true">
             <intent-filter>
