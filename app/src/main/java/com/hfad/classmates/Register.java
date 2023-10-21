@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class Register extends AppCompatActivity {
     Button register;
     TextView signin;
     FirebaseAuth mAuth;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,8 @@ public class Register extends AppCompatActivity {
         confirm_password = findViewById(R.id.editTextPassword1);
         register = findViewById(R.id.button);
         signin = findViewById(R.id.textView3);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +91,7 @@ public class Register extends AppCompatActivity {
 //                startActivity(intent);
 //                finish();
                 //-----------------debug for skipping auth------------------/
+                progressBar.setVisibility(View.VISIBLE);
                 mAuth.createUserWithEmailAndPassword(email1, password1)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -95,10 +100,12 @@ public class Register extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
 //                                    Log.d(TAG, "createUserWithEmail:success");
 //                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    progressBar.setVisibility(View.GONE);
                                     Intent intent = new Intent(getApplicationContext(), UserInit.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
+                                    progressBar.setVisibility(View.GONE);
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(Register.this, Objects.requireNonNull(task.getException()).toString(),
                                             Toast.LENGTH_SHORT).show();
