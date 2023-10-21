@@ -6,14 +6,15 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#730E07"
+    android:background="#F1F1F1"
     tools:context=".ProfileFragment">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="#370C0C"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profile_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,24 +37,25 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/changeProfilePicture"
+            android:id="@+id/changePicture"
             android:layout_width="130dp"
             android:layout_height="50dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="28dp"
             android:padding="1dp"
-            android:text="Change Profile Picture"
-            android:textSize="11sp"
-            app:backgroundTint="#933B3B"
+            android:text="Change Picture"
+            android:textSize="13sp"
+            app:backgroundTint="#F4ABAB"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
 
         <TextView
             android:id="@+id/nameText"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="70dp"
+            android:padding="10dp"
             android:background="@drawable/rounded_background"
             android:text="Tommy Trojan"
             android:textSize="20sp"
@@ -62,10 +64,11 @@
 
         <ImageView
             android:id="@+id/editName"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
             android:layout_marginLeft="24dp"
+            android:padding="10dp"
             android:background="@drawable/rounded_background"
             android:src="@drawable/ic_edit"
             app:layout_constraintStart_toEndOf="@+id/nameText"
@@ -74,9 +77,10 @@
         <TextView
             android:id="@+id/emailText"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="12dp"
+            android:padding="5dp"
             android:background="@drawable/rounded_background"
             android:text="tommytrojan@usc.edu"
             app:layout_constraintStart_toStartOf="parent"
@@ -85,27 +89,26 @@
         <Button
             android:id="@+id/classes"
             android:layout_width="80dp"
-            android:layout_height="92dp"
+            android:layout_height="85dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
-            android:padding="1dp"
-            android:text="CLASSES"
-            android:textSize="12sp"
-            app:backgroundTint="#933B3B"
+            android:padding="29dp"
+            android:drawableLeft="@drawable/ic_book"
+            app:backgroundTint="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
         <Button
             android:id="@+id/friends"
             android:layout_width="80dp"
-            android:layout_height="92dp"
+            android:layout_height="85dp"
             android:layout_marginRight="35dp"
             android:layout_marginTop="30dp"
-            android:padding="1dp"
-            android:text="FRIENDS"
+            android:padding="29dp"
+            android:drawableLeft="@drawable/ic_profile"
             android:textSize="12sp"
-            app:backgroundTint="#933B3B"
-            app:layout_constraintEnd_toStartOf="@+id/changeProfilePicture"
+            app:backgroundTint="#FFFFFF"
+            app:layout_constraintEnd_toStartOf="@+id/changePicture"
             app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -116,6 +119,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="100dp"
+            android:padding="25dp"
             android:background="@drawable/rounded_background"
             app:layout_constraintTop_toBottomOf="@+id/friends"
             app:layout_constraintStart_toStartOf="parent"
@@ -132,7 +136,7 @@
         android:padding="1dp"
         android:text="Log Out"
         android:textSize="13sp"
-        app:backgroundTint="#933B3B"
+        app:backgroundTint="#F4ABAB"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
