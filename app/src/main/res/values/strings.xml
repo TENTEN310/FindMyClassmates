@@ -93,7 +93,28 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="login">Login</string>
+    <string name="sign_up_instead">Sign Up Instead</string>
+    <string name="logo">logo</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="sign_in_instead">Sign In Instead</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="let_s_add_a_profile_picture">Let\'s add a profile picture</string>
+    <string name="next">Next</string>
+    <string name="what_s_your_graduation_year">what\'s your graduation year?</string>
+    <string name="username">Username</string>
+    <string name="year">Year</string>
+    <string name="let_s_start_with_an_username">Let\'s start with an username</string>
+    <string name="let_s_get_to_know_more_about_you">Let\'s get to know more about you!</string>
+    <string name="what_s_your_major">what\'s your major?</string>
+    <string name="major">Major</string>
+    <string name="which_school_are_you_from">Which school are you from?</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="resent_verification_email">Resent verification email</string>
     <string-array name="usc_schools">
+        <item></item>
         <item>USC School of Architecture</item>
         <item>USC Roski School of Art and Design</item>
         <item>USC Marshall School of Business</item>

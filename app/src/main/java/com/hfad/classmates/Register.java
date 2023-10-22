@@ -1,13 +1,10 @@
 package com.hfad.classmates;
 
-import static androidx.fragment.app.FragmentManager.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -36,10 +32,10 @@ public class Register extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_register);
         email = findViewById(R.id.editTextTextEmailAddress);
-        password = findViewById(R.id.editTextPassword);
-        confirm_password = findViewById(R.id.editTextPassword1);
-        register = findViewById(R.id.button);
-        signin = findViewById(R.id.textView3);
+        password = findViewById(R.id.ConfirmPass);
+        confirm_password = findViewById(R.id.RegisterPass);
+        register = findViewById(R.id.RegisterButton);
+        signin = findViewById(R.id.SigninText);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
         signin.setOnClickListener(new View.OnClickListener() {

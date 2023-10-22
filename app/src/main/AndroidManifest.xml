@@ -13,6 +13,12 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".resetPass"
+            android:exported="false" />
+        <activity
+            android:name=".init_avatar"
+            android:exported="false" />
+        <activity
             android:name=".Login"
             android:exported="false" />
         <activity

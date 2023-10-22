@@ -1,13 +1,12 @@
 package com.hfad.classmates;
 
-import static androidx.fragment.app.FragmentManager.TAG;
+import static java.sql.DriverManager.println;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,21 +23,30 @@ import com.google.firebase.auth.FirebaseUser;
 public class Login extends AppCompatActivity {
     EditText email, password;
     Button login;
-    TextView signup;
+    TextView signup, reset;
     FirebaseAuth  mAuth;
     ProgressBar progressBar;
+    Boolean firstTime = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        email = findViewById(R.id.editTextTextEmailAddress3);
-        password = findViewById(R.id.editTextPassword4);
-        login = findViewById(R.id.button4);
-        signup = findViewById(R.id.textView10);
+        setContentView(R.layout.activity_login);
+        email = findViewById(R.id.SigninEmail);
+        password = findViewById(R.id.SigninPass);
+        login = findViewById(R.id.loginButton);
+        signup = findViewById(R.id.signUpText);
         progressBar = findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.GONE);
+        reset = findViewById(R.id.resetText);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), resetPass.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +70,7 @@ public class Login extends AppCompatActivity {
                     password.requestFocus();
                     return;
                 }
+                login.setVisibility(View.GONE);
                 progressBar.setVisibility(View.VISIBLE);
                 mAuth.signInWithEmailAndPassword(email1, password1)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -70,20 +79,38 @@ public class Login extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     progressBar.setVisibility(View.GONE);
                                     // Sign in success, update UI with the signed-in user's information
+                                    mAuth.getCurrentUser().reload();
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Toast.makeText(Login.this, "Authentication success.",
-                                            Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                    //updateUI(user);
+                                    println(user.toString());
+                                    if(!user.isEmailVerified()){
+                                        firstTime = true;
+                                        progressBar.setVisibility(View.GONE);
+                                        login.setVisibility(View.VISIBLE);
+                                        Toast.makeText(Login.this, "Please verify your email.",
+                                                Toast.LENGTH_SHORT).show();
+                                        user.sendEmailVerification();
+                                        Toast.makeText(Login.this, "Verification Email sent.",
+                                                Toast.LENGTH_LONG).show();
+                                    }
+                                    else{
+                                        Toast.makeText(Login.this, "Authentication success.",
+                                                Toast.LENGTH_SHORT).show();
+                                        if(firstTime){
+                                            Intent intent = new Intent(getApplicationContext(), UserInit.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                        else{
+                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }
                                 } else {
                                     progressBar.setVisibility(View.GONE);
-                                    // If sign in fails, display a message to the user.
-                                    //Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                    login.setVisibility(View.VISIBLE);
                                     Toast.makeText(Login.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
-                                    //updateUI(null);
                                 }
                             }
                         });
