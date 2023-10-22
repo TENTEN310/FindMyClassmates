@@ -15,10 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.storage.UploadTask;
+import com.hfad.classmates.objectClasses.ProfileInfo;
 
 public class Login extends AppCompatActivity {
     EditText email, password;
@@ -93,17 +98,29 @@ public class Login extends AppCompatActivity {
                                                 Toast.LENGTH_LONG).show();
                                     }
                                     else{
-                                        Toast.makeText(Login.this, "Authentication success.",
-                                                Toast.LENGTH_SHORT).show();
                                         if(firstTime){
+                                            Toast.makeText(Login.this, "Authentication success.",
+                                                    Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getApplicationContext(), UserInit.class);
                                             startActivity(intent);
                                             finish();
                                         }
-                                        else{
-                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                            startActivity(intent);
-                                            finish();
+                                        else {
+                                            FirebaseUtil.getUserDetails().get().addOnCompleteListener(task1 -> {
+                                                if (task1.isSuccessful()) {
+                                                    DocumentSnapshot document = task1.getResult();
+                                                    if (document != null) {
+                                                        ProfileInfo profileInfo = document.toObject(ProfileInfo.class);
+                                                        if (profileInfo != null) {
+                                                            Toast.makeText(Login.this, "Welcome! " + profileInfo.getUsername(), Toast.LENGTH_SHORT).show();
+                                                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                        }
+                                                    }
+                                                } else {
+                                                    Toast.makeText(Login.this, "Welcome", Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                }
+                                            });
                                         }
                                     }
                                 } else {

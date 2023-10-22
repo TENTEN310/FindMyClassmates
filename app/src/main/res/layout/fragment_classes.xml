@@ -16,9 +16,5 @@
         app:title = "FindMyClassmates"
         app:menu="@menu/top"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="this is the page where user can find all classes " />
 
 </FrameLayout>

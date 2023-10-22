@@ -2,12 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<!--    <item-->
-<!--        android:id="@+id/placeholder1"-->
-<!--        android:title="placeholder1">-->
-<!--    </item>-->
-
-
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search"

@@ -21,7 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.UploadTask;
-import com.hfad.classmates.UserProfile.ProfileInfo;
+import com.hfad.classmates.objectClasses.ProfileInfo;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;

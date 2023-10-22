@@ -19,7 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.hfad.classmates.UserProfile.ProfileInfo;
+import com.hfad.classmates.objectClasses.ProfileInfo;
 
 public class UserInit extends AppCompatActivity {
     Button submit;

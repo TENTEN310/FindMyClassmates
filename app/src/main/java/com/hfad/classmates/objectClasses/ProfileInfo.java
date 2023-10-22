@@ -1,4 +1,4 @@
-package com.hfad.classmates.UserProfile;
+package com.hfad.classmates.objectClasses;
 
 import com.google.firebase.Timestamp;
 
