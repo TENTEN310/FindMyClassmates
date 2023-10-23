@@ -9,14 +9,24 @@ public class ChatroomsContainer {
     List<String> userIDs;
     Timestamp lastTimestamp;
     String lastMessageUserID;
+    String lastMessage;
 
     public ChatroomsContainer(){}
 
-    public ChatroomsContainer(String chatroomID, List<String> userIDs, Timestamp lastTimestamp, String lastMessageUserID) {
+    public ChatroomsContainer(String chatroomID, List<String> userIDs, Timestamp lastTimestamp, String lastMessageUserID, String lastMessage) {
         this.chatroomID = chatroomID;
         this.userIDs = userIDs;
         this.lastTimestamp = lastTimestamp;
         this.lastMessageUserID = lastMessageUserID;
+        this.lastMessage = lastMessage;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
     }
 
     public String getChatroomID() {

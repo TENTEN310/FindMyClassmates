@@ -38,11 +38,13 @@
             android:id="@+id/chat_search_btn"/>
 
     </RelativeLayout>
-    <FrameLayout
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/main_toolbar"
-        android:id="@+id/main_frame_layout"/>
+        android:padding="10dp"
+        android:id="@+id/search_user_recycler_view"
+        />
 
 
 </RelativeLayout>

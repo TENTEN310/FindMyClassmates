@@ -35,6 +35,7 @@ public class FirebaseUtil {
         return getChatroomReference(chatroomId).collection("chats");
     }
 
+
     public static String getChatroomID(String userId1,String userId2){
         if(userId1.hashCode()<userId2.hashCode()){
             return userId1+"_"+userId2;

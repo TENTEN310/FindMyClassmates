@@ -73,6 +73,7 @@ public class Inside_chat extends AppCompatActivity {
             else{
                 chatroomsContainer.setLastTimestamp(Timestamp.now());
                 chatroomsContainer.setLastMessageUserID(FirebaseUtil.getUserID());
+                chatroomsContainer.setLastMessage(message);
                 FirebaseUtil.getChatroomReference(ChatID).set(chatroomsContainer);
                 ChatsContainer chatsContainer = new ChatsContainer(message,FirebaseUtil.getUserID(),Timestamp.now());
                 FirebaseUtil.getChatroomReference(ChatID).collection("chats").add(chatsContainer).addOnCompleteListener(task -> {
