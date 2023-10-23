@@ -56,6 +56,14 @@ public class FirebaseUtil {
         }
     }
 
+    public static String GetOtherUserID(List<String> userIDs){
+        if(userIDs.get(0).equals(FirebaseUtil.getUserID())){
+            return userIDs.get(1);
+        }else{
+            return userIDs.get(0);
+        }
+    }
+
     public static String reformateTime(Timestamp timestamp){
         return new SimpleDateFormat("HH:MM").format(timestamp.toDate());
     }
@@ -87,6 +95,11 @@ public class FirebaseUtil {
         userProfile.setYear(intent.getStringExtra("year"));
         userProfile.setSchool(intent.getStringExtra("school"));
         return userProfile;
+    }
+
+    public static StorageReference  getProfilePic(String otherUserId){
+        return FirebaseStorage.getInstance().getReference().child("profile_pic")
+                .child(otherUserId);
     }
 
 }

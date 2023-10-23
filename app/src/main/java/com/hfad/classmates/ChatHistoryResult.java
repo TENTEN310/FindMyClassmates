@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -39,7 +42,13 @@ public class ChatHistoryResult extends FirestoreRecyclerAdapter<ChatroomsContain
                         ProfileInfo otherUserModel = task.getResult().toObject(ProfileInfo.class);
                         if (otherUserModel != null) {
                             Log.d("ChatHistoryResult", "User data: " + otherUserModel.getUsername());
-
+                            FirebaseUtil.getProfilePic(FirebaseUtil.GetOtherUserID(model.getUserIDs())).getDownloadUrl()
+                                    .addOnCompleteListener(task2 -> {
+                                        if(task2.isSuccessful()){
+                                            Uri uri  = task2.getResult();
+                                            Glide.with(context).load(uri).apply(RequestOptions.circleCropTransform()).into(holder.profilePic);
+                                        }
+                                    });
                             holder.usernameText.setText(otherUserModel.getUsername());
                             holder.lastMessage.setText(model.getLastMessage());
                             holder.time.setText(FirebaseUtil.reformateTime(model.getLastTimestamp()));
@@ -70,7 +79,7 @@ public class ChatHistoryResult extends FirestoreRecyclerAdapter<ChatroomsContain
             usernameText = itemView.findViewById(R.id.user_name_text);
             lastMessage = itemView.findViewById(R.id.contact_user_info);
             time = itemView.findViewById(R.id.last_message_time_text);
-            //profilePic = itemView.findViewById(R.id.profile_pic_image_view);
+            profilePic = itemView.findViewById(R.id.profile_pic_image_view);
         }
     }
 }
