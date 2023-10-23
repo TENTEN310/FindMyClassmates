@@ -1,5 +1,7 @@
 package com.hfad.classmates;
 
+import static com.hfad.classmates.FirebaseUtil.getUserID;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -11,14 +13,24 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,41 +79,55 @@ public class PostFragment extends Fragment {
         }
     }
 
-    EditText title, des;
-    ProgressDialog pd;
-    ImageView image;
-    String edititle, editdes, editimage;
+    FirebaseAuth firebaseAuth;
+    DatabaseReference databaseReference;
+    EditText post; // description of their post
 
-    Uri imageuri = null;
-    String name, email, uid, dp;
-    Button upload;
+    String name, uid; // should get user's name, email, and uid?
+    TextView upload; // uploading button
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post, container, false);
-
-        title = view.findViewById(R.id.ptitle);
-        des = view.findViewById(R.id.pdes);
-        image = view.findViewById(R.id.imagep);
-        upload = view.findViewById(R.id.pupload);
-        pd = new ProgressDialog(getContext());
-        pd.setCanceledOnTouchOutside(false);
+        name = String.valueOf(view.findViewById(R.id.user)); // get the name of the user
+        upload = view.findViewById(R.id.upload); // upload button
         Intent intent = getActivity().getIntent();
+        uid = getUserID();
+        // Retrieving the user data like name ,email and profile pic using query
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+//        Query query = databaseReference.orderByChild("uid").equalTo(uid);
 
-
-        // After click on image we will be selecting an image
-        image.setOnClickListener(new View.OnClickListener() {
+        upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // make function later that goes into photo album or camera to select image
+                String description = "" + post.getText().toString().trim();
+                // If description is empty set error
+                if (TextUtils.isEmpty(description)) {
+                    post.setError("Description Cant be empty");
+                } else {
+                    uploadData(description);
+                }
             }
         });
-
         return inflater.inflate(R.layout.fragment_post, container, false);
+    }
+
+    // Upload the value of blog data into firebase
+    private void uploadData(final String description) {
+        final String timestamp = String.valueOf(System.currentTimeMillis());
+        HashMap<Object, String> hashMap = new HashMap<>();
+        hashMap.put("uid", uid);
+        hashMap.put("uname", name);
+        hashMap.put("description", description);
+        hashMap.put("time", timestamp);
+        hashMap.put("like", "0");
+        hashMap.put("comments", "0");
+
+        // set the data into firebase and then empty the description data
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Posts");
+        databaseReference.child(timestamp).setValue(hashMap);
+
     }
 
 }
