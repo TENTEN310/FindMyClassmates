@@ -42,19 +42,23 @@ public class Contact_search extends AppCompatActivity {
     }
 
     void showSearchResult(String term){
-
         Query query = FirebaseFirestore.getInstance().collection("users")
-                .whereGreaterThanOrEqualTo("username",term)
-                .whereLessThanOrEqualTo("username",term+'\uf8ff');
+                .whereGreaterThanOrEqualTo("username", term)
+                .whereLessThanOrEqualTo("username", term + '\uf8ff');
 
         FirestoreRecyclerOptions<ProfileInfo> options = new FirestoreRecyclerOptions.Builder<ProfileInfo>()
-                .setQuery(query,ProfileInfo.class).build();
+                .setQuery(query, ProfileInfo.class).build();
 
-        searchUserResult = new SearchUserResult(options, getApplicationContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(searchUserResult);
+        if (searchUserResult != null) {
+            searchUserResult.updateOptions(options);  // Consider adding an updateOptions method in your adapter to handle option updates.
+        } else {
+            searchUserResult = new SearchUserResult(options, getApplicationContext());
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(searchUserResult);
+        }
         searchUserResult.startListening();
     }
+
 
     @Override
     protected void onStart() {
