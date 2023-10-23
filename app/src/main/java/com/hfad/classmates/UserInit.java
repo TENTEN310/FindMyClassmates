@@ -91,7 +91,7 @@ public class UserInit extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()){
-                                                Intent intent = new Intent(getApplicationContext(), init_avatar.class);
+                                                Intent intent = new Intent(getApplicationContext(), Init_avatar.class);
                                                 startActivity(intent);
                                                 finish();
                                             }

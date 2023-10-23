@@ -26,7 +26,7 @@ import com.hfad.classmates.objectClasses.ProfileInfo;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
-public class init_avatar extends AppCompatActivity {
+public class Init_avatar extends AppCompatActivity {
     FloatingActionButton pictureBTN;
     Uri selectedImageUri = null;
     Button nextBtn;

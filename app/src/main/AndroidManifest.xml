@@ -13,7 +13,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".inside_chat"
+            android:name=".Inside_chat"
             android:exported="false" />
         <activity
             android:name=".contact_search"
@@ -22,7 +22,7 @@
             android:name=".resetPass"
             android:exported="false" />
         <activity
-            android:name=".init_avatar"
+            android:name=".Init_avatar"
             android:exported="false" />
         <activity
             android:name=".Login"
