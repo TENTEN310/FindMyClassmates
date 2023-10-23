@@ -6,15 +6,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
-
-import com.google.firebase.firestore.Query;
 
 public class Chats extends Fragment {
     ImageButton contactSearch;
@@ -38,7 +34,7 @@ public class Chats extends Fragment {
         contactSearch = view.findViewById(R.id.chat_search_btn);
         contactSearch.setOnClickListener((v) -> {
             if(getActivity() != null) {
-                startActivity(new Intent(getActivity(), contact_search.class));
+                startActivity(new Intent(getActivity(), Contact_search.class));
             }
         });
     }

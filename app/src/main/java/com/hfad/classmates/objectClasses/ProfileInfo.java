@@ -56,6 +56,9 @@ public class ProfileInfo {
     public String getUserID() {
         return userID;
     }
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     private String username;
     private String year;

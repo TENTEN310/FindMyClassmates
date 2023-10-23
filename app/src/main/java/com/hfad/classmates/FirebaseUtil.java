@@ -1,5 +1,7 @@
 package com.hfad.classmates;
 
+import android.content.Intent;
+
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -7,6 +9,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.hfad.classmates.objectClasses.ProfileInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -66,5 +69,23 @@ public class FirebaseUtil {
                 .child(otherUserId);
     }
 
+    public static void passUserModelAsIntent(Intent intent, ProfileInfo model){
+        intent.putExtra("username",model.getUsername());
+        intent.putExtra("major",model.getMajor());
+        intent.putExtra("userId",model.getUserID());
+        intent.putExtra("year",model.getYear());
+        intent.putExtra("school",model.getSchool());
+
+    }
+
+    public static ProfileInfo getUserModelFromIntent(Intent intent){
+        ProfileInfo userProfile = new ProfileInfo();
+        userProfile.setUsername(intent.getStringExtra("username"));
+        userProfile.setMajor(intent.getStringExtra("major"));
+        userProfile.setUserID(intent.getStringExtra("userId"));
+        userProfile.setYear(intent.getStringExtra("year"));
+        userProfile.setSchool(intent.getStringExtra("school"));
+        return userProfile;
+    }
 
 }

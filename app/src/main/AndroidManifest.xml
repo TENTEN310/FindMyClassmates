@@ -16,7 +16,7 @@
             android:name=".Inside_chat"
             android:exported="false" />
         <activity
-            android:name=".contact_search"
+            android:name=".Contact_search"
             android:exported="false" />
         <activity
             android:name=".resetPass"

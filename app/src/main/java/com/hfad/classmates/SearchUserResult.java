@@ -30,6 +30,17 @@ public class SearchUserResult extends FirestoreRecyclerAdapter<ProfileInfo, Sear
         holder.usernameText.setText(model.getUsername());
         String userInfoDetail = model.getMajor() + " " + model.getYear();
         holder.userInfo.setText(userInfoDetail);
+        if(model.getUserID().equals(FirebaseUtil.getUserID())){
+            holder.usernameText.setText(model.getUsername()+" (Me)");
+        }
+
+        holder.itemView.setOnClickListener(v -> {
+            //navigate to chat activity
+            Intent intent = new Intent(context, Inside_chat.class);
+            FirebaseUtil.passUserModelAsIntent(intent,model);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        });
 
     }
 

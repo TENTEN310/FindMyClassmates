@@ -39,4 +39,5 @@ public class ChatsContainer {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
+
 }

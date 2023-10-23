@@ -13,6 +13,16 @@
         android:padding="10dp"
         android:minHeight="?attr/actionBarSize"
         android:id="@+id/toolbar">
+        <ImageButton
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/back"
+            android:layout_marginEnd="15dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/white"
+            android:layout_centerVertical="true"
+            android:id="@+id/back_btn"/>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,17 +43,10 @@
             android:layout_height="52dp"
             android:background="@drawable/circular"
             android:backgroundTint="@color/white"
+            android:layout_toRightOf="@id/back_btn"
             android:padding="4dp"
             android:src="@drawable/img" />
 
-        <ImageButton
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/back"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            app:tint="@color/white"
-            android:layout_centerVertical="true"
-            android:id="@+id/back_btn"/>
 
     </RelativeLayout>
 
