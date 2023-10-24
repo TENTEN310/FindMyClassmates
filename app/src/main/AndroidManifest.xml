@@ -13,25 +13,25 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".Inside_chat"
+            android:name=".chatsActivity.Inside_chat"
             android:exported="false" />
         <activity
-            android:name=".Contact_search"
+            android:name=".chatsActivity.Contact_search"
             android:exported="false" />
         <activity
-            android:name=".resetPass"
+            android:name=".regLogInActivity.resetPass"
             android:exported="false" />
         <activity
-            android:name=".Init_avatar"
+            android:name=".regLogInActivity.Init_avatar"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".regLogInActivity.Login"
             android:exported="false" />
         <activity
-            android:name=".UserInit"
+            android:name=".regLogInActivity.UserInit"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".regLogInActivity.Register"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

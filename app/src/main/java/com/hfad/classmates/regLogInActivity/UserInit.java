@@ -1,4 +1,4 @@
-package com.hfad.classmates;
+package com.hfad.classmates.regLogInActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.hfad.classmates.util.FirebaseUtil;
+import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.ProfileInfo;
 
 public class UserInit extends AppCompatActivity {

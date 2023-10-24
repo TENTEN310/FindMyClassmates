@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Chats">
+    tools:context=".chatsActivity.Chats">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -32,7 +32,7 @@
             android:src="@drawable/search"
             android:layout_alignParentEnd="true"
             android:background="?attr/selectableItemBackgroundBorderless"
-            app:tint="@color/white"
+            app:tint="@color/black"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:id="@+id/chat_search_btn"/>

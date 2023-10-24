@@ -1,4 +1,4 @@
-package com.hfad.classmates;
+package com.hfad.classmates.regLogInActivity;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -21,6 +21,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.UploadTask;
+import com.hfad.classmates.util.FirebaseUtil;
+import com.hfad.classmates.MainActivity;
+import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.ProfileInfo;
 
 import kotlin.Unit;

@@ -1,4 +1,4 @@
-package com.hfad.classmates;
+package com.hfad.classmates.chatsActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,18 +9,19 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.ChatroomsContainer;
 import com.hfad.classmates.objectClasses.ChatsContainer;
 import com.hfad.classmates.objectClasses.ProfileInfo;
+import com.hfad.classmates.util.ChatUserResult;
+import com.hfad.classmates.util.FirebaseUtil;
 
 import java.util.Arrays;
 

@@ -1,14 +1,10 @@
 package com.hfad.classmates;
 
-import static java.security.AccessController.getContext;
-
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -21,8 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Objects;
+import com.hfad.classmates.chatsActivity.Chats;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

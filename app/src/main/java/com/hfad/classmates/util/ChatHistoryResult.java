@@ -1,4 +1,4 @@
-package com.hfad.classmates;
+package com.hfad.classmates.util;
 
 
 import android.content.Context;
@@ -19,6 +19,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.hfad.classmates.R;
+import com.hfad.classmates.chatsActivity.Inside_chat;
 import com.hfad.classmates.objectClasses.ChatroomsContainer;
 import com.hfad.classmates.objectClasses.ProfileInfo;
 
@@ -52,6 +54,13 @@ public class ChatHistoryResult extends FirestoreRecyclerAdapter<ChatroomsContain
                             holder.usernameText.setText(otherUserModel.getUsername());
                             holder.lastMessage.setText(model.getLastMessage());
                             holder.time.setText(FirebaseUtil.reformateTime(model.getLastTimestamp()));
+                            holder.itemView.setOnClickListener(v -> {
+                                //navigate to chat activity
+                                Intent intent = new Intent(context, Inside_chat.class);
+                                FirebaseUtil.passUserModelAsIntent(intent,otherUserModel);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent);
+                            });
                         } else {
                             Log.e("ChatHistoryResult", "OtherUserModel is null for position " + position);
                         }

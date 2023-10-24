@@ -1,4 +1,4 @@
-package com.hfad.classmates;
+package com.hfad.classmates.chatsActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,7 +11,9 @@ import android.widget.ImageButton;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.ProfileInfo;
+import com.hfad.classmates.util.SearchUserResult;
 
 public class Contact_search extends AppCompatActivity {
     ImageButton back, search;

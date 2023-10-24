@@ -1,4 +1,4 @@
-package com.hfad.classmates;
+package com.hfad.classmates.util;
 
 
 import android.content.Context;
@@ -18,6 +18,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.hfad.classmates.chatsActivity.Inside_chat;
+import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.ProfileInfo;
 
 

@@ -1,4 +1,4 @@
-package com.hfad.classmates;
+package com.hfad.classmates.util;
 
 import android.content.Intent;
 

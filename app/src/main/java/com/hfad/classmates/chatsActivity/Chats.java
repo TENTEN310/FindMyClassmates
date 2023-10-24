@@ -1,24 +1,23 @@
-package com.hfad.classmates;
+package com.hfad.classmates.chatsActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ImageButton;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
+import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.ChatroomsContainer;
+import com.hfad.classmates.util.ChatHistoryResult;
+import com.hfad.classmates.util.FirebaseUtil;
 
 public class Chats extends Fragment {
     ImageButton contactSearch;
@@ -46,8 +45,8 @@ public class Chats extends Fragment {
 
     public void showHistory(){
         Query query = FirebaseUtil.allChatroomCollectionReference()
-                .whereArrayContains("userIds",FirebaseUtil.getUserID())
-                .orderBy("lastMessageTimestamp",Query.Direction.DESCENDING);
+                .whereArrayContains("userIDs",FirebaseUtil.getUserID())
+                .orderBy("lastTimestamp",Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<ChatroomsContainer> options = new FirestoreRecyclerOptions.Builder<ChatroomsContainer>()
                 .setQuery(query,ChatroomsContainer.class).build();
