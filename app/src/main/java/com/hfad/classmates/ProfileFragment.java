@@ -1,5 +1,6 @@
 package com.hfad.classmates;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,9 +15,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.hfad.classmates.util.FirebaseUtil;
 
 public class ProfileFragment extends Fragment {
-
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -42,13 +47,27 @@ public class ProfileFragment extends Fragment {
         ImageView profilePicture = rootView.findViewById(R.id.profilePicture);
 
         //set the profile picture, name, and email
-        nameText.setText(user.getDisplayName()); //need the name
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference usersCollection = db.collection("users");
+
+        usersCollection.whereEqualTo("userID", user.getUid()).get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot userDocument = queryDocumentSnapshots.getDocuments().get(0);
+                        String username = userDocument.getString("username");
+                        nameText.setText(username);
+                    }
+                });
+
         emailText.setText(user.getEmail());
 
-        Glide
-                .with(this)
-                .load(user.getPhotoUrl()).apply(RequestOptions.circleCropTransform()) //need the photo
-                .into(profilePicture);
+        if(user.getPhotoUrl() != null){ //doesn't work
+            Glide.
+                    with(this).
+                    load(user.getPhotoUrl()).
+                    apply(RequestOptions.circleCropTransform()).
+                    into(profilePicture);
+        }
 
         //return our view
         return rootView;
