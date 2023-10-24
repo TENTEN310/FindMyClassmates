@@ -65,7 +65,7 @@ public class FirebaseUtil {
     }
 
     public static String reformateTime(Timestamp timestamp){
-        return new SimpleDateFormat("HH:MM").format(timestamp.toDate());
+        return new SimpleDateFormat("HH:mm").format(timestamp.toDate());
     }
 
     public static StorageReference  getElseProfilePic(String otherUserId){

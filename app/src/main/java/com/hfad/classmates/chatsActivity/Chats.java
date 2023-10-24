@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ import com.hfad.classmates.util.FirebaseUtil;
 
 public class Chats extends Fragment {
     ImageButton contactSearch;
-
+    SwipeRefreshLayout swipeRefreshLayout;
     ChatHistoryResult chatHistoryResult;
     RecyclerView recyclerView;
 
@@ -32,6 +33,14 @@ public class Chats extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_chats, container, false);
         contactSearch = view.findViewById(R.id.chat_search_btn);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showHistory();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         contactSearch.setOnClickListener((v) -> {
             if(getActivity() != null) {
                 startActivity(new Intent(getActivity(), Contact_search.class));
