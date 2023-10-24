@@ -4,13 +4,13 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
 android:innerRadius="0dp"
 android:shape="ring"
-android:thicknessRatio="2"
+android:thicknessRatio="2.0"
 android:useLevel="false" >
 
 <solid
     android:color="@android:color/transparent" />
 
 <stroke
-    android:width="2dp"
-    android:color="@color/black" />
+    android:width="9dp"
+    android:color="#6DFF5722" />
 </shape>
