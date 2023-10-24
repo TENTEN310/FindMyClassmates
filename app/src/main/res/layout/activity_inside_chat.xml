@@ -59,14 +59,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:padding="8dp"
         android:id="@+id/bottom_layout">
 
         <EditText
+            android:id="@+id/chat_message_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="5"
             android:layout_centerInParent="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
@@ -76,8 +78,8 @@
             android:background="@drawable/round_textedit"
             android:elevation="4dp"
             android:hint="Write message here"
-            android:padding="10dp"
-            android:id="@+id/chat_message_input"/>
+            android:inputType="textMultiLine"
+            android:padding="10dp" />
 
         <ImageButton
             android:id="@+id/message_send_btn"

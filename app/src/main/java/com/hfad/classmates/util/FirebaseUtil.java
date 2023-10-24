@@ -68,11 +68,6 @@ public class FirebaseUtil {
         return new SimpleDateFormat("HH:MM").format(timestamp.toDate());
     }
 
-    public static StorageReference  getMyProfilePic(){
-        return FirebaseStorage.getInstance().getReference().child("profile_pic")
-                .child(FirebaseUtil.getUserID());
-    }
-
     public static StorageReference  getElseProfilePic(String otherUserId){
         return FirebaseStorage.getInstance().getReference().child("profile_pic")
                 .child(otherUserId);
