@@ -112,9 +112,6 @@ public class Init_avatar extends AppCompatActivity {
                 });
             }
         });
-
-
-
     }
 }
 

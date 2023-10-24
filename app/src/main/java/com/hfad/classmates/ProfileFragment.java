@@ -1,13 +1,18 @@
 package com.hfad.classmates;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -71,6 +76,33 @@ public class ProfileFragment extends Fragment {
                         into(profilePicture);
                 }
             });
+
+        //update profile picture
+        Button changePicture = rootView.findViewById(R.id.changePicture);
+        changePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Change Profile Picture:");
+
+                // select from gallery
+                builder.setPositiveButton("Gallery", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //add photo from gallery
+                    }
+                });
+
+                //select from camera
+                builder.setNeutralButton("Camera", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //take a photo with camera
+                    }
+                });
+                builder.show();
+            }
+        });
 
         //return our view
         return rootView;
