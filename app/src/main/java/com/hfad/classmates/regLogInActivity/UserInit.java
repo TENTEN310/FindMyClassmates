@@ -69,7 +69,7 @@ public class UserInit extends AppCompatActivity {
             public void onClick(View view) {
                 String year1 = year.getText().toString();
                 String major1 = major.getText().toString();
-                String username1 = username.getText().toString();
+                String username1 = username.getText().toString().toLowerCase();
                 String school1 = school.getSelectedItem().toString();
                 if(username1.isEmpty()) username.setError("Please enter username");
                 else if(username1.length()<3) username.setError("Username length should be at least 3 chars");
