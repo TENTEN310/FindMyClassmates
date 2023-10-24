@@ -44,6 +44,7 @@ public class Contact_search extends AppCompatActivity {
     }
 
     void showSearchResult(String term){
+        term = term.toLowerCase();
         Query query = FirebaseFirestore.getInstance().collection("users")
                 .whereGreaterThanOrEqualTo("username", term)
                 .whereLessThanOrEqualTo("username", term + '\uf8ff');
