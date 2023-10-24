@@ -46,11 +46,11 @@ public class Contact_search extends AppCompatActivity {
     void showSearchResult(String term){
         term = term.toLowerCase();
         Query query = FirebaseFirestore.getInstance().collection("users")
-                .whereGreaterThanOrEqualTo("username", term)
-                .whereLessThanOrEqualTo("username", term + '\uf8ff');
+            .whereGreaterThanOrEqualTo("username", term)
+            .whereLessThanOrEqualTo("username", term + '\uf8ff');
 
         FirestoreRecyclerOptions<ProfileInfo> options = new FirestoreRecyclerOptions.Builder<ProfileInfo>()
-                .setQuery(query, ProfileInfo.class).build();
+            .setQuery(query, ProfileInfo.class).build();
 
         if (searchUserResult != null) {
             searchUserResult.updateOptions(options);  // Consider adding an updateOptions method in your adapter to handle option updates.

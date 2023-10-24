@@ -53,12 +53,12 @@ public class Inside_chat extends AppCompatActivity {
         ChatID = FirebaseUtil.getChatroomID(FirebaseUtil.getUserID(),otherProfile.getUserID());
 
         FirebaseUtil.getProfilePic(otherProfile.getUserID()).getDownloadUrl()
-                .addOnCompleteListener(task2 -> {
-                    if(task2.isSuccessful()){
-                        Uri uri  = task2.getResult();
-                        Glide.with(this).load(uri).apply(RequestOptions.circleCropTransform()).into(this.profileAvatar);
-                    }
-                });
+            .addOnCompleteListener(task2 -> {
+                if(task2.isSuccessful()){
+                    Uri uri  = task2.getResult();
+                    Glide.with(this).load(uri).apply(RequestOptions.circleCropTransform()).into(this.profileAvatar);
+                }
+            });
 
         FirebaseUtil.getChatroomReference(ChatID).get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
@@ -101,10 +101,10 @@ public class Inside_chat extends AppCompatActivity {
     void showMessage(){
 
         Query query = FirebaseUtil.getChatroomMessageReference(ChatID)
-                .orderBy("timestamp", Query.Direction.DESCENDING);
+            .orderBy("timestamp", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<ChatsContainer> options = new FirestoreRecyclerOptions.Builder<ChatsContainer>()
-                .setQuery(query,ChatsContainer.class).build();
+            .setQuery(query,ChatsContainer.class).build();
 
         chatUserResult = new ChatUserResult(options, getApplicationContext());
         LinearLayoutManager manager = new LinearLayoutManager(Inside_chat.this);
@@ -115,8 +115,8 @@ public class Inside_chat extends AppCompatActivity {
         chatUserResult.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
-                super.onItemRangeInserted(positionStart, itemCount);
-                recyclerView.smoothScrollToPosition(0);
+            super.onItemRangeInserted(positionStart, itemCount);
+            recyclerView.smoothScrollToPosition(0);
             }
         });
     }

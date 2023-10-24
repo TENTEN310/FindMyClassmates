@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.hfad.classmates.util.FirebaseUtil;
 
 public class ProfileFragment extends Fragment {
@@ -46,28 +45,32 @@ public class ProfileFragment extends Fragment {
         TextView emailText = rootView.findViewById(R.id.emailText);
         ImageView profilePicture = rootView.findViewById(R.id.profilePicture);
 
-        //set the profile picture, name, and email
+        //set the name, email, and profile picture
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference usersCollection = db.collection("users");
 
         usersCollection.whereEqualTo("userID", user.getUid()).get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        DocumentSnapshot userDocument = queryDocumentSnapshots.getDocuments().get(0);
-                        String username = userDocument.getString("username");
-                        nameText.setText(username);
-                    }
-                });
+            .addOnSuccessListener(queryDocumentSnapshots -> {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    DocumentSnapshot userDocument = queryDocumentSnapshots.getDocuments().get(0);
+                    String username = userDocument.getString("username");
+                    nameText.setText(username);
+                }
+            });
 
         emailText.setText(user.getEmail());
 
-        if(user.getPhotoUrl() != null){ //doesn't work
-            Glide.
-                    with(this).
-                    load(user.getPhotoUrl()).
-                    apply(RequestOptions.circleCropTransform()).
-                    into(profilePicture);
-        }
+        FirebaseUtil.getProfilePic(user.getUid()).getDownloadUrl()
+            .addOnCompleteListener(task2 -> {
+                if(task2.isSuccessful()){
+                    Uri uri  = task2.getResult();
+                    Glide.
+                        with(this).
+                        load(uri).
+                        apply(RequestOptions.circleCropTransform()).
+                        into(profilePicture);
+                }
+            });
 
         //return our view
         return rootView;
