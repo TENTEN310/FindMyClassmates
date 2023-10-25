@@ -6,21 +6,27 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.hfad.classmates.util.FirebaseUtil;
@@ -37,8 +43,7 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //initialize the rootView
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
@@ -46,7 +51,7 @@ public class ProfileFragment extends Fragment {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
 
-        TextView nameText = rootView.findViewById(R.id.nameText);
+        TextView nameText = rootView.findViewById(R.id.usernameText);
         TextView emailText = rootView.findViewById(R.id.emailText);
         ImageView profilePicture = rootView.findViewById(R.id.profilePicture);
 
@@ -66,9 +71,9 @@ public class ProfileFragment extends Fragment {
         emailText.setText(user.getEmail());
 
         FirebaseUtil.getProfilePic(user.getUid()).getDownloadUrl()
-            .addOnCompleteListener(task2 -> {
-                if(task2.isSuccessful()){
-                    Uri uri  = task2.getResult();
+            .addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    Uri uri  = task.getResult();
                     Glide.
                         with(this).
                         load(uri).
@@ -76,6 +81,51 @@ public class ProfileFragment extends Fragment {
                         into(profilePicture);
                 }
             });
+
+        //update username
+        ImageView changeUsername = rootView.findViewById(R.id.changeUsername);
+        changeUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Change Username:");
+
+                final EditText usernameEditText = new EditText(getContext());
+                usernameEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(usernameEditText);
+
+                // save the updates
+                builder.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String newUsername = usernameEditText.getText().toString();
+                        DocumentReference usersDocRef = db.collection("users").document(user.getUid());
+
+                        usersDocRef.update("username", newUsername)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    nameText.setText(newUsername);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
+                    }
+                });
+
+                // cancel the updates
+                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+        });
 
         //update profile picture
         Button changePicture = rootView.findViewById(R.id.changePicture);
