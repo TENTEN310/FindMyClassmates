@@ -62,9 +62,14 @@ public class ProfileFragment extends Fragment {
 
         TextView nameText = rootView.findViewById(R.id.usernameText);
         TextView emailText = rootView.findViewById(R.id.emailText);
+
         ImageView profilePicture = rootView.findViewById(R.id.profile_image);
 
-        //set the name, email, and profile picture
+        TextView majorText = rootView.findViewById(R.id.majorText);
+        TextView yearText = rootView.findViewById(R.id.yearText);
+
+
+        //set the name/major/year, email, and profile picture
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference usersCollection = db.collection("users");
 
@@ -72,8 +77,9 @@ public class ProfileFragment extends Fragment {
             .addOnSuccessListener(queryDocumentSnapshots -> {
                 if (!queryDocumentSnapshots.isEmpty()) {
                     DocumentSnapshot userDocument = queryDocumentSnapshots.getDocuments().get(0);
-                    String username = userDocument.getString("username");
-                    nameText.setText(username);
+                    nameText.setText(userDocument.getString("username"));
+                    majorText.setText("Major: " + userDocument.getString("major"));
+                    yearText.setText("Year: " + userDocument.getString("year"));
                 }
             });
 
