@@ -65,8 +65,8 @@ public class ProfileFragment extends Fragment {
 
         ImageView profilePicture = rootView.findViewById(R.id.profile_image);
 
-        TextView majorText = rootView.findViewById(R.id.majorText);
-        TextView yearText = rootView.findViewById(R.id.yearText);
+//        TextView majorText = rootView.findViewById(R.id.majorText);
+//        TextView yearText = rootView.findViewById(R.id.yearText);
 
 
         //set the name/major/year, email, and profile picture
@@ -78,8 +78,8 @@ public class ProfileFragment extends Fragment {
                 if (!queryDocumentSnapshots.isEmpty()) {
                     DocumentSnapshot userDocument = queryDocumentSnapshots.getDocuments().get(0);
                     nameText.setText(userDocument.getString("username"));
-                    majorText.setText("Major: " + userDocument.getString("major"));
-                    yearText.setText("Year: " + userDocument.getString("year"));
+//                    majorText.setText("Major: " + userDocument.getString("major"));
+//                    yearText.setText("Year: " + userDocument.getString("year"));
                 }
             });
 
