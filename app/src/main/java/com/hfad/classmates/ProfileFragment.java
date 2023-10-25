@@ -2,14 +2,12 @@ package com.hfad.classmates;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,13 +100,13 @@ public class ProfileFragment extends Fragment {
                         DocumentReference usersDocRef = db.collection("users").document(user.getUid());
 
                         usersDocRef.update("username", newUsername)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            .addOnSuccessListener(new OnSuccessListener<Void>() { //success to change
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     nameText.setText(newUsername);
                                 }
                             })
-                            .addOnFailureListener(new OnFailureListener() {
+                            .addOnFailureListener(new OnFailureListener() { //fail to change, maybe duplicate?
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                 }
@@ -139,15 +137,15 @@ public class ProfileFragment extends Fragment {
                 builder.setPositiveButton("Gallery", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //add photo from gallery
+
                     }
                 });
 
-                //select from camera
+                // select from camera
                 builder.setNeutralButton("Camera", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //take a photo with camera
+
                     }
                 });
                 builder.show();

@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.hfad.classmates.regLogInActivity.Register;
 
 public class Profile extends AppCompatActivity {
@@ -16,13 +18,15 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_profile);
         logout = findViewById(R.id.logout);
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //FirebaseAuth.getInstance().signOut();
-                //Toast.makeText(Profile.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+//                FirebaseAuth.getInstance().signOut();
+//                Toast.makeText(Profile.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), Register.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
