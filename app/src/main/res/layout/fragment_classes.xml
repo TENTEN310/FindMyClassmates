@@ -26,7 +26,6 @@
         android:layout_width="0dp"
         android:layout_height="520dp"
         android:layout_margin="15dp"
-        android:background="@drawable/rounded_background"
         android:padding="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

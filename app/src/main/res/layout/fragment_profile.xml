@@ -121,7 +121,6 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="100dp"
             android:padding="25dp"
-            android:background="@drawable/rounded_background"
             app:layout_constraintTop_toBottomOf="@+id/friends"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
