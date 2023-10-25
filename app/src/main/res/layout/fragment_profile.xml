@@ -25,30 +25,6 @@
         android:layout_marginTop="15dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/profilePicture"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/image"
-            android:contentDescription="Profile Picture"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/changePicture"
-            android:layout_width="130dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="28dp"
-            android:padding="1dp"
-            android:text="Change Picture"
-            android:textSize="13sp"
-            app:backgroundTint="#F4ABAB"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
-
         <TextView
             android:id="@+id/usernameText"
             android:layout_width="wrap_content"
@@ -87,41 +63,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/usernameText" />
 
-        <TextView
-            android:id="@+id/majorText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/classes"
+            android:layout_width="80dp"
+            android:layout_height="85dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginBottom="75dp"
-            android:background="@drawable/rounded_background"
-            android:text="Major: "
-            android:textSize="15dp"
+            android:layout_marginTop="30dp"
+            android:padding="29dp"
+            android:drawableLeft="@drawable/ic_book"
+            app:backgroundTint="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/itemsList"/>
+            app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
-        <TextView
-            android:id="@+id/yearText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="75dp"
-            android:background="@drawable/rounded_background"
-            android:text="Year: "
-            android:textSize="15dp"
-            app:layout_constraintStart_toEndOf="@id/majorText"
-            app:layout_constraintBottom_toTopOf="@id/itemsList"/>
-
-        <TextView
-            android:id="@+id/classesText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/rounded_background"
-            android:text="Classes: "
-            android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/itemsList"/>
+        <Button
+            android:id="@+id/friends"
+            android:layout_width="80dp"
+            android:layout_height="85dp"
+            android:layout_marginTop="30dp"
+            android:drawableLeft="@drawable/ic_profile"
+            android:padding="29dp"
+            android:textSize="12sp"
+            app:backgroundTint="#FFFFFF"
+            app:layout_constraintTop_toBottomOf="@+id/emailText"
+            tools:layout_editor_absoluteX="138dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemsList"
@@ -132,10 +96,41 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="100dp"
             android:padding="25dp"
-            app:layout_constraintTop_toBottomOf="@+id/changePicture"
+            android:background="@drawable/rounded_background"
+            app:layout_constraintTop_toBottomOf="@+id/friends"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="127dp"
+            android:layout_height="131dp"
+            android:background="@drawable/img"
+            android:src="@drawable/circular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.894"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.155" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/profilechangebtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:src="@drawable/baseline_change_circle_24"
+            app:fabSize="auto"
+            app:fabCustomSize="30dp"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+            app:layout_constraintEnd_toEndOf="@+id/profile_image"
+            app:layout_constraintHorizontal_bias="0.892"
+            app:layout_constraintStart_toStartOf="@+id/profile_image"
+            app:layout_constraintTop_toTopOf="@+id/profile_image"
+            app:layout_constraintVertical_bias="1.0"
+            android:focusable="true" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button

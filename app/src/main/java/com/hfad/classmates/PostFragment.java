@@ -1,24 +1,42 @@
 package com.hfad.classmates;
 
+import static android.content.Intent.getIntent;
 import static com.hfad.classmates.util.FirebaseUtil.getUserID;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.hfad.classmates.objectClasses.ProfileInfo;
+import com.hfad.classmates.util.FirebaseUtil;
 
 import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,51 +88,82 @@ public class PostFragment extends Fragment {
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
     EditText post; // description of their post
-
-    String name, uid; // should get user's name, email, and uid?
-    TextView upload; // uploading button
+    ImageView profileAvatar;
+    String uid, uname; // should get user's name, email, and uid?
+    TextView upload, name; // uploading button
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post, container, false);
-        name = String.valueOf(view.findViewById(R.id.user)); // get the name of the user
+        progressBar = view.findViewById(R.id.progressBar);
+        profileAvatar = view.findViewById(R.id.profile_image);
+        FirebaseUtil.getProfilePic(getUserID()).getDownloadUrl()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Uri uri = task.getResult();
+                        Glide.with(this).load(uri).apply(RequestOptions.circleCropTransform()).into(this.profileAvatar);
+                    }
+                });
+        name = view.findViewById(R.id.user); // get the name of the user
+        name.setText(getUserID());
+        uname = String.valueOf(view.findViewById(R.id.user));
         upload = view.findViewById(R.id.upload); // upload button
-        Intent intent = getActivity().getIntent();
+        post = view.findViewById(R.id.post);
         uid = getUserID();
         // Retrieving the user data like name ,email and profile pic using query
-        databaseReference = FirebaseDatabase.getInstance().getReference("users");
-//        Query query = databaseReference.orderByChild("uid").equalTo(uid);
+        Query query = FirebaseFirestore.getInstance().collection("users")
+                .whereEqualTo("uid", uid);
 
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String description = "" + post.getText().toString().trim();
-                // If description is empty set error
-                if (TextUtils.isEmpty(description)) {
-                    post.setError("Description Cant be empty");
-                } else {
-                    uploadData(description);
-                }
+        upload.setOnClickListener(v -> {
+            String description = post.getText().toString();
+            // If description is empty set error
+            if (description.isEmpty()) {
+                post.setError("Description Cant be empty");
+            } else {
+                uploadData(description);
+//                Snackbar mySnackbar = Snackbar.make(view, "uploaded post", 60);
+//                mySnackbar.show();
             }
         });
-        return inflater.inflate(R.layout.fragment_post, container, false);
+        return view;
     }
 
     // Upload the value of blog data into firebase
     private void uploadData(final String description) {
+        // To show indeterminate progress bar:
+        progressBar.setVisibility(View.VISIBLE);
         final String timestamp = String.valueOf(System.currentTimeMillis());
         HashMap<Object, String> hashMap = new HashMap<>();
-        hashMap.put("uid", uid);
-        hashMap.put("uname", name);
+        hashMap.put("comment", "0");
         hashMap.put("description", description);
+        hashMap.put("likes", "0");
         hashMap.put("time", timestamp);
-        hashMap.put("like", "0");
-        hashMap.put("comments", "0");
+        hashMap.put("uid", uid);
+        hashMap.put("uname", uname);
 
-        // set the data into firebase and then empty the description data
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Posts");
-        databaseReference.child(timestamp).setValue(hashMap);
+        // set the data into firebase and then empty the title ,description and image data
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("posts");
+        databaseReference.child(timestamp).setValue(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // hide the progress bar:
+                        progressBar.setVisibility(View.GONE);
+                        post.setText("");
+                        Toast.makeText(getContext(), "Published", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getContext(), MainActivity.class));
+                        getActivity().finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure( Exception e) {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
+                    }
+                });
+
 
     }
 

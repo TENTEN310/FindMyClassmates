@@ -1,10 +1,14 @@
 package com.hfad.classmates;
 
+import static com.hfad.classmates.util.FirebaseUtil.getUserID;
+
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -16,14 +20,18 @@ import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hfad.classmates.chatsActivity.Chats;
+import com.hfad.classmates.util.FirebaseUtil;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
     ActionBar toolbar;
+    ImageView profileAvatar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,16 +54,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public boolean onCreateOptionMenu(Menu menu){
+    public boolean onCreate(Menu menu){
         getMenuInflater().inflate(R.menu.top, menu);
         MenuItem menuItem = menu.findItem(R.id.profile_image);
         View view = MenuItemCompat.getActionProvider(menuItem).onCreateActionView();
-        CircleImageView profileImage = view.findViewById(R.id.tool_bar_profile_image);
-        Glide
-                .with(this)
-                .load("@drawable/img")
-                .into(profileImage);
-        profileImage.setOnClickListener(new View.OnClickListener() {
+        profileAvatar = (ImageView) findViewById(R.id.tool_bar_profile_image);
+        FirebaseUtil.getProfilePic(getUserID()).getDownloadUrl()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        Uri uri  = task.getResult();
+                        Glide.with(this).load(uri).apply(RequestOptions.circleCropTransform()).into(this.profileAvatar);
+                    }
+                });
+        profileAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "profile clicked", Toast.LENGTH_SHORT);
