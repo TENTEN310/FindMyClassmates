@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="75dp"
             android:background="@drawable/rounded_background"
             android:text="Major: "
             android:textSize="15dp"
@@ -103,12 +103,24 @@
             android:id="@+id/yearText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_marginBottom="80dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="75dp"
             android:background="@drawable/rounded_background"
             android:text="Year: "
             android:textSize="15dp"
             app:layout_constraintStart_toEndOf="@id/majorText"
+            app:layout_constraintBottom_toTopOf="@id/itemsList"/>
+
+        <TextView
+            android:id="@+id/classesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_background"
+            android:text="Classes: "
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/itemsList"/>
 
         <androidx.recyclerview.widget.RecyclerView
