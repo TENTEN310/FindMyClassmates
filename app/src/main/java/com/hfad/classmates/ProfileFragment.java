@@ -33,6 +33,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.hfad.classmates.regLogInActivity.Login;
 import com.hfad.classmates.util.FirebaseUtil;
 
 import kotlin.Unit;
@@ -67,6 +68,7 @@ public class ProfileFragment extends Fragment {
 
         TextView majorText = rootView.findViewById(R.id.majorText);
         TextView yearText = rootView.findViewById(R.id.yearText);
+        Button logout = rootView.findViewById(R.id.logout);
 
 
         //set the name/major/year, email, and profile picture
@@ -84,6 +86,16 @@ public class ProfileFragment extends Fragment {
             });
 
         emailText.setText(user.getEmail());
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getContext(),Login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
 
         FirebaseUtil.getProfilePic(user.getUid()).getDownloadUrl()
             .addOnCompleteListener(task -> {

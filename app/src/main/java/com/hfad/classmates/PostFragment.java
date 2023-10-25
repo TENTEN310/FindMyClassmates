@@ -1,17 +1,11 @@
 package com.hfad.classmates;
 
-import static android.content.Intent.getIntent;
-import static com.hfad.classmates.util.FirebaseUtil.getUserID;
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +19,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,7 +29,6 @@ import com.hfad.classmates.util.FirebaseUtil;
 
 import java.util.HashMap;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -99,7 +91,7 @@ public class PostFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_post, container, false);
         progressBar = view.findViewById(R.id.progressBar);
         profileAvatar = view.findViewById(R.id.profile_image);
-        FirebaseUtil.getProfilePic(getUserID()).getDownloadUrl()
+        FirebaseUtil.getProfilePic(FirebaseUtil.getUserID()).getDownloadUrl()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Uri uri = task.getResult();
@@ -107,11 +99,15 @@ public class PostFragment extends Fragment {
                     }
                 });
         name = view.findViewById(R.id.user); // get the name of the user
-        name.setText(getUserID());
-        uname = String.valueOf(view.findViewById(R.id.user));
+        FirebaseUtil.getUserDetails().get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                ProfileInfo profileInfo = task.getResult().toObject(ProfileInfo.class);
+                name.setText(profileInfo.getUsername());
+            }
+        });
         upload = view.findViewById(R.id.upload); // upload button
         post = view.findViewById(R.id.post);
-        uid = getUserID();
+        uid = FirebaseUtil.getUserID();
         // Retrieving the user data like name ,email and profile pic using query
         Query query = FirebaseFirestore.getInstance().collection("users")
                 .whereEqualTo("uid", uid);
