@@ -26,6 +26,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -136,7 +137,7 @@ public class ProfileFragment extends Fragment {
         });
 
         //update profile picture
-        Button changePicture = rootView.findViewById(R.id.profilechangebtn);
+        FloatingActionButton changePicture = rootView.findViewById(R.id.profilechangebtn);
         ActivityResultLauncher<Intent> imagePicker;
         imagePicker = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -161,32 +162,7 @@ public class ProfileFragment extends Fragment {
                         }
                     });
         });
-        changePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Change Profile Picture:");
 
-                // select from gallery
-                builder.setPositiveButton("Gallery", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-
-                // select from camera
-                builder.setNeutralButton("Camera", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                builder.show();
-            }
-        });
-
-        //return our view
         return rootView;
     }
 }
