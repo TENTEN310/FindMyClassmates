@@ -27,6 +27,10 @@ public class FirebaseUtil {
                 .child(FirebaseUtil.getUserID());
     }
 
+    public static CollectionReference getPostsDetails(){
+        return FirebaseFirestore.getInstance().collection("post");
+    }
+
     public static DocumentReference getChatroomReference(String chatroomId){
         return FirebaseFirestore.getInstance().collection("chatrooms").document(chatroomId);
     }
