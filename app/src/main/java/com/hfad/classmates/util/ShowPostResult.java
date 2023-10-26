@@ -27,6 +27,9 @@ import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.Post;
 import com.hfad.classmates.objectClasses.ProfileInfo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResult.PostView> {
     Context context;
@@ -38,6 +41,7 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
     @Override
     protected void onBindViewHolder(@NonNull PostView holder, int position, @NonNull Post model) {
         String postId = getSnapshots().getSnapshot(position).getId();
+        String userId = FirebaseUtil.getUserID();
         holder.usernameText.setText(model.getUserName());
         holder.post_info.setText(model.getPostContent());
         holder.likes.setText(String.valueOf(model.getLikes()));
@@ -49,16 +53,22 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
                     }
                 });
         holder.likeButton.setOnClickListener(v -> {
-            DocumentReference postRef = FirebaseUtil.getPostsCollectionReference().document(postId); // replace postId with the actual ID of your post
+            DocumentReference postRef = FirebaseUtil.getPostsCollectionReference().document(postId);
+            DocumentReference likerRef = postRef.collection("likers").document(userId);
 
-            postRef.update("likes", FieldValue.increment(1))
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-
-                        @Override
-                        public void onSuccess(Void unused) {
-                            holder.likes.setText(String.valueOf(model.getLikes() + 1));
-                        }
-                    });
+            likerRef.get().addOnSuccessListener(documentSnapshot -> {
+                if (documentSnapshot.exists()) {
+                    postRef.update("likes", FieldValue.increment(-1));
+                    likerRef.delete();
+                    holder.likes.setText(String.valueOf(model.getLikes() - 1));
+                } else {
+                    postRef.update("likes", FieldValue.increment(1));
+                    Map<String, Boolean> liked = new HashMap<>();
+                    liked.put("liked", true);
+                    likerRef.set(liked);
+                    holder.likes.setText(String.valueOf(model.getLikes() + 1));
+                }
+            });
         });
 
 

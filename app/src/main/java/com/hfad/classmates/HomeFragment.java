@@ -25,6 +25,7 @@ import com.hfad.classmates.util.ShowPostResult;
 public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     ShowPostResult postHistoryResult;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public HomeFragment() {
     }
@@ -32,8 +33,16 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_chats, container, false);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         recyclerView = view.findViewById(R.id.search_user_recycler_view);
         showPost();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showPost();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         return view;
     }
 

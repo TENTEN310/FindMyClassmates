@@ -12,16 +12,16 @@
         android:layout_height="wrap_content"
         android:background="@color/pink"
         android:minHeight="?attr/actionBarSize"
+        android:gravity="center_vertical"
         android:padding="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:text="Create Post"
             android:textColor="@color/black"
-            android:textSize="22sp"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
         <TextView
@@ -46,15 +46,18 @@
             android:id="@+id/profile_bar"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_margin="5sp">
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp">
 
             <ImageView
                 android:id="@+id/profile_image"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_toRightOf="@id/back_btn"
                 android:background="@drawable/circular"
                 android:backgroundTint="@color/white"
-                android:layout_toRightOf="@id/back_btn"
                 android:src="@drawable/img" />
 
             <TextView
@@ -62,13 +65,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@id/tool_bar_profile_image"
-                android:layout_weight="1"
                 android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:textSize="20dp"
                 android:text="Amy Rong" />
         </LinearLayout>
 
         <EditText
             android:id="@+id/post"
+            android:layout_margin="20dp"
             android:inputType="textImeMultiLine|textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

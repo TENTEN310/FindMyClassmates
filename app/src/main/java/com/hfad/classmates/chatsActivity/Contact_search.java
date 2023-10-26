@@ -53,7 +53,7 @@ public class Contact_search extends AppCompatActivity {
             .setQuery(query, ProfileInfo.class).build();
 
         if (searchUserResult != null) {
-            searchUserResult.updateOptions(options);  // Consider adding an updateOptions method in your adapter to handle option updates.
+            searchUserResult.updateOptions(options);
         } else {
             searchUserResult = new SearchUserResult(options, getApplicationContext());
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
