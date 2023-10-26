@@ -1,4 +1,4 @@
-package com.hfad.classmates;
+package com.hfad.classmates.objectClasses;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,14 +21,24 @@ public class Post{
     String postContent;
     Timestamp timestamp;
     String userID;
+    String userName;
     int likes;
 
     public Post(){}
-    public Post(String postContent, Timestamp timestamp, String userID, int likes) {
+    public Post(String postContent, Timestamp timestamp, String userID, int likes, String userName) {
         this.postContent = postContent;
         this.timestamp = timestamp;
         this.userID = userID;
         this.likes = likes;
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPostContent() {
