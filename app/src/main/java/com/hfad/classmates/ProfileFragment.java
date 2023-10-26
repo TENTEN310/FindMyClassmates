@@ -60,18 +60,15 @@ public class ProfileFragment extends Fragment {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
 
-
         TextView nameText = rootView.findViewById(R.id.usernameText);
         TextView emailText = rootView.findViewById(R.id.emailText);
 
         ImageView profilePicture = rootView.findViewById(R.id.profile_image);
 
-        TextView majorText = rootView.findViewById(R.id.majorText);
-        TextView yearText = rootView.findViewById(R.id.yearText);
+        TextView majorYearText = rootView.findViewById(R.id.majorYearText);
         Button logout = rootView.findViewById(R.id.logout);
 
-
-        //set the name/major/year, email, and profile picture
+        //set the name/major/year
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference usersCollection = db.collection("users");
 
@@ -80,23 +77,14 @@ public class ProfileFragment extends Fragment {
                 if (!queryDocumentSnapshots.isEmpty()) {
                     DocumentSnapshot userDocument = queryDocumentSnapshots.getDocuments().get(0);
                     nameText.setText(userDocument.getString("username"));
-                    majorText.setText("Major: " + userDocument.getString("major"));
-                    yearText.setText("Year: " + userDocument.getString("year"));
+                    majorYearText.setText(userDocument.getString("major") + " " + userDocument.getString("year"));
                 }
             });
 
+        //set the email
         emailText.setText(user.getEmail());
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getContext(),Login.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
-
+        //set original profile picture
         FirebaseUtil.getProfilePic(user.getUid()).getDownloadUrl()
             .addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
@@ -179,6 +167,18 @@ public class ProfileFragment extends Fragment {
                             return null;
                         }
                     });
+        });
+
+
+        //log out feature
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getContext(),Login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
         });
 
         return rootView;
