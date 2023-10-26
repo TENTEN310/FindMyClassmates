@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.hfad.classmates.objectClasses.ProfileInfo;
@@ -36,6 +37,7 @@ import java.util.HashMap;
  * create an instance of this fragment.
  */
 public class PostFragment extends Fragment {
+    ProfileInfo profileInfo;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,7 +80,7 @@ public class PostFragment extends Fragment {
     }
 
     FirebaseAuth firebaseAuth;
-    DatabaseReference databaseReference;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     EditText post; // description of their post
     ImageView profileAvatar;
     String uid, uname; // should get user's name, email, and uid?
@@ -101,7 +103,7 @@ public class PostFragment extends Fragment {
         name = view.findViewById(R.id.user); // get the name of the user
         FirebaseUtil.getUserDetails().get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                ProfileInfo profileInfo = task.getResult().toObject(ProfileInfo.class);
+                profileInfo = task.getResult().toObject(ProfileInfo.class);
                 name.setText(profileInfo.getUsername());
             }
         });
@@ -118,47 +120,40 @@ public class PostFragment extends Fragment {
             if (description.isEmpty()) {
                 post.setError("Description Cant be empty");
             } else {
-                uploadData(description);
-//                Snackbar mySnackbar = Snackbar.make(view, "uploaded post", 60);
-//                mySnackbar.show();
+                uploadData(description, profileInfo);
             }
         });
         return view;
     }
 
     // Upload the value of blog data into firebase
-    private void uploadData(final String description) {
+    private void uploadData(final String description, ProfileInfo profileInfo) {
         // To show indeterminate progress bar:
         progressBar.setVisibility(View.VISIBLE);
         final String timestamp = String.valueOf(System.currentTimeMillis());
-        HashMap<Object, String> hashMap = new HashMap<>();
-        hashMap.put("comment", "0");
-        hashMap.put("description", description);
-        hashMap.put("likes", "0");
-        hashMap.put("time", timestamp);
-        hashMap.put("uid", uid);
-        hashMap.put("uname", uname);
+        HashMap<String, Object> final_post = new HashMap<>();
+        final_post.put("comment", "0");
+        final_post.put("description", description);
+        final_post.put("likes", "0");
+        final_post.put("time", timestamp);
+        final_post.put("uid", uid);
+        final_post.put("uname", profileInfo.getUsername());
 
-        // set the data into firebase and then empty the title ,description and image data
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("posts");
-        databaseReference.child(timestamp).setValue(hashMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // hide the progress bar:
-                        progressBar.setVisibility(View.GONE);
-                        post.setText("");
-                        Toast.makeText(getContext(), "Published", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getContext(), MainActivity.class));
-                        getActivity().finish();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure( Exception e) {
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
-                    }
+        CollectionReference postsCollection = db.collection("posts");
+        postsCollection.add(final_post)
+                .addOnSuccessListener(documentReference -> {
+                    // Hide the progress bar:
+                    progressBar.setVisibility(View.GONE);
+                    post.setText("");
+                    Toast.makeText(getContext(), "Published", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getContext(), MainActivity.class));
+                    getActivity().finish();
+                })
+                .addOnFailureListener(e -> {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
                 });
+
 
 
     }
