@@ -7,54 +7,82 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClassesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    public class Class {
+        private String name;
+        private String professor;
+        private String subject;
+        private String description;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+        public Class() {
+            // Default constructor required for Firestore
+        }
+
+        public Class(String name, String professor, String subject, String description) {
+            this.name = name;
+            this.professor = professor;
+            this.subject = subject;
+            this.description = description;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getProfessor() {
+            return professor;
+        }
+
+        public String getSubject() {
+            return subject;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
 
     public ClassesFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ClassmatesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ClassesFragment newInstance(String param1, String param2) {
-        ClassesFragment fragment = new ClassesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View RootView = inflater.inflate(R.layout.fragment_classes, container, false);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference classesCollection = db.collection("classes");
+        Query query = classesCollection;
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_classes, container, false);
+        query.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            List<Class> classes = new ArrayList<>();
+
+            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                Class myClass = document.toObject(Class.class);
+                classes.add(myClass);
+            }
+
+            for (Class myClass : classes) {
+
+            }
+        });
+        return RootView;
     }
 }
