@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/rounded_for_recycle"
+    android:layout_margin="10dp"
+    android:elevation="2dp">
+    <ImageView
+        android:id="@+id/profile_pic_image_view"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:background="@drawable/circular"
+        android:backgroundTint="@color/white"
+        android:padding="4dp"
+        android:src="@drawable/img" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_marginStart="8sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="User name"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:id="@+id/user_name_text"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginStart="8sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="CS 2025"
+                android:id="@+id/contact_user_info"/>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

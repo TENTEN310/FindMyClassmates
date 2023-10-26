@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        android:title="Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always">
+    </item>
+
+    <item
+        android:id="@+id/profile_image"
+        android:title="profileImage"
+        app:showAsAction="always"
+        app:actionLayout="@layout/profile_image">
+    </item>
+
+</menu>
