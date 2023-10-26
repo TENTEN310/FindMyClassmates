@@ -220,6 +220,36 @@
                         android:id="@+id/roster_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                      >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/button"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_for_recycle"
+                                android:layout_marginHorizontal="10dp"
+                                android:text="Click to see the Roster" />
+
+                        </LinearLayout>
+
+
+
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="10dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <RelativeLayout
+                        android:id="@+id/comments_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:paddingTop="10dp">
 
                         <LinearLayout
@@ -229,11 +259,11 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/roster"
+                                android:id="@+id/comments"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:text="Rosters:"
+                                android:text="Comments:"
                                 android:textColor="@color/black"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
@@ -241,7 +271,6 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_below="@id/roster"
                                 android:padding="10dp" />
 
                         </LinearLayout>
