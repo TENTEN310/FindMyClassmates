@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".chatsActivity.Inside_chat"
+    android:orientation="vertical"> <!-- Change orientation to vertical -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pink"
+        android:padding="10dp"
+        android:minHeight="?attr/actionBarSize"
+        android:id="@+id/toolbar">
+
+        <ImageButton
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/back"
+            android:layout_marginEnd="15dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/white"
+            android:layout_centerVertical="true"
+            android:id="@+id/back_btn"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CSCI310"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/back_btn"
+            android:id="@+id/class_name" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/Professor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CSCI310"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
