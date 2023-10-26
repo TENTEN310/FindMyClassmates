@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8sp"
-                android:textSize="50sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 tools:text="CSCI301" />
         </RelativeLayout>
@@ -37,21 +37,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8sp"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 tools:text="2023 Fall" />
             <TextView
                 android:id="@+id/Divider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 tools:text="/" />
             <TextView
                 android:id="@+id/Professor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 tools:text="Professor:" />
         </LinearLayout>
 
