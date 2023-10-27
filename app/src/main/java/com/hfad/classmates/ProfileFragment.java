@@ -11,6 +11,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,14 +36,18 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.hfad.classmates.objectClasses.Classes;
 import com.hfad.classmates.regLogInActivity.Login;
 import com.hfad.classmates.util.FirebaseUtil;
+import com.hfad.classmates.util.ShowClassResult;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
 public class ProfileFragment extends Fragment {
     Uri selectedImageUri = null;
+    RecyclerView recyclerView;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -62,6 +69,7 @@ public class ProfileFragment extends Fragment {
 
         TextView nameText = rootView.findViewById(R.id.usernameText);
         TextView emailText = rootView.findViewById(R.id.emailText);
+        recyclerView = rootView.findViewById(R.id.itemsList);
 
         ImageView profilePicture = rootView.findViewById(R.id.profile_image);
 
@@ -180,7 +188,20 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        showClassUser();
 
         return rootView;
+    }
+
+    public void showClassUser() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Query classesQuery = db.collection("users").document(FirebaseUtil.getUserID()).collection("classList");
+        FirestoreRecyclerOptions<Classes> options = new FirestoreRecyclerOptions.Builder<Classes>()
+                .setQuery(classesQuery, Classes.class)
+                .build();
+        ShowClassResult ClassHistoryResult = new ShowClassResult(options, getContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(ClassHistoryResult);
+        ClassHistoryResult.startListening();
     }
 }

@@ -1,11 +1,14 @@
 package com.hfad.classmates;
 
 
+import static androidx.fragment.app.FragmentManager.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -33,7 +36,7 @@ public class ClassDetail extends AppCompatActivity {
     TextView classFullName, professor, classAbv, description, empty1, empty2;
     Classes classes;
 
-    ImageButton back, add;
+    ImageButton back, add, remove;
 
     Button roster;
 
@@ -48,6 +51,8 @@ public class ClassDetail extends AppCompatActivity {
         back = findViewById(R.id.back_btn);
         roster = findViewById(R.id.button);
         add = findViewById(R.id.imageButton2);
+        remove = findViewById(R.id.imageButton4);
+        remove.setVisibility(Button.GONE);
         empty1 = findViewById(R.id.empty_view1);
         empty2 = findViewById(R.id.empty_view2);
         description = findViewById(R.id.description_class);
@@ -58,7 +63,7 @@ public class ClassDetail extends AppCompatActivity {
         back.setOnClickListener(v -> finish());
         //add class to user's class list
 
-        add.setOnClickListener(v -> addClassToUserAndUserToClass(classes));
+        add.setOnClickListener(v -> addClassToUserAndUserToClass(classes, add, remove));
         roster.setOnClickListener(
                 v -> {
                     Intent intent = new Intent(getApplicationContext(), Roster.class);
@@ -66,14 +71,39 @@ public class ClassDetail extends AppCompatActivity {
                     startActivity(intent);
                 }
         );
+        checkIfUserIsInClass(classes.getAbv(), FirebaseUtil.getUserID(), add, remove);
+        remove.setOnClickListener(v -> removeClassFromUserAndUserFromClass(classes, add, remove));
 
     }
 
+    private void checkIfUserIsInClass(String classID, String userID, ImageButton add, ImageButton remove) {
+        DocumentReference classUserRef = FirebaseFirestore.getInstance()
+                .collection("departments")
+                .document(FirebaseUtil.GetDeptFromClassID(classID))
+                .collection("classes")
+                .document(classID)
+                .collection("userList")
+                .document(userID);
 
-    private void addClassToUserAndUserToClass(Classes currentClass) {
+        classUserRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    // User is already in the class
+                    add.setVisibility(Button.GONE);
+                    remove.setVisibility(Button.VISIBLE);
+                } else {
+                    // User is not in the class
+                    add.setVisibility(Button.VISIBLE);
+                    remove.setVisibility(Button.GONE);
+                }
+            }
+        });
+    }
+
+
+    private void addClassToUserAndUserToClass(Classes currentClass, ImageButton add, ImageButton remove) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        // Assuming you have a FirebaseAuth instance to get current user's ID
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         // Reference to the user's class list collection
@@ -120,6 +150,8 @@ public class ClassDetail extends AppCompatActivity {
                                 })
                                 .addOnSuccessListener(aVoid -> {
                                     Toast.makeText(getApplicationContext(), "Class added successfully!", Toast.LENGTH_SHORT).show();
+                                    add.setVisibility(Button.GONE);
+                                    remove.setVisibility(Button.VISIBLE);
                                 })
                                 .addOnFailureListener(e -> {
                                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -135,7 +167,7 @@ public class ClassDetail extends AppCompatActivity {
     }
 
 
-    private void removeClassFromUserAndUserFromClass(Classes currentClass) {
+    private void removeClassFromUserAndUserFromClass(Classes currentClass, ImageButton add, ImageButton remove) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -175,6 +207,8 @@ public class ClassDetail extends AppCompatActivity {
                 })
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(getApplicationContext(), "Class removed successfully!", Toast.LENGTH_SHORT).show();
+                    add.setVisibility(Button.VISIBLE);
+                    remove.setVisibility(Button.GONE);
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

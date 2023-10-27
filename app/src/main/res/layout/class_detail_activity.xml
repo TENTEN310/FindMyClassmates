@@ -45,6 +45,14 @@
             android:background="@android:color/transparent"
             android:layout_alignParentEnd="true"
             />
+
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/baseline_playlist_remove_24" />
     </RelativeLayout>
 
     <ScrollView
