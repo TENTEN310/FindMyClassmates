@@ -22,6 +22,9 @@ public class FirebaseUtil {
         return FirebaseFirestore.getInstance().collection("users").document(getUserID());
     }
 
+    public static DocumentReference getOtherUserDetails(String otherUserId){
+        return FirebaseFirestore.getInstance().collection("users").document(otherUserId);
+    }
     public static StorageReference getUserStorage(){
         return FirebaseStorage.getInstance().getReference().child("profile_pic")
                 .child(FirebaseUtil.getUserID());

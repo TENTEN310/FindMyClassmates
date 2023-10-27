@@ -4,14 +4,18 @@ package com.hfad.classmates.util;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +26,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.Query;
 import com.hfad.classmates.chatsActivity.Inside_chat;
 import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.Post;
@@ -45,6 +50,9 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
         holder.usernameText.setText(model.getUserName());
         holder.post_info.setText(model.getPostContent());
         holder.likes.setText(String.valueOf(model.getLikes()));
+
+        String posterID = model.getUserID();
+
         FirebaseUtil.getProfilePic(model.getUserID()).getDownloadUrl()
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
@@ -71,7 +79,51 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
             });
         });
 
+        holder.profilePic.setOnClickListener(v -> {
+            // Inflate the popup layout
+            View popupView = LayoutInflater.from(context).inflate(R.layout.user_pop_window, null);
+            ImageView profileImageView = popupView.findViewById(R.id.profile_image);
+            TextView userInfo = popupView.findViewById(R.id.userName);
+            TextView major = popupView.findViewById(R.id.Major);
+            TextView school = popupView.findViewById(R.id.School);
+            ImageButton close = popupView.findViewById(R.id.imageButton3);
+            Button message = popupView.findViewById(R.id.Message);
 
+            FirebaseUtil.getProfilePic(posterID).getDownloadUrl().addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    Uri uri  = task.getResult();
+                    Glide.with(context).load(uri).apply(RequestOptions.circleCropTransform()).into(profileImageView);
+                }
+            });
+
+            FirebaseUtil.getOtherUserDetails(posterID).get().addOnSuccessListener(documentSnapshot -> {
+                ProfileInfo profileInfo = documentSnapshot.toObject(ProfileInfo.class);
+                if(posterID.equals(FirebaseUtil.getUserID())){
+                    message.setVisibility(View.GONE);
+                    userInfo.setText("Myself" + "(" + profileInfo.getYear() + ")");
+                    major.setText(profileInfo.getMajor());
+                    school.setText(profileInfo.getSchool());
+                }
+                userInfo.setText(profileInfo.getUsername() + "(" + profileInfo.getYear() + ")");
+                major.setText(profileInfo.getMajor());
+                school.setText(profileInfo.getSchool());
+            });
+
+            close.setOnClickListener(v1 -> {
+                popupView.setVisibility(View.GONE);
+            });
+
+            message.setOnClickListener(v12 -> {
+                Intent intent = new Intent(context, Inside_chat.class);
+                intent.putExtra("userId", posterID);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            });
+
+            // Create and show the PopupWindow
+            PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+        });
 
     }
 

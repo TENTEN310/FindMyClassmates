@@ -11,6 +11,6 @@ android:useLevel="false" >
     android:color="@android:color/transparent" />
 
 <stroke
-    android:width="9dp"
+    android:width="5dp"
     android:color="#6DFF5722" />
 </shape>
