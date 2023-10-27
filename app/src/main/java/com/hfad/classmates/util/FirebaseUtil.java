@@ -135,4 +135,31 @@ public class FirebaseUtil {
                 .child(otherUserId);
     }
 
+    public static String GetDeptFromClassID(String classID){
+        //return all strings until the first number
+        String dept = "";
+        for(int i=0;i<classID.length();i++) {
+            if (Character.isDigit(classID.charAt(i))) {
+                break;
+            } else {
+                dept += classID.charAt(i);
+            }
+        }
+        return dept;
+    }
+
+    public static ProfileInfo getProfile(String userID){
+        DocumentReference doc = getOtherUserDetails(userID);
+        ProfileInfo profileInfo = new ProfileInfo();
+        doc.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                profileInfo.setUsername(task.getResult().getString("username"));
+                profileInfo.setMajor(task.getResult().getString("major"));
+                profileInfo.setSchool(task.getResult().getString("school"));
+                profileInfo.setYear(task.getResult().getString("year"));
+                profileInfo.setUserID(task.getResult().getString("userID"));
+            }
+        });
+        return profileInfo;
+    }
 }
