@@ -1,6 +1,7 @@
 package com.hfad.classmates.util;
 
 import android.content.Intent;
+import android.os.Parcelable;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -9,9 +10,12 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.hfad.classmates.objectClasses.Classes;
+import com.hfad.classmates.objectClasses.Dept;
 import com.hfad.classmates.objectClasses.ProfileInfo;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FirebaseUtil {
@@ -36,6 +40,10 @@ public class FirebaseUtil {
 
     public static DocumentReference getChatroomReference(String chatroomId){
         return FirebaseFirestore.getInstance().collection("chatrooms").document(chatroomId);
+    }
+
+    public static CollectionReference getDeptReference(){
+        return FirebaseFirestore.getInstance().collection("departments");
     }
 
     public static CollectionReference getPostsCollectionReference() {
@@ -90,7 +98,6 @@ public class FirebaseUtil {
         intent.putExtra("userId",model.getUserID());
         intent.putExtra("year",model.getYear());
         intent.putExtra("school",model.getSchool());
-
     }
 
     public static ProfileInfo getUserModelFromIntent(Intent intent){
@@ -101,6 +108,26 @@ public class FirebaseUtil {
         userProfile.setYear(intent.getStringExtra("year"));
         userProfile.setSchool(intent.getStringExtra("school"));
         return userProfile;
+    }
+
+    public static void passClassesModelAsIntent(Intent intent, Classes model){
+        intent.putExtra("name",model.getName());
+        intent.putExtra("description",model.getDescription());
+        intent.putExtra("professor",model.getProfessor());
+        intent.putExtra("units",model.getUnits());
+        intent.putExtra("abv",model.getAbv());
+        intent.putExtra("term",model.getTerm());
+    }
+
+    public static Classes getClassesModelFromIntent(Intent intent){
+        Classes classes = new Classes();
+        classes.setName(intent.getStringExtra("name"));
+        classes.setDescription(intent.getStringExtra("description"));
+        classes.setProfessor(intent.getStringExtra("professor"));
+        classes.setUnits(intent.getIntExtra("units",4));
+        classes.setAbv(intent.getStringExtra("abv"));
+        classes.setTerm(intent.getStringExtra("term"));
+        return classes;
     }
 
     public static StorageReference  getProfilePic(String otherUserId){

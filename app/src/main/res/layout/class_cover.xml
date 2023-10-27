@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:background="@color/material_on_background_disabled"
+                android:background="@android:color/transparent"
                 app:srcCompat="@drawable/baseline_close_24" />
 
             <TextView
@@ -58,7 +58,7 @@
                 tools:text="/" />
 
             <TextView
-                android:id="@+id/Professor"
+                android:id="@+id/extra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

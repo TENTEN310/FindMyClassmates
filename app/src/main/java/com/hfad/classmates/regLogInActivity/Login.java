@@ -114,11 +114,13 @@ public class Login extends AppCompatActivity {
                                                         if (profileInfo != null) {
                                                             Toast.makeText(Login.this, "Welcome! " + profileInfo.getUsername(), Toast.LENGTH_SHORT).show();
                                                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                            finish();
                                                         }
                                                     }
                                                 } else {
                                                     Toast.makeText(Login.this, "Welcome", Toast.LENGTH_SHORT).show();
                                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                    finish();
                                                 }
                                             });
                                         }
