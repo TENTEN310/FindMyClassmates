@@ -17,6 +17,9 @@
             android:name=".ShowClass"
             android:exported="false" />
         <activity
+            android:name=".ClassDetail"
+            android:exported="false" />
+        <activity
             android:name=".chatsActivity.Inside_chat"
             android:exported="false" />
         <activity

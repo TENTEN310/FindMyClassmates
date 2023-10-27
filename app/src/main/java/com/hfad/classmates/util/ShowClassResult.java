@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.hfad.classmates.ClassDetail;
 import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.Classes;
 
@@ -41,7 +42,7 @@ public class ShowClassResult extends FirestoreRecyclerAdapter<Classes, ShowClass
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ShowClassResult.class);
+                Intent intent = new Intent(context, ClassDetail.class);
                 FirebaseUtil.passClassesModelAsIntent(intent,model);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);

@@ -20,7 +20,7 @@
             android:layout_height="32dp"
             android:src="@drawable/back"
             android:layout_marginEnd="15dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="@android:color/transparent"
             app:tint="@color/white"
             android:layout_centerVertical="true"
             android:id="@+id/back_btn"/>
@@ -42,7 +42,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             app:srcCompat="@drawable/ic_add"
-            android:background="@color/material_on_background_disabled"
+            android:background="@android:color/transparent"
             android:layout_alignParentEnd="true"
             />
     </RelativeLayout>
@@ -184,7 +184,7 @@
                         android:paddingTop="10dp">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:orientation="vertical">
@@ -205,6 +205,20 @@
                                 android:layout_height="match_parent"
                                 android:layout_below="@id/material"
                                 android:padding="10dp" />
+                            <TextView
+                                android:id="@+id/empty_view1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="No Materials Yet."
+                                android:gravity="center"
+                                android:visibility="gone"/>
+                            <Button
+                                android:id="@+id/uploadMaterialbtn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_for_recycle"
+                                android:layout_marginHorizontal="10dp"
+                                android:text="Upload More Material" />
 
                         </LinearLayout>
 
@@ -249,21 +263,26 @@
                     <RelativeLayout
                         android:id="@+id/comments_container"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp">
+                        android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
                             android:orientation="vertical">
+                            <Button
+                                android:id="@+id/commentbtn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_for_recycle"
+                                android:layout_marginHorizontal="10dp"
+                                android:text="Add A Review" />
 
                             <TextView
                                 android:id="@+id/comments"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:text="Comments about this class:"
+                                android:text="Class Reviews:"
                                 android:textColor="@color/black"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
@@ -272,6 +291,14 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:padding="10dp" />
+                            <TextView
+                                android:id="@+id/empty_view2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Be The First Reviewer."
+                                android:gravity="center"
+                                android:visibility="gone"/>
+
 
                         </LinearLayout>
 
