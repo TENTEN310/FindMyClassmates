@@ -1,7 +1,5 @@
 package com.hfad.classmates;
 
-
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,8 +12,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.hfad.classmates.objectClasses.Classes;
 import com.hfad.classmates.util.ShowClassResult;
-
-
 
 public class ShowClass extends AppCompatActivity {
     ImageButton back;
@@ -42,5 +38,4 @@ public class ShowClass extends AppCompatActivity {
         recyclerView.setAdapter(ClassHistoryResult);
         ClassHistoryResult.startListening();
     }
-
 }
