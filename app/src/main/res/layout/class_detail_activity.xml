@@ -177,8 +177,7 @@
                         android:text="Chao WangChao WangChao WangChao WangChao WangChao
                 WangChao WangChao WangChao WangChao WangChao Wang"
                         android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="20sp" />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -209,6 +208,7 @@
                                 android:textStyle="bold" />
 
                             <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/materialsList"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_below="@id/material"
