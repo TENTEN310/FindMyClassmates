@@ -1,21 +1,10 @@
 package com.hfad.classmates.objectClasses;
 
 public class Materials {
-    String fileType;
-    String materialName;
+    String materialName, fileType;
 
-    public Materials() {}
-
-    public Materials(String fileType, String materialName) {
-        this.fileType = fileType;
+    public Materials(String materialName, String fileType) {
         this.materialName = materialName;
-    }
-
-    public String getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(String fileType) {
         this.fileType = fileType;
     }
 
@@ -25,5 +14,13 @@ public class Materials {
 
     public void setMaterialName(String materialName) {
         this.materialName = materialName;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 }

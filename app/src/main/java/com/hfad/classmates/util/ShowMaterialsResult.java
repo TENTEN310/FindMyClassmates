@@ -70,7 +70,6 @@ public class ShowMaterialsResult extends FirestoreRecyclerAdapter<Materials, Sho
     }
 
     class MaterialViewHolder extends RecyclerView.ViewHolder {
-        // Define views for your item layout (materials_cover.xml)
         TextView materialName;
         TextView format;
 
