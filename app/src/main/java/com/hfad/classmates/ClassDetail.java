@@ -119,7 +119,7 @@ public class ClassDetail extends AppCompatActivity {
                 });
     }
 
-    // Method to get the file type based on the material name
+    // get the file type based on the material name
     private String getFileType(String materialName) {
         if (materialName.endsWith(".pdf")) {
             return "PDF";
