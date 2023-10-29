@@ -66,7 +66,7 @@ public class ShowMaterialsResult extends RecyclerView.Adapter<ShowMaterialsResul
             return "PDF";
         } else if (fileUrl.endsWith(".docx")) {
             return "DOCX";
-        } else if (fileUrl.endsWith(".jpg")) {
+        } else if (fileUrl.endsWith(".jpg") || fileUrl.endsWith(".jpeg")) {
             return "JPG";
         } else if (fileUrl.endsWith(".png")) {
             return "PNG";

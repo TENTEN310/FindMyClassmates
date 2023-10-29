@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -39,6 +40,7 @@ public class ClassDetail extends AppCompatActivity {
     private Uri fileUri;
     private RecyclerView materialsList;
     private ShowMaterialsResult materialsAdapter;
+    String storagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,16 +77,16 @@ public class ClassDetail extends AppCompatActivity {
         checkIfUserIsInClass(classes.getAbv(), FirebaseUtil.getUserID(), add, remove);
         remove.setOnClickListener(v -> removeClassFromUserAndUserFromClass(classes, add, remove));
 
+        // get our current class and storage path
+        String classAbv = classes.getAbv();
+        storagePath = "materials/" + classAbv;
+
         // add a file to the class materials
         uploadMaterial.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("*/*"); // all files are allowed
             startActivityForResult(intent, 1);
         });
-
-        // get our current class and storage path
-        String classAbv = getIntent().getStringExtra("classAbv");
-        String storagePath = "materials/" + classAbv;
 
         // list our materials out
         materialsList = findViewById(R.id.materialsList);
@@ -106,6 +108,8 @@ public class ClassDetail extends AppCompatActivity {
                 // successfully got materials
                 .addOnSuccessListener(listResult -> {
                     for (StorageReference item : listResult.getItems()) {
+
+                        Toast.makeText(getApplicationContext(), "material: " + item.getMetadata(), Toast.LENGTH_SHORT).show();
                         String materialName = item.getName();
                         String fileType = getFileType(materialName);
 
@@ -121,11 +125,12 @@ public class ClassDetail extends AppCompatActivity {
 
     // get the file type based on the material name
     private String getFileType(String materialName) {
+
         if (materialName.endsWith(".pdf")) {
             return "PDF";
         } else if (materialName.endsWith(".docx")) {
             return "DOCX";
-        } else if (materialName.endsWith(".jpg")) {
+        } else if (materialName.endsWith(".jpg") || materialName.endsWith(".jpeg")) {
             return "JPG";
         } else if (materialName.endsWith(".png")) {
             return "PNG";
@@ -149,6 +154,9 @@ public class ClassDetail extends AppCompatActivity {
                     // upload success
                     .addOnSuccessListener(taskSnapshot -> {
                         Toast.makeText(getApplicationContext(), "File uploaded successfully", Toast.LENGTH_SHORT).show();
+
+                        // update the materials list
+                        retrieveMaterialsFromFirebase(storagePath);
                     })
                     // upload failure
                     .addOnFailureListener(e -> {
