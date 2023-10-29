@@ -17,7 +17,6 @@ import com.hfad.classmates.ClassDetail;
 import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.Classes;
 
-
 public class ShowClassResult extends FirestoreRecyclerAdapter<Classes, ShowClassResult.ClassView> {
     Context context;
     public ShowClassResult(@NonNull FirestoreRecyclerOptions<Classes> options, Context context) {
@@ -54,7 +53,6 @@ public class ShowClassResult extends FirestoreRecyclerAdapter<Classes, ShowClass
         TextView classname;
         TextView term, professor, divider;
         ImageButton close;
-
 
         public ClassView(@NonNull View itemView) {
             super(itemView);

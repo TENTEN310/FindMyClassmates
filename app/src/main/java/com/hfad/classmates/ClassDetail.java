@@ -2,6 +2,8 @@ package com.hfad.classmates;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -21,8 +24,10 @@ import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.hfad.classmates.objectClasses.Classes;
+import com.hfad.classmates.objectClasses.Materials;
 import com.hfad.classmates.objectClasses.ProfileInfo;
 import com.hfad.classmates.util.FirebaseUtil;
+import com.hfad.classmates.util.ShowMaterialsResult;
 
 public class ClassDetail extends AppCompatActivity {
     TextView classFullName, professor, classAbv, description, empty1, empty2;
@@ -30,6 +35,9 @@ public class ClassDetail extends AppCompatActivity {
     ImageButton back, add, remove;
     Button roster, uploadMaterial;
     private Uri fileUri;
+
+    private RecyclerView materialsList;
+    private ShowMaterialsResult materialsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +61,8 @@ public class ClassDetail extends AppCompatActivity {
         classAbv.setText(classes.getAbv());
         description.setText(classes.getDescription());
         back.setOnClickListener(v -> finish());
-        //add class to user's class list
 
+        //add class to user's class list
         add.setOnClickListener(v -> addClassToUserAndUserToClass(classes, add, remove));
         roster.setOnClickListener(
                 v -> {
@@ -72,13 +80,28 @@ public class ClassDetail extends AppCompatActivity {
             intent.setType("*/*"); // all files are allowed
             startActivityForResult(intent, 1);
         });
+
+        // get our current class
+        String classAbv = getIntent().getStringExtra("classAbv");
+
+        // display our materials
+        materialsList = findViewById(R.id.materialsList);
+        materialsList.setLayoutManager(new LinearLayoutManager(this));
+
+        //query our items to show
+        FirestoreRecyclerOptions<Materials> options = new FirestoreRecyclerOptions.Builder<Materials>()
+                .setQuery(FirebaseFirestore.getInstance()
+                                .collection("materials")
+                                .whereEqualTo("classAbv", classAbv),
+                        Materials.class)
+                .build();
+        materialsAdapter = new ShowMaterialsResult(options, this, classAbv);
+        materialsList.setAdapter(materialsAdapter);
     }
 
     // add the file to the database storage
     private void uploadFileWithCustomName(Uri fileUri, String customFileName) {
         if (fileUri != null) {
-            String fileName = classes.getAbv() + "/" + customFileName;
-
             // create the location for this file
             StorageReference storageRef = FirebaseStorage.getInstance().getReference()
                     .child("materials")
@@ -124,6 +147,22 @@ public class ClassDetail extends AppCompatActivity {
             });
             alertDialog.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
             alertDialog.show();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (materialsAdapter != null) {
+            materialsAdapter.startListening();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (materialsAdapter != null) {
+            materialsAdapter.stopListening();
         }
     }
 
