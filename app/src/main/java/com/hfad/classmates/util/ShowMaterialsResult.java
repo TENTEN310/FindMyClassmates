@@ -1,29 +1,33 @@
 package com.hfad.classmates.util;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.Materials;
 
-public class ShowMaterialsResult extends FirestoreRecyclerAdapter<Materials, ShowMaterialsResult.MaterialViewHolder> {
-    Context context;
-    String classAbv;
+import java.util.List;
 
-    public ShowMaterialsResult(@NonNull FirestoreRecyclerOptions<Materials> options, Context context, String classAbv) {
-        super(options);
+public class ShowMaterialsResult extends RecyclerView.Adapter<ShowMaterialsResult.MaterialViewHolder> {
+    private Context context;
+    private List<Materials> materialsList;
+    private String storagePath;
+
+    public ShowMaterialsResult(Context context, String storagePath, List<Materials> materialsList) {
         this.context = context;
-        this.classAbv = classAbv;
+        this.storagePath = storagePath;
+        this.materialsList = materialsList;
+    }
+
+    public void setMaterialsList(List<Materials> materialsList) {
+        this.materialsList = materialsList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -34,27 +38,29 @@ public class ShowMaterialsResult extends FirestoreRecyclerAdapter<Materials, Sho
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull MaterialViewHolder holder, int position, @NonNull Materials model) {
-        // retrieve the materials from storage
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference()
-                .child("materials")
-                .child(classAbv)
-                .child(model.getMaterialName());
+    public void onBindViewHolder(@NonNull MaterialViewHolder holder, int position) {
+        if (materialsList != null) {
+            Materials material = materialsList.get(position);
 
-        // set the material name text
-        holder.materialName.setText(model.getMaterialName());
+            // retrieve the materials from storage
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference()
+                    .child(storagePath)
+                    .child(material.getMaterialName());
 
-        // set the material format text
-        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
+            // set the material name and format text
+            holder.materialName.setText(material.getMaterialName());
+            storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                 String materialUrl = uri.toString();
-                holder.format.setText(getFileFormat(materialUrl));
-            }
-        });
+                holder.fileType.setText(getFileFormat(materialUrl));
+            });
+        }
     }
 
-    // setting the format in the view
+    @Override
+    public int getItemCount() {
+        return materialsList == null ? 0 : materialsList.size();
+    }
+
     private String getFileFormat(String fileUrl) {
         if (fileUrl.endsWith(".pdf")) {
             return "PDF";
@@ -69,14 +75,14 @@ public class ShowMaterialsResult extends FirestoreRecyclerAdapter<Materials, Sho
         }
     }
 
-    class MaterialViewHolder extends RecyclerView.ViewHolder {
+    static class MaterialViewHolder extends RecyclerView.ViewHolder {
         TextView materialName;
-        TextView format;
+        TextView fileType;
 
-        public MaterialViewHolder(@NonNull View itemView) {
+        MaterialViewHolder(@NonNull View itemView) {
             super(itemView);
-            materialName = itemView.findViewById(R.id.materialType);
-            format = itemView.findViewById(R.id.format);
+            materialName = itemView.findViewById(R.id.materialName);
+            fileType = itemView.findViewById(R.id.fileType);
         }
     }
 }

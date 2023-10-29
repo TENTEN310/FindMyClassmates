@@ -15,7 +15,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -29,13 +28,15 @@ import com.hfad.classmates.objectClasses.ProfileInfo;
 import com.hfad.classmates.util.FirebaseUtil;
 import com.hfad.classmates.util.ShowMaterialsResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClassDetail extends AppCompatActivity {
     TextView classFullName, professor, classAbv, description, empty1, empty2;
     Classes classes;
     ImageButton back, add, remove;
     Button roster, uploadMaterial;
     private Uri fileUri;
-
     private RecyclerView materialsList;
     private ShowMaterialsResult materialsAdapter;
 
@@ -81,23 +82,58 @@ public class ClassDetail extends AppCompatActivity {
             startActivityForResult(intent, 1);
         });
 
-        // get our current class
+        // get our current class and storage path
         String classAbv = getIntent().getStringExtra("classAbv");
+        String storagePath = "materials/" + classAbv;
 
-        // display our materials
+        // list our materials out
         materialsList = findViewById(R.id.materialsList);
         materialsList.setLayoutManager(new LinearLayoutManager(this));
-
-        //query our items to show
-        FirestoreRecyclerOptions<Materials> options = new FirestoreRecyclerOptions.Builder<Materials>()
-                .setQuery(FirebaseFirestore.getInstance()
-                                .collection("materials")
-                                .whereEqualTo("classAbv", classAbv),
-                        Materials.class)
-                .build();
-        materialsAdapter = new ShowMaterialsResult(options, this, classAbv);
+        materialsAdapter = new ShowMaterialsResult(this, storagePath, new ArrayList<>());
         materialsList.setAdapter(materialsAdapter);
+
+        // update the materials list
+        retrieveMaterialsFromFirebase(storagePath);
     }
+
+    // update our materials list
+    private void retrieveMaterialsFromFirebase(String storagePath) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference().child(storagePath);
+        List<Materials> materialsListFromFirebase = new ArrayList<>();
+
+        storageRef.listAll()
+                // successfully got materials
+                .addOnSuccessListener(listResult -> {
+                    for (StorageReference item : listResult.getItems()) {
+                        String materialName = item.getName();
+                        String fileType = getFileType(materialName);
+
+                        materialsListFromFirebase.add(new Materials(materialName, fileType));
+                    }
+                    materialsAdapter.setMaterialsList(materialsListFromFirebase);
+                })
+                // failed to get materials
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getApplicationContext(), "Failed to retrieve materials: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    // Method to get the file type based on the material name
+    private String getFileType(String materialName) {
+        if (materialName.endsWith(".pdf")) {
+            return "PDF";
+        } else if (materialName.endsWith(".docx")) {
+            return "DOCX";
+        } else if (materialName.endsWith(".jpg")) {
+            return "JPG";
+        } else if (materialName.endsWith(".png")) {
+            return "PNG";
+        } else {
+            return "Unknown";
+        }
+    }
+
 
     // add the file to the database storage
     private void uploadFileWithCustomName(Uri fileUri, String customFileName) {
@@ -147,22 +183,6 @@ public class ClassDetail extends AppCompatActivity {
             });
             alertDialog.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
             alertDialog.show();
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (materialsAdapter != null) {
-            materialsAdapter.startListening();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (materialsAdapter != null) {
-            materialsAdapter.stopListening();
         }
     }
 
