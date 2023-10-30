@@ -90,6 +90,13 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
             close.setVisibility(View.GONE);
             Button message = popupView.findViewById(R.id.Message);
 
+            message.setOnClickListener(v12 -> {
+                Intent intent = new Intent(context, Inside_chat.class);
+                intent.putExtra("userId", posterID);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            });
+
             FirebaseUtil.getProfilePic(posterID).getDownloadUrl().addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
                     Uri uri  = task.getResult();
@@ -100,7 +107,7 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
             FirebaseUtil.getOtherUserDetails(posterID).get().addOnSuccessListener(documentSnapshot -> {
                 ProfileInfo profileInfo = documentSnapshot.toObject(ProfileInfo.class);
                 if(posterID.equals(FirebaseUtil.getUserID())){
-                    message.setVisibility(View.GONE);
+                    message.setEnabled(false); ;
                     userInfo.setText("Myself" + "(" + profileInfo.getYear() + ")");
                     major.setText(profileInfo.getMajor());
                     school.setText(profileInfo.getSchool());
@@ -108,14 +115,6 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
                 userInfo.setText(profileInfo.getUsername() + "(" + profileInfo.getYear() + ")");
                 major.setText(profileInfo.getMajor());
                 school.setText(profileInfo.getSchool());
-            });
-
-
-            message.setOnClickListener(v12 -> {
-                Intent intent = new Intent(context, Inside_chat.class);
-                intent.putExtra("userId", posterID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
             });
 
             // Create and show the PopupWindow

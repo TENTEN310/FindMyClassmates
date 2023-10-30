@@ -69,7 +69,7 @@ public class RosterUserResult extends FirestoreRecyclerAdapter<ProfileInfo, Rost
             FirebaseUtil.getOtherUserDetails(model.getUserID()).get().addOnSuccessListener(documentSnapshot -> {
                 ProfileInfo profileInfo = documentSnapshot.toObject(ProfileInfo.class);
                 if(model.getUserID().equals(FirebaseUtil.getUserID())){
-                    message.setVisibility(View.GONE);
+                    message.setEnabled(false);
                     userInfo.setText("Myself" + "(" + profileInfo.getYear() + ")");
                     major.setText(profileInfo.getMajor());
                     school.setText(profileInfo.getSchool());
