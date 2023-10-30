@@ -114,7 +114,7 @@ public class ClassDetail extends AppCompatActivity {
                         .addOnSuccessListener(storageMetadata -> {
                             // get our name and file type and add it to our list
                             String fileType = getFileType(storageMetadata.getContentType());
-                            materialsListFromFirebase.add(new Materials(item.getName(), fileType));
+                            materialsListFromFirebase.add(new Materials(item.getName(), fileType, item.getPath()));
                             itemsProcessed.getAndIncrement();
 
                             // check if all items have been processed
@@ -140,7 +140,7 @@ public class ClassDetail extends AppCompatActivity {
         if (contentType != null) {
             String[] parts = contentType.split("/");
             if (parts.length > 1) {
-                return parts[1];
+                return parts[1].toUpperCase();
             }
         }
 
