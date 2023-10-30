@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,11 +24,10 @@ import java.util.List;
 public class ShowMaterialsResult extends RecyclerView.Adapter<ShowMaterialsResult.MaterialViewHolder> {
     private Context context;
     private List<Materials> materialsList;
-    private String storagePath;
+    ImageButton deleteMaterialBtn;
 
-    public ShowMaterialsResult(Context context, String storagePath, List<Materials> materialsList) {
+    public ShowMaterialsResult(Context context, List<Materials> materialsList) {
         this.context = context;
-        this.storagePath = storagePath;
         this.materialsList = materialsList;
     }
 
@@ -56,8 +56,16 @@ public class ShowMaterialsResult extends RecyclerView.Adapter<ShowMaterialsResul
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // Handle the click event
                     openFileFromFirebase(material);
+                }
+            });
+
+            //delete the material
+            deleteMaterialBtn = holder.itemView.findViewById(R.id.deleteMaterialBtn);
+            deleteMaterialBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteFileFromFirebase(material);
                 }
             });
         }
@@ -87,7 +95,6 @@ public class ShowMaterialsResult extends RecyclerView.Adapter<ShowMaterialsResul
             // opened/downloaded file
             .addOnSuccessListener(uri -> {
                 String downloadUrl = uri.toString();
-
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(downloadUrl));
 
@@ -100,6 +107,22 @@ public class ShowMaterialsResult extends RecyclerView.Adapter<ShowMaterialsResul
             // cannot open/download file
             .addOnFailureListener(e -> {
                 Toast.makeText(context, "Failed to retrieve download URL: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            });
+    }
+
+    // delete the file from storage
+    private void deleteFileFromFirebase(Materials material) {
+        StorageReference fileReference = FirebaseStorage.getInstance().getReference().child(material.getFilePath());
+
+        fileReference.delete()
+            // successfully deleted the file from storage
+            .addOnSuccessListener(aVoid -> {
+                materialsList.remove(material);
+                notifyDataSetChanged();
+            })
+            // failed to delete the file from storage
+            .addOnFailureListener(exception -> {
+                Toast.makeText(context, "Failed to delete file: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
             });
     }
 }

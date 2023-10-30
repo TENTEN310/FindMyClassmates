@@ -37,10 +37,10 @@ public class ClassDetail extends AppCompatActivity {
     Classes classes;
     ImageButton back, add, remove;
     Button roster, uploadMaterial;
+    String storagePath;
     private Uri fileUri;
     private RecyclerView materialsList;
     private ShowMaterialsResult materialsAdapter;
-    String storagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,7 @@ public class ClassDetail extends AppCompatActivity {
         // list our materials out
         materialsList = findViewById(R.id.materialsList);
         materialsList.setLayoutManager(new LinearLayoutManager(this));
-        materialsAdapter = new ShowMaterialsResult(this, storagePath, new ArrayList<>());
+        materialsAdapter = new ShowMaterialsResult(this, new ArrayList<>());
         materialsList.setAdapter(materialsAdapter);
 
         // update the materials list
@@ -134,7 +134,6 @@ public class ClassDetail extends AppCompatActivity {
             });
     }
 
-
     // get the file type based on the material name
     private String getFileType(String contentType) {
         if (contentType != null) {
@@ -176,6 +175,7 @@ public class ClassDetail extends AppCompatActivity {
         }
     }
 
+    // give the file a custom name
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
