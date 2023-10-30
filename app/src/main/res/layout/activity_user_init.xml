@@ -81,15 +81,13 @@
                 android:text="@string/what_s_your_major"
                 android:textSize="20sp" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/init_major_input"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:layout_margin="30sp"
+                android:layout_marginBottom="50sp"
                 android:background="@drawable/round_textedit"
-                android:ems="10"
-                android:hint="@string/major"
-                android:inputType="text"
                 android:autofillHints="majors" />
 
             <TextView
@@ -106,7 +104,6 @@
                 android:layout_height="50sp"
                 android:layout_margin="30sp"
                 android:layout_marginBottom="50sp"
-
                 android:background="@drawable/round_textedit" />
 
             <ProgressBar

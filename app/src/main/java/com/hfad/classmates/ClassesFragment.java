@@ -27,7 +27,6 @@ public class ClassesFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +59,6 @@ public class ClassesFragment extends Fragment {
         recyclerView.setAdapter(DeptHistoryResult);
         DeptHistoryResult.startListening();
     }
-
-
 
     @Override
     public void onStart() {

@@ -46,4 +46,31 @@
         <item>USC Iovine and Young Academy</item>
         <!-- Add more if needed -->
     </string-array>
+    <string-array name="usc_majors">
+        <item>Architecture</item>
+        <item>Arts</item>
+        <item>Business</item>
+        <item>Journalism</item>
+        <item>Education</item>
+        <item>Civil Engineering</item>
+        <item>Gerontology</item>
+        <item>Law</item>
+        <item>Medicine</item>
+        <item>Music</item>
+        <item>Public Policy</item>
+        <item>Social Work</item>
+        <item>Computer Science</item>
+        <item>Electrical Engineering</item>
+        <item>Mechanical Engineering</item>
+        <item>Chemical Engineering</item>
+        <item>Biomedical Engineering</item>
+        <item>Physics</item>
+        <item>Mathematics</item>
+        <item>Chemistry</item>
+        <item>Biology</item>
+        <item>Psychology</item>
+        <item>Communication</item>
+        <!-- Add more if needed -->
+    </string-array>
+
 </resources>

@@ -25,8 +25,8 @@ import com.hfad.classmates.objectClasses.ProfileInfo;
 
 public class UserInit extends AppCompatActivity {
     Button submit;
-    EditText year, major, username;
-    Spinner school;
+    EditText year, username;
+    Spinner school, major;
     ProgressBar bar;
     TextView resend;
 
@@ -44,10 +44,14 @@ public class UserInit extends AppCompatActivity {
         school = findViewById(R.id.init_school_spinner);
         bar = findViewById(R.id.progressBar4);
         resend = findViewById(R.id.resentText);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> school_adapter = ArrayAdapter.createFromResource(this,
                 R.array.usc_schools, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        school.setAdapter(adapter);
+        school_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        school.setAdapter(school_adapter);
+        ArrayAdapter<CharSequence> major_adapter = ArrayAdapter.createFromResource(this,
+                R.array.usc_majors, android.R.layout.simple_spinner_item);
+        major_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        major.setAdapter(major_adapter);
         bar.setVisibility(View.GONE);
         if(user!= null){
             user.sendEmailVerification();
@@ -68,13 +72,13 @@ public class UserInit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String year1 = year.getText().toString();
-                String major1 = major.getText().toString();
+                String major1 = major.getSelectedItem().toString();
                 String username1 = username.getText().toString().toLowerCase();
                 String school1 = school.getSelectedItem().toString();
                 if(username1.isEmpty()) username.setError("Please enter username");
                 else if(username1.length()<3) username.setError("Username length should be at least 3 chars");
                 else if(year1.isEmpty()) year.setError("Please enter year");
-                else if(major1.isEmpty()) major.setError("Please enter major");
+                else if(major1.isEmpty()) ((TextView)major.getSelectedView()).setError("Please enter major");
                 else if(school1.isEmpty()) ((TextView)school.getSelectedView()).setError("Please select school");
                 else{
                     submit.setVisibility(View.GONE);

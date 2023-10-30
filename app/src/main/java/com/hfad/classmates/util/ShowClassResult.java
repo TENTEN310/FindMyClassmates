@@ -1,21 +1,14 @@
 package com.hfad.classmates.util;
 
-
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 
@@ -23,7 +16,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.hfad.classmates.ClassDetail;
 import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.Classes;
-
 
 public class ShowClassResult extends FirestoreRecyclerAdapter<Classes, ShowClassResult.ClassView> {
     Context context;
@@ -48,7 +40,6 @@ public class ShowClassResult extends FirestoreRecyclerAdapter<Classes, ShowClass
                 context.startActivity(intent);
             }
         });
-
     }
 
     @NonNull
@@ -62,7 +53,6 @@ public class ShowClassResult extends FirestoreRecyclerAdapter<Classes, ShowClass
         TextView classname;
         TextView term, professor, divider;
         ImageButton close;
-
 
         public ClassView(@NonNull View itemView) {
             super(itemView);

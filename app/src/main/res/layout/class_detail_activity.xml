@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".chatsActivity.Inside_chat"
-    android:orientation="vertical"> <!-- Change orientation to vertical -->
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,8 +44,7 @@
             android:layout_height="35dp"
             app:srcCompat="@drawable/ic_add"
             android:background="@android:color/transparent"
-            android:layout_alignParentEnd="true"
-            />
+            android:layout_alignParentEnd="true"/>
 
         <ImageButton
             android:id="@+id/imageButton4"
@@ -66,8 +66,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/fullname_container"
-                >
+                android:id="@+id/fullname_container">
 
                 <TextView
                     android:id="@+id/fullname"
@@ -79,6 +78,7 @@
                     android:textColor="@color/black"
                     android:textSize="30sp"
                     android:textStyle="bold" />
+
                 <View
                     android:id="@+id/divider"
                     android:layout_below="@+id/fullname"
@@ -86,10 +86,7 @@
                     android:layout_height="1dp"
                     android:layout_margin="10dp"
                     android:background="?android:attr/listDivider" />
-
-
             </RelativeLayout>
-
             <RelativeLayout
                 android:id="@+id/prof_container"
                 android:layout_width="match_parent"
@@ -133,9 +130,7 @@
                         android:textColor="@color/black"
                         android:textSize="32sp"
                         android:textStyle="bold" />
-
                 </LinearLayout>
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -149,6 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical">
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -195,7 +191,6 @@
                             android:layout_marginTop="10dp"
                             android:orientation="vertical">
 
-
                             <TextView
                                 android:id="@+id/material"
                                 android:layout_width="wrap_content"
@@ -207,10 +202,12 @@
                                 android:textStyle="bold" />
 
                             <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/materialsList"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_below="@id/material"
                                 android:padding="10dp" />
+
                             <TextView
                                 android:id="@+id/empty_view1"
                                 android:layout_width="match_parent"
@@ -218,6 +215,7 @@
                                 android:text="No Materials Yet."
                                 android:gravity="center"
                                 android:visibility="gone"/>
+
                             <Button
                                 android:id="@+id/uploadMaterialbtn"
                                 android:layout_width="match_parent"
@@ -225,11 +223,9 @@
                                 android:background="@drawable/rounded_for_recycle"
                                 android:layout_marginHorizontal="10dp"
                                 android:text="Upload More Material" />
-
                         </LinearLayout>
-
-
                     </RelativeLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -239,8 +235,7 @@
                     <RelativeLayout
                         android:id="@+id/roster_container"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                      >
+                        android:layout_height="wrap_content">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -254,12 +249,9 @@
                                 android:background="@drawable/rounded_for_recycle"
                                 android:layout_marginHorizontal="10dp"
                                 android:text="Click to see the Roster" />
-
                         </LinearLayout>
-
-
-
                     </RelativeLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -275,6 +267,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
+
                             <Button
                                 android:id="@+id/commentbtn"
                                 android:layout_width="match_parent"
@@ -298,6 +291,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:padding="10dp" />
+
                             <TextView
                                 android:id="@+id/empty_view2"
                                 android:layout_width="match_parent"
@@ -305,18 +299,10 @@
                                 android:text="Be The First Reviewer."
                                 android:gravity="center"
                                 android:visibility="gone"/>
-
-
                         </LinearLayout>
-
-
                     </RelativeLayout>
                 </LinearLayout>
-
             </RelativeLayout>
-
         </RelativeLayout>
-
     </ScrollView>
-
 </LinearLayout>
