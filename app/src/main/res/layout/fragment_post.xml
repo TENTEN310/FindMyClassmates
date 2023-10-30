@@ -73,12 +73,15 @@
 
         <EditText
             android:id="@+id/post"
-            android:layout_margin="20dp"
-            android:inputType="textImeMultiLine|textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/profile_bar"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:hint="What's on your mind?"
+            android:inputType="textImeMultiLine|textMultiLine"
             android:minHeight="80dp"
             android:padding="20dp"
             android:singleLine="true" />

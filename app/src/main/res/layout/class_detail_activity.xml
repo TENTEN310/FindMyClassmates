@@ -122,8 +122,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="Professor:"
                         android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/Professor_name"
@@ -177,8 +176,7 @@
                         android:text="Chao WangChao WangChao WangChao WangChao WangChao
                 WangChao WangChao WangChao WangChao WangChao Wang"
                         android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="20sp" />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -296,6 +294,7 @@
                                 android:textStyle="bold" />
 
                             <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/reviewRecycleView"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:padding="10dp" />

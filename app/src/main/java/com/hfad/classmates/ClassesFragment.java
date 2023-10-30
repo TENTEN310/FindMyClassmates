@@ -12,18 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.hfad.classmates.objectClasses.Dept;
-import com.hfad.classmates.objectClasses.Post;
-import com.hfad.classmates.util.FirebaseUtil;
 import com.hfad.classmates.util.ShowDeptResult;
-import com.hfad.classmates.util.ShowPostResult;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ClassesFragment extends Fragment {
 

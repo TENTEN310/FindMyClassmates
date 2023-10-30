@@ -106,7 +106,7 @@ public class PostFragment extends Fragment {
             String description = post.getText().toString();
             // If description is empty set error
             if (description.isEmpty()) {
-                post.setError("Description Cant be empty");
+                post.setError("Description can't be empty");
             } else {
                 uploadData(description, profileInfo);
             }

@@ -121,7 +121,7 @@ public class ProfileFragment extends Fragment {
                 builder.setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String newUsername = usernameEditText.getText().toString();
+                        String newUsername = usernameEditText.getText().toString().toLowerCase();
                         DocumentReference usersDocRef = db.collection("users").document(user.getUid());
 
                         usersDocRef.update("username", newUsername)
