@@ -24,6 +24,8 @@
     <string name="which_school_are_you_from">Which school are you from?</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="resent_verification_email">Resent verification email</string>
+    <string name="what_s_usc_id">what\'s USC ID</string>
+    <string name="usc_id">USC ID</string>
     <string-array name="usc_schools">
         <item></item>
         <item>USC School of Architecture</item>

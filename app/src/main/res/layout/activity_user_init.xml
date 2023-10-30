@@ -54,6 +54,25 @@
                 android:autofillHints="username" />
 
             <TextView
+                android:id="@+id/init_USCID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:gravity="center_horizontal"
+                android:text="@string/what_s_usc_id"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/init_USCID_input"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:layout_margin="30sp"
+                android:background="@drawable/round_textedit"
+                android:ems="10"
+                android:hint="@string/usc_id"
+                android:inputType="number" />
+
+            <TextView
                 android:id="@+id/init_year_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

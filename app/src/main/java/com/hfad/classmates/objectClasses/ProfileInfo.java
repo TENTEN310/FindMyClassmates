@@ -4,13 +4,14 @@ import com.google.firebase.Timestamp;
 
 public class ProfileInfo {
     public ProfileInfo() {}
-    public ProfileInfo(String username, String year, String major, String school, Timestamp timestamp, String userID) {
+    public ProfileInfo(String username, String year, String major, String school, String USCID, Timestamp timestamp, String userID) {
         this.username = username;
         this.year = year;
         this.major = major;
         this.school = school;
         this.timestamp = timestamp;
         this.userID = userID;
+        this.USCID = USCID;
     }
 
     public String getUsername() {
@@ -60,12 +61,21 @@ public class ProfileInfo {
         this.userID = userID;
     }
 
+    public String getUSCID() {
+        return USCID;
+    }
+
+    public void setUSCID(String USCID) {
+        this.USCID = USCID;
+    }
+
     private String username;
     private String year;
 
     private String major;
     private String school;
     private Timestamp timestamp;
+    private String USCID;
 
     private String userID;
 

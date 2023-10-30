@@ -25,7 +25,7 @@ import com.hfad.classmates.objectClasses.ProfileInfo;
 
 public class UserInit extends AppCompatActivity {
     Button submit;
-    EditText year, username;
+    EditText year, username, USCID;
     Spinner school, major;
     ProgressBar bar;
     TextView resend;
@@ -42,6 +42,7 @@ public class UserInit extends AppCompatActivity {
         school = findViewById(R.id.init_school_spinner);
         username = findViewById(R.id.init_username_input);
         school = findViewById(R.id.init_school_spinner);
+        USCID = findViewById(R.id.init_USCID_input);
         bar = findViewById(R.id.progressBar4);
         resend = findViewById(R.id.resentText);
         ArrayAdapter<CharSequence> school_adapter = ArrayAdapter.createFromResource(this,
@@ -75,15 +76,17 @@ public class UserInit extends AppCompatActivity {
                 String major1 = major.getSelectedItem().toString();
                 String username1 = username.getText().toString().toLowerCase();
                 String school1 = school.getSelectedItem().toString();
+                String USCID1 = USCID.getText().toString();
                 if(username1.isEmpty()) username.setError("Please enter username");
                 else if(username1.length()<3) username.setError("Username length should be at least 3 chars");
                 else if(year1.isEmpty()) year.setError("Please enter year");
+                else if(USCID1.isEmpty()) year.setError("Please enter USCID");
                 else if(major1.isEmpty()) ((TextView)major.getSelectedView()).setError("Please enter major");
                 else if(school1.isEmpty()) ((TextView)school.getSelectedView()).setError("Please select school");
                 else{
                     submit.setVisibility(View.GONE);
                     bar.setVisibility(View.VISIBLE);
-                    ProfileInfo profileInfo = new ProfileInfo(username1, year1, major1, school1,Timestamp.now(), FirebaseUtil.getUserID());
+                    ProfileInfo profileInfo = new ProfileInfo(username1, year1, major1, school1, USCID1, Timestamp.now(), FirebaseUtil.getUserID());
 
                     user.reload().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

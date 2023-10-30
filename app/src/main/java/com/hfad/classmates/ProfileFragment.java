@@ -69,6 +69,7 @@ public class ProfileFragment extends Fragment {
 
         TextView nameText = rootView.findViewById(R.id.usernameText);
         TextView emailText = rootView.findViewById(R.id.emailText);
+        TextView USCIDView = rootView.findViewById(R.id.USCID);
         recyclerView = rootView.findViewById(R.id.itemsList);
 
         ImageView profilePicture = rootView.findViewById(R.id.profile_image);
@@ -86,6 +87,7 @@ public class ProfileFragment extends Fragment {
                     DocumentSnapshot userDocument = queryDocumentSnapshots.getDocuments().get(0);
                     nameText.setText(userDocument.getString("username"));
                     majorYearText.setText(userDocument.getString("major") + " " + userDocument.getString("year"));
+                    USCIDView.setText(userDocument.getString("uscid"));
                 }
             });
 

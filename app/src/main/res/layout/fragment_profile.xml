@@ -12,7 +12,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:src="@drawable/profile_background"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,8 +29,8 @@
             android:id="@+id/usernameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/rounded_background"
             android:padding="10dp"
             android:text="Tommy Trojan"
@@ -42,14 +42,14 @@
             android:id="@+id/changeUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/rounded_background"
             android:clickable="true"
             android:padding="10dp"
             android:src="@drawable/ic_edit"
             app:layout_constraintBottom_toBottomOf="@+id/emailText"
             app:layout_constraintEnd_toStartOf="@+id/logout"
-            app:layout_constraintHorizontal_bias="0.028"
+            app:layout_constraintHorizontal_bias="0.025"
             app:layout_constraintStart_toEndOf="@+id/usernameText"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
@@ -58,7 +58,7 @@
             android:id="@+id/emailText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/rounded_background"
             android:padding="5dp"
@@ -70,8 +70,8 @@
             android:id="@+id/majorYearText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/rounded_background"
             android:padding="5dp"
             android:text="XXXX XXXX"
@@ -79,16 +79,28 @@
             app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
         <TextView
+            android:id="@+id/USCID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_background"
+            android:padding="5dp"
+            android:text="XXXX XXXX"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/majorYearText" />
+
+        <TextView
             android:id="@+id/classesText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:padding="10dp"
             android:text="ClassList: "
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/majorYearText" />
+            app:layout_constraintTop_toBottomOf="@+id/USCID" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemsList"
@@ -98,10 +110,10 @@
             android:layout_marginRight="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/classesText"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
             android:id="@+id/profile_image"
@@ -111,10 +123,10 @@
             android:src="@drawable/circular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.859"
+            app:layout_constraintHorizontal_bias="0.869"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.17" />
+            app:layout_constraintVertical_bias="0.177" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/profilechangebtn"
