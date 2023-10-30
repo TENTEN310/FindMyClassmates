@@ -5,10 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.Materials;
 
@@ -42,37 +41,15 @@ public class ShowMaterialsResult extends RecyclerView.Adapter<ShowMaterialsResul
         if (materialsList != null) {
             Materials material = materialsList.get(position);
 
-            // retrieve the materials from storage
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference()
-                    .child(storagePath)
-                    .child(material.getMaterialName());
-
             // set the material name and format text
             holder.materialName.setText(material.getMaterialName());
-            storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                String materialUrl = uri.toString();
-                holder.fileType.setText(getFileFormat(materialUrl));
-            });
+            holder.fileType.setText(material.getFileType());
         }
     }
 
     @Override
     public int getItemCount() {
         return materialsList == null ? 0 : materialsList.size();
-    }
-
-    private String getFileFormat(String fileUrl) {
-        if (fileUrl.endsWith(".pdf")) {
-            return "PDF";
-        } else if (fileUrl.endsWith(".docx")) {
-            return "DOCX";
-        } else if (fileUrl.endsWith(".jpg") || fileUrl.endsWith(".jpeg")) {
-            return "JPG";
-        } else if (fileUrl.endsWith(".png")) {
-            return "PNG";
-        } else {
-            return "Unknown";
-        }
     }
 
     static class MaterialViewHolder extends RecyclerView.ViewHolder {

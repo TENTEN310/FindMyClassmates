@@ -9,7 +9,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,6 +30,7 @@ import com.hfad.classmates.util.ShowMaterialsResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ClassDetail extends AppCompatActivity {
     TextView classFullName, professor, classAbv, description, empty1, empty2;
@@ -105,38 +105,47 @@ public class ClassDetail extends AppCompatActivity {
         List<Materials> materialsListFromFirebase = new ArrayList<>();
 
         storageRef.listAll()
-                // successfully got materials
-                .addOnSuccessListener(listResult -> {
-                    for (StorageReference item : listResult.getItems()) {
+            .addOnSuccessListener(listResult -> {
+                int totalItems = listResult.getItems().size();
+                AtomicInteger itemsProcessed = new AtomicInteger();
 
-                        Toast.makeText(getApplicationContext(), "material: " + item.getMetadata(), Toast.LENGTH_SHORT).show();
-                        String materialName = item.getName();
-                        String fileType = getFileType(materialName);
+                for (StorageReference item : listResult.getItems()) {
+                    item.getMetadata()
+                        .addOnSuccessListener(storageMetadata -> {
+                            // get our name and file type and add it to our list
+                            String fileType = getFileType(storageMetadata.getContentType());
+                            materialsListFromFirebase.add(new Materials(item.getName(), fileType));
+                            itemsProcessed.getAndIncrement();
 
-                        materialsListFromFirebase.add(new Materials(materialName, fileType));
-                    }
-                    materialsAdapter.setMaterialsList(materialsListFromFirebase);
-                })
-                // failed to get materials
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getApplicationContext(), "Failed to retrieve materials: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+                            // check if all items have been processed
+                            if (itemsProcessed.get() == totalItems) {
+                                // update our list
+                                materialsAdapter.setMaterialsList(materialsListFromFirebase);
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getApplicationContext(), "Failed to retrieve metadata: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            itemsProcessed.getAndIncrement();
+                        });
+                }
+            })
+            .addOnFailureListener(e -> {
+                Toast.makeText(getApplicationContext(), "Failed to retrieve materials: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            });
     }
 
-    // get the file type based on the material name
-    private String getFileType(String materialName) {
 
-        if (materialName.endsWith(".pdf")) {
-            return "PDF";
-        } else if (materialName.endsWith(".docx")) {
-            return "DOCX";
-        } else if (materialName.endsWith(".jpg") || materialName.endsWith(".jpeg")) {
-            return "JPG";
-        } else if (materialName.endsWith(".png")) {
-            return "PNG";
-        } else {
-            return "Unknown";
+    // get the file type based on the material name
+    private String getFileType(String contentType) {
+        if (contentType != null) {
+            String[] parts = contentType.split("/");
+            if (parts.length > 1) {
+                return parts[1];
+            }
         }
+
+        // if there is no associated file type
+        return "Unknown";
     }
 
 
