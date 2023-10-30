@@ -281,8 +281,8 @@ public class ClassDetail extends AppCompatActivity {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         // Show the dialog
         dialog.show();
-        ImageButton close = popupView.findViewById(R.id.cancel);
-        close.setOnClickListener(view -> dialog.dismiss());
+        //ImageButton close = popupView.findViewById(R.id.cancel);
+        //close.setOnClickListener(view -> dialog.dismiss());
         // Capture the user's input when needed (e.g., when they click a "Submit" button)
         Button submitButton = popupView.findViewById(R.id.Message);
         submitButton.setOnClickListener(view -> {
