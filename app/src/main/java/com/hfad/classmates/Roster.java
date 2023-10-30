@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.Task;
@@ -14,15 +15,17 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.hfad.classmates.objectClasses.ProfileInfo;
 import com.hfad.classmates.util.FirebaseUtil;
+import com.hfad.classmates.util.RosterUserResult;
 import com.hfad.classmates.util.SearchUserResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Roster extends AppCompatActivity {
-    SearchUserResult searchUserResult;
+    RosterUserResult rosterUserResult;
     ImageButton back;
 
     RecyclerView recyclerView;
@@ -40,47 +43,59 @@ public class Roster extends AppCompatActivity {
 
     void showSearchResultRoster(String classID) {
         String deptID = FirebaseUtil.GetDeptFromClassID(classID);
-
-        // Corrected query path
         Query query = FirebaseFirestore.getInstance()
                 .collection("departments")
-                .document(FirebaseUtil.GetDeptFromClassID(classID))
+                .document(deptID)
                 .collection("classes")
                 .document(classID)
                 .collection("userList");
 
-        FirestoreRecyclerOptions<ProfileInfo> options = new FirestoreRecyclerOptions.Builder<ProfileInfo>()
-                .setQuery(query, ProfileInfo.class).build();
+        query.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                    FirestoreRecyclerOptions<ProfileInfo> options = new FirestoreRecyclerOptions.Builder<ProfileInfo>()
+                            .setQuery(query, ProfileInfo.class).build();
 
-        if (searchUserResult != null) {
-            searchUserResult.updateOptions(options);
-        } else {
-            searchUserResult = new SearchUserResult(options, getApplicationContext());
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(searchUserResult);
-        }
-        searchUserResult.startListening();
+                    if (rosterUserResult != null) {
+                        rosterUserResult.updateOptions(options);
+                    } else {
+                        rosterUserResult = new RosterUserResult(options, getApplicationContext());
+                        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                        recyclerView.setAdapter(rosterUserResult);
+                    }
+                    rosterUserResult.startListening();
+                } else {
+                    // Handle the case where the query returns no results
+                    Toast.makeText(getApplicationContext(), "No users found for this class.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                // Handle any errors that occurred while executing the query
+                Toast.makeText(getApplicationContext(), "Error fetching users.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(searchUserResult!=null)
-            searchUserResult.startListening();
+        if(rosterUserResult!=null)
+            rosterUserResult.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if(searchUserResult!=null)
-            searchUserResult.stopListening();
+        if(rosterUserResult!=null)
+            rosterUserResult.stopListening();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(searchUserResult!=null)
-            searchUserResult.startListening();
+        if(rosterUserResult!=null)
+            rosterUserResult.startListening();
     }
 }
