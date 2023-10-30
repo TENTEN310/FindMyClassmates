@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,14 +27,33 @@ public class ShowMaterialsResult extends RecyclerView.Adapter<ShowMaterialsResul
     private List<Materials> materialsList;
     ImageButton deleteMaterialBtn;
 
+
     public ShowMaterialsResult(Context context, List<Materials> materialsList) {
         this.context = context;
         this.materialsList = materialsList;
     }
 
+    private TextView emptyView;
+
+    public void setEmptyView(TextView view) {
+        this.emptyView = view;
+        checkEmpty();
+    }
+
     public void setMaterialsList(List<Materials> materialsList) {
         this.materialsList = materialsList;
+        checkEmpty();
         notifyDataSetChanged();
+    }
+
+    private void checkEmpty() {
+        if (emptyView != null) {
+            if (getItemCount() == 0) {
+                emptyView.setVisibility(View.VISIBLE);
+            } else {
+                emptyView.setVisibility(View.GONE);
+            }
+        }
     }
 
     @NonNull
@@ -42,6 +62,7 @@ public class ShowMaterialsResult extends RecyclerView.Adapter<ShowMaterialsResul
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.materials_cover, parent, false);
         return new MaterialViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull MaterialViewHolder holder, int position) {
@@ -70,6 +91,7 @@ public class ShowMaterialsResult extends RecyclerView.Adapter<ShowMaterialsResul
             });
         }
     }
+
 
     @Override
     public int getItemCount() {
@@ -125,4 +147,5 @@ public class ShowMaterialsResult extends RecyclerView.Adapter<ShowMaterialsResul
                 Toast.makeText(context, "Failed to delete file: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
             });
     }
+
 }

@@ -116,9 +116,20 @@ public class RosterUserResult extends FirestoreRecyclerAdapter<ProfileInfo, Rost
             profilePic = itemView.findViewById(R.id.profile_pic_image_view);
         }
     }
+    private TextView emptyView;
+
+    public void setEmptyView(TextView view) {
+        this.emptyView = view;
+    }
+
     @Override
     public void onDataChanged() {
         super.onDataChanged();
+        if (getItemCount() == 0) {
+            if (emptyView != null) emptyView.setVisibility(View.VISIBLE);
+        } else {
+            if (emptyView != null) emptyView.setVisibility(View.GONE);
+        }
         notifyDataSetChanged();
     }
 }

@@ -83,8 +83,8 @@ public class ClassDetail extends AppCompatActivity {
         add = findViewById(R.id.imageButton2);
         remove = findViewById(R.id.imageButton4);
         remove.setVisibility(Button.GONE);
-        empty1 = findViewById(R.id.empty_view1);
-        empty2 = findViewById(R.id.empty_view2);
+//        empty1 = findViewById(R.id.empty_view1);
+//        empty2 = findViewById(R.id.empty_view2);
         description = findViewById(R.id.description_class);
         classFullName.setText(classes.getName() + "\n(" + classes.getUnits() + " units)");
         professor.setText(classes.getProfessor());
@@ -129,7 +129,7 @@ public class ClassDetail extends AppCompatActivity {
         materialsList.setAdapter(materialsAdapter);
 
         // update the materials list
-        retrieveMaterialsFromFirebase(storagePath);
+        retrieveMaterialsFromFirebase(storagePath, findViewById(R.id.emptyMaterial));
 
         comment.setOnClickListener(v -> {
             // after clicking on comment button show review_popup
@@ -138,7 +138,7 @@ public class ClassDetail extends AppCompatActivity {
     }
 
     // update our materials list
-    private void retrieveMaterialsFromFirebase(String storagePath) {
+    private void retrieveMaterialsFromFirebase(String storagePath, TextView emptyMaterial) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child(storagePath);
         List<Materials> materialsListFromFirebase = new ArrayList<>();
@@ -160,6 +160,7 @@ public class ClassDetail extends AppCompatActivity {
                                     if (itemsProcessed.get() == totalItems) {
                                         // update our list
                                         materialsAdapter.setMaterialsList(materialsListFromFirebase);
+                                        materialsAdapter.setEmptyView(emptyMaterial);
                                     }
                                 })
                                 .addOnFailureListener(e -> {
@@ -185,7 +186,7 @@ public class ClassDetail extends AppCompatActivity {
         return "Unknown";
     }
     // add the file to the database storage
-    private void uploadFileWithCustomName(Uri fileUri, String customFileName) {
+    private void uploadFileWithCustomName(Uri fileUri, String customFileName, TextView emptyMaterial) {
         if (fileUri != null) {
             // create the location for this file
             StorageReference storageRef = FirebaseStorage.getInstance().getReference()
@@ -200,7 +201,7 @@ public class ClassDetail extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "File uploaded successfully", Toast.LENGTH_SHORT).show();
 
                         // update the materials list
-                        retrieveMaterialsFromFirebase(storagePath);
+                        retrieveMaterialsFromFirebase(storagePath, emptyMaterial);
                     })
                     // upload failure
                     .addOnFailureListener(e -> {
@@ -228,7 +229,7 @@ public class ClassDetail extends AppCompatActivity {
             alertDialog.setPositiveButton("Upload", (dialog, which) -> {
                 String customFileName = customFileNameEditText.getText().toString().trim();
                 if (!customFileName.isEmpty() && fileUri != null) {
-                    uploadFileWithCustomName(fileUri, customFileName);
+                    uploadFileWithCustomName(fileUri, customFileName, findViewById(R.id.emptyMaterial));
                 } else {
                     Toast.makeText(getApplicationContext(), "Please enter a custom file name", Toast.LENGTH_SHORT).show();
                 }

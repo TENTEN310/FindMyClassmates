@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -27,6 +28,7 @@ import java.util.List;
 public class Roster extends AppCompatActivity {
     RosterUserResult rosterUserResult;
     ImageButton back;
+    TextView emptyNotice;
 
     RecyclerView recyclerView;
 
@@ -37,11 +39,12 @@ public class Roster extends AppCompatActivity {
         setContentView(R.layout.activity_roster);
         back = findViewById(R.id.back_btn);
         recyclerView = findViewById(R.id.post_recycler_view);
-        showSearchResultRoster(getIntent().getStringExtra("classID"));
+        emptyNotice = findViewById(R.id.emptyRoster);
+        showSearchResultRoster(getIntent().getStringExtra("classID"), emptyNotice);
         back.setOnClickListener(v -> finish());
     }
 
-    void showSearchResultRoster(String classID) {
+    void showSearchResultRoster(String classID, TextView emptyNotice) {
         String deptID = FirebaseUtil.GetDeptFromClassID(classID);
         Query query = FirebaseFirestore.getInstance()
                 .collection("departments")
@@ -63,6 +66,7 @@ public class Roster extends AppCompatActivity {
                         rosterUserResult = new RosterUserResult(options, getApplicationContext());
                         recyclerView.setLayoutManager(new LinearLayoutManager(this));
                         recyclerView.setAdapter(rosterUserResult);
+                        rosterUserResult.setEmptyView(emptyNotice);
                     }
                     rosterUserResult.startListening();
                 } else {
@@ -98,4 +102,5 @@ public class Roster extends AppCompatActivity {
         if(rosterUserResult!=null)
             rosterUserResult.startListening();
     }
+
 }

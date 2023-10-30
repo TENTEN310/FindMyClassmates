@@ -209,6 +209,15 @@
                                 android:padding="10dp" />
 
                             <TextView
+                                android:id="@+id/emptyMaterial"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="20dp"
+                                android:gravity="center"
+                                android:text="Be the first one to upload material!"
+                                />
+
+                            <TextView
                                 android:id="@+id/empty_view1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -277,6 +286,7 @@
                                 android:text="Add A Review" />
 
                             <TextView
+                                android:layout_margin="10dp"
                                 android:id="@+id/comments"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -293,12 +303,13 @@
                                 android:padding="10dp" />
 
                             <TextView
-                                android:id="@+id/empty_view2"
+                                android:id="@+id/emptyReview"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Be The First Reviewer."
+                                android:layout_margin="20dp"
                                 android:gravity="center"
-                                android:visibility="gone"/>
+                                android:text="Be the first one to review!"
+                                />
                         </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>
