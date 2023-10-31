@@ -15,7 +15,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -23,10 +22,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.Query;
 import com.hfad.classmates.chatsActivity.Inside_chat;
 import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.Post;
@@ -107,7 +104,7 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
             FirebaseUtil.getOtherUserDetails(posterID).get().addOnSuccessListener(documentSnapshot -> {
                 ProfileInfo profileInfo = documentSnapshot.toObject(ProfileInfo.class);
                 if(posterID.equals(FirebaseUtil.getUserID())){
-                    message.setEnabled(false); ;
+                    message.setEnabled(false);
                     userInfo.setText("Myself" + "(" + profileInfo.getYear() + ")");
                     major.setText(profileInfo.getMajor());
                     school.setText(profileInfo.getSchool());

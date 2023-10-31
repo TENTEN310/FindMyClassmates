@@ -1,7 +1,6 @@
 package com.hfad.classmates.util;
 
 import android.content.Intent;
-import android.os.Parcelable;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -11,11 +10,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.hfad.classmates.objectClasses.Classes;
-import com.hfad.classmates.objectClasses.Dept;
 import com.hfad.classmates.objectClasses.ProfileInfo;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FirebaseUtil {
@@ -48,6 +45,10 @@ public class FirebaseUtil {
 
     public static CollectionReference getPostsCollectionReference() {
         return FirebaseFirestore.getInstance().collection("posts");
+    }
+
+    public static CollectionReference getReviewCollectionReference(String classID) {
+        return FirebaseFirestore.getInstance().collection("departments").document(GetDeptFromClassID(classID)).collection("classes").document(classID).collection("reviews");
     }
 
     public static CollectionReference getChatroomMessageReference(String chatroomId){

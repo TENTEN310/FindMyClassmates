@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/round_textedit"
         android:backgroundTint="@color/blue"
-        android:padding="12dp"
+        android:paddingHorizontal="20dp"
         android:layout_marginEnd="80dp"
         android:id="@+id/left_chat_layout"
         android:orientation="vertical">
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:text="Hello"
+            android:text="Hello,tis is side and efhiwufhwieufhiweuhfuiwuehfiuwehfiweufhi"
             android:id="@+id/left_chat_textview"/>
     </LinearLayout>
     <LinearLayout
@@ -27,7 +27,7 @@
         android:background="@drawable/round_textedit"
         android:backgroundTint="@color/darkPink"
         android:layout_alignParentEnd="true"
-        android:padding="12dp"
+        android:paddingHorizontal="20dp"
         android:layout_marginStart="80dp"
         android:id="@+id/right_chat_layout">
         <TextView

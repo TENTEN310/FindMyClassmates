@@ -42,6 +42,8 @@ import com.hfad.classmates.regLogInActivity.Login;
 import com.hfad.classmates.util.FirebaseUtil;
 import com.hfad.classmates.util.ShowClassResult;
 
+import org.w3c.dom.Text;
+
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
@@ -71,9 +73,7 @@ public class ProfileFragment extends Fragment {
         TextView emailText = rootView.findViewById(R.id.emailText);
         TextView USCIDView = rootView.findViewById(R.id.USCID);
         recyclerView = rootView.findViewById(R.id.itemsList);
-
         ImageView profilePicture = rootView.findViewById(R.id.profile_image);
-
         TextView majorYearText = rootView.findViewById(R.id.majorYearText);
         Button logout = rootView.findViewById(R.id.logout);
 
@@ -87,7 +87,7 @@ public class ProfileFragment extends Fragment {
                     DocumentSnapshot userDocument = queryDocumentSnapshots.getDocuments().get(0);
                     nameText.setText(userDocument.getString("username"));
                     majorYearText.setText(userDocument.getString("major") + " " + userDocument.getString("year"));
-                    USCIDView.setText(userDocument.getString("uscid"));
+                    USCIDView.setText("USCID: " + userDocument.getString("uscid"));
                 }
             });
 

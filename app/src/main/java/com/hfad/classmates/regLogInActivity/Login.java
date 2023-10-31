@@ -47,7 +47,7 @@ public class Login extends AppCompatActivity {
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), com.hfad.classmates.regLogInActivity.resetPass.class);
+                Intent intent = new Intent(getApplicationContext(), resetPass.class);
                 startActivity(intent);
                 finish();
             }

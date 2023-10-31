@@ -1,7 +1,5 @@
 package com.hfad.classmates.objectClasses;
 
-import java.util.List;
-
 public class Dept {
     String departmentName;
     String abv;

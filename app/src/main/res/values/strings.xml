@@ -26,6 +26,7 @@
     <string name="resent_verification_email">Resent verification email</string>
     <string name="what_s_usc_id">what\'s USC ID</string>
     <string name="usc_id">USC ID</string>
+    <string name="traveler_s_playground">Traveler\'s Playground</string>
     <string-array name="usc_schools">
         <item></item>
         <item>USC School of Architecture</item>

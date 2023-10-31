@@ -2,19 +2,22 @@ package com.hfad.classmates.objectClasses;
 
 import com.google.firebase.Timestamp;
 
+
 public class Comments {
     private String message;
     private String senderId;
     private Timestamp timestamp;
-    private String className;
-    private double overall, workload;
+    private String className, uid;
+    private double overall;
+    private double workload;
     private boolean attendance, late;
+    private int likes, dislikes;
 
     public Comments() {
     }
 
     public Comments(String message, String senderId, Timestamp timestamp, String className, double overall, double workload
-    , boolean attendance, boolean late) {
+    , boolean attendance, boolean late, int likes, int dislikes, String uid) {
         this.message = message;
         this.senderId = senderId;
         this.timestamp = timestamp;
@@ -23,6 +26,9 @@ public class Comments {
         this.workload = workload;
         this.attendance = attendance;
         this.late = late;
+        this.likes = likes;
+        this.dislikes = dislikes;
+        this.uid = uid;
     }
 
     public boolean getAttendance() {
@@ -76,7 +82,7 @@ public class Comments {
         return overall;
     }
 
-    public void setOverall(double rating) {
+    public void setOverall(double overall) {
         this.overall = overall;
     }
 
@@ -85,4 +91,16 @@ public class Comments {
     }
 
     public void setWorkload(double workload) {this.workload = workload;}
+
+    public int getLikes() {return likes;}
+
+    public void setLikes(int likes) {this.likes = likes;}
+
+    public int getDislikes() {return dislikes;}
+
+    public void setDislikes(int dislikes) {this.dislikes = dislikes;}
+
+    public String getUid() {return uid;}
+
+    public void setUid(String uid) {this.uid = uid;}
 }

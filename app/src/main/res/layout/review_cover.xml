@@ -23,7 +23,10 @@
                 android:id="@+id/profile_pic_image_view"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/circular"
                 android:backgroundTint="@color/white"
                 android:padding="10dp"
@@ -31,7 +34,7 @@
 
             <TextView
                 android:id="@+id/uname"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8sp"
                 android:layout_marginTop="20dp"
@@ -39,6 +42,60 @@
                 android:textSize="25sp"
                 android:textStyle="bold"
                 tools:text="User name" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/likeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/baseline_thumb_up_24" />
+
+                    <TextView
+                        android:id="@+id/likes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:text="0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/downButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/baseline_thumb_down_24" />
+
+                    <TextView
+                        android:id="@+id/dislikes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:text="0" />
+                </LinearLayout>
+
+            </LinearLayout>
         </RelativeLayout>
 
         <LinearLayout
@@ -49,16 +106,17 @@
             <LinearLayout
                 android:id="@+id/ratings"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/overall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8sp"
+                    android:text="Overall:"
+                    android:textStyle="bold"
                     android:textSize="20sp"
-                    tools:text="Overall:" />
+                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/overallRating"
@@ -66,15 +124,21 @@
                     android:layout_height="wrap_content"
                     android:padding="10sp"
                     android:textSize="20sp"
-                    tools:text="0.0" />
+                    android:text="0.0" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="/ 5.0" />
 
                 <TextView
                     android:id="@+id/workload"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8sp"
-                    android:textSize="20sp"
-                    tools:text="Workload:" />
+                    android:text="Workload:"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/workloadRating"
@@ -82,7 +146,12 @@
                     android:layout_height="wrap_content"
                     android:padding="10sp"
                     android:textSize="20sp"
-                    tools:text="0.0" />
+                    android:text="0.0" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="/ 5.0" />
             </LinearLayout>
 
             <LinearLayout
@@ -96,8 +165,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8sp"
-                    android:textSize="20sp"
-                    tools:text="Attendance Required:" />
+                    android:text="Attendance Required:"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/attendanceRating"
@@ -119,8 +189,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8sp"
-                    android:textSize="20sp"
-                    tools:text="Late Submission Allowed:" />
+                    android:text="Late Submission Allowed:"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/lateRating"

@@ -1,9 +1,5 @@
 package com.hfad.classmates;
 
-
-import static androidx.fragment.app.FragmentManager.TAG;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,23 +10,20 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -47,23 +40,19 @@ import com.hfad.classmates.util.ShowMaterialsResult;
 import com.hfad.classmates.util.ShowReviewResult;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class ClassDetail extends AppCompatActivity {
-    TextView classFullName, professor, classAbv, description, empty1, empty2;
+    RecyclerView recyclerView;
+    ShowReviewResult reviewHistoryResult;
+    TextView classFullName, professor, classAbv, description;
     Classes classes;
     ImageButton back, add, remove;
-
     Button roster, comment, uploadMaterial;
     String storagePath;
-    RecyclerView recyclerView;
-    ArrayList<Comments> commentsArrayList;
-    ShowReviewResult myAdapter;
-    FirebaseFirestore db;
+    Query db;
     private Uri fileUri;
     private RecyclerView materialsList;
     private ShowMaterialsResult materialsAdapter;
@@ -83,22 +72,12 @@ public class ClassDetail extends AppCompatActivity {
         add = findViewById(R.id.imageButton2);
         remove = findViewById(R.id.imageButton4);
         remove.setVisibility(Button.GONE);
-//        empty1 = findViewById(R.id.empty_view1);
-//        empty2 = findViewById(R.id.empty_view2);
         description = findViewById(R.id.description_class);
         classFullName.setText(classes.getName() + "\n(" + classes.getUnits() + " units)");
         professor.setText(classes.getProfessor());
         classAbv.setText(classes.getAbv());
         description.setText(classes.getDescription());
         back.setOnClickListener(v -> finish());
-        recyclerView = findViewById(R.id.reviewRecycleView);
-        recyclerView.setHasFixedSize(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        db = FirebaseFirestore.getInstance();
-        commentsArrayList = new ArrayList<Comments>();
-        myAdapter = new ShowReviewResult(ClassDetail.this, commentsArrayList);
-        recyclerView.setAdapter(myAdapter);
-        EventChangeListener();
         //add class to user's class list
         add.setOnClickListener(v -> addClassToUserAndUserToClass(classes, add, remove));
         roster.setOnClickListener(
@@ -135,6 +114,7 @@ public class ClassDetail extends AppCompatActivity {
             // after clicking on comment button show review_popup
             showReviewPop();
         });
+        showReview();
     }
 
     // update our materials list
@@ -238,39 +218,68 @@ public class ClassDetail extends AppCompatActivity {
             alertDialog.show();
         }
     }
-    private void EventChangeListener() {
-        db.collection("departments").document(FirebaseUtil.GetDeptFromClassID(classes.getAbv()))
+
+    public void showReview() {
+        recyclerView = findViewById(R.id.reviewRecycleView);
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        db = FirebaseFirestore.getInstance().collection("departments").document(FirebaseUtil.GetDeptFromClassID(classes.getAbv()))
                 .collection("classes").document(classes.getAbv()).collection("reviews")
-                .orderBy("timestamp", Query.Direction.ASCENDING).addSnapshotListener((value, error) -> {
-                    if (error != null) {
-                        Log.e("Firestore error", error.getMessage());
-                        return;
-                    }
-                    commentsArrayList.clear();
-                    for (DocumentChange snapshot : value.getDocumentChanges()) {
-                        if(snapshot.getType() == DocumentChange.Type.ADDED){
-                            commentsArrayList.add(snapshot.getDocument().toObject(Comments.class));
-                        }
-                    }
-                    myAdapter.notifyDataSetChanged();
-                });
+                .orderBy("timestamp", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<Comments> options = new FirestoreRecyclerOptions.Builder<Comments>()
+                .setQuery(db, Comments.class).build();
+
+        reviewHistoryResult = new ShowReviewResult(options, ClassDetail.this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(ClassDetail.this));
+        recyclerView.setAdapter(reviewHistoryResult);
+        reviewHistoryResult.startListening();
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(reviewHistoryResult!=null)
+            reviewHistoryResult.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(reviewHistoryResult!=null)
+            reviewHistoryResult.stopListening();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(reviewHistoryResult!=null)
+            reviewHistoryResult.notifyDataSetChanged();
     }
     private void addComments(Classes currentClass, String comment, double overall, double workload, boolean attendance, boolean late){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Timestamp timestamp = Timestamp.now();
-        Comments finalComment = new Comments(comment, userId, timestamp, currentClass.getName(), overall, workload, attendance, late);
-        String category = currentClass.getAbv().substring(0, 4);
-        String path = "/departments/" + category + "/classes/" + currentClass.getAbv()+ "/reviews";
-        CollectionReference postsCollection = db.collection(path);
 
-        postsCollection.add(finalComment)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(getApplicationContext(), "Review submitted", Toast.LENGTH_LONG).show();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
+        CollectionReference usersCollection = db.collection("users");
+        usersCollection.whereEqualTo("userID",userId).get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot userDocument = queryDocumentSnapshots.getDocuments().get(0);
+                        String category = currentClass.getAbv().substring(0, 4);
+                        String path = "/departments/" + category + "/classes/" + currentClass.getAbv()+ "/reviews";
+                        CollectionReference postsCollection = db.collection(path);
+                        Comments finalComment = new Comments(comment, userDocument.getString("username"), timestamp, currentClass.getAbv(), overall, workload, attendance, late, 0, 0, userId);
+                        postsCollection.add(finalComment)
+                                .addOnSuccessListener(documentReference -> {
+                                    Toast.makeText(getApplicationContext(), "Review submitted", Toast.LENGTH_LONG).show();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
+                                });
+                    }
                 });
+
     }
     private void showReviewPop() {
         // Inflate the custom popup layout
@@ -282,8 +291,6 @@ public class ClassDetail extends AppCompatActivity {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         // Show the dialog
         dialog.show();
-        //ImageButton close = popupView.findViewById(R.id.cancel);
-        //close.setOnClickListener(view -> dialog.dismiss());
         // Capture the user's input when needed (e.g., when they click a "Submit" button)
         Button submitButton = popupView.findViewById(R.id.Message);
         submitButton.setOnClickListener(view -> {
@@ -294,14 +301,18 @@ public class ClassDetail extends AppCompatActivity {
             double overallRating = overall.getRating();
             RatingBar workload = popupView.findViewById(R.id.workloadRating);
             double workloadRating = workload.getRating();
-            Switch attendance = popupView.findViewById(R.id.attendanceSwitch);
+            CheckBox attendance = popupView.findViewById(R.id.attendanceSwitch);
             boolean attendanceRating = attendance.isChecked();
-            Switch late = popupView.findViewById(R.id.lateSwitch);
+            CheckBox late = popupView.findViewById(R.id.lateSwitch);
             boolean lateRating = late.isChecked();
-            // Add the comment to the database
-            addComments(classes, comment, overallRating, workloadRating, attendanceRating, lateRating);
-            // Close the popup
-            dialog.dismiss();
+            if (comment.isEmpty()) {
+                review.setError(Double.toString(overallRating));
+            } else {
+                // Add the comment to the database
+                addComments(classes, comment, overallRating, workloadRating, attendanceRating, lateRating);
+                // Close the popup
+                dialog.dismiss();
+            }
         });
     }
     private void checkIfUserIsInClass(String classID, String userID, ImageButton add, ImageButton remove) {

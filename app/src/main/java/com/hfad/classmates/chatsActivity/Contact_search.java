@@ -25,10 +25,10 @@ public class Contact_search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_search);
-        recyclerView = (RecyclerView) findViewById(R.id.search_user_recycler_view);
-        back = (ImageButton)findViewById(R.id.back_btn);
-        search = (ImageButton)findViewById(R.id.search_user_btn);
-        input = (EditText)findViewById(R.id.seach_username_input);
+        recyclerView = findViewById(R.id.search_user_recycler_view);
+        back = findViewById(R.id.back_btn);
+        search = findViewById(R.id.search_user_btn);
+        input = findViewById(R.id.seach_username_input);
         back.setOnClickListener((v)->{
             finish();
         });

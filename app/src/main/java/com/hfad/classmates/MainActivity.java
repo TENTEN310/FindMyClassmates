@@ -7,16 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
@@ -24,8 +21,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hfad.classmates.chatsActivity.Chats;
 import com.hfad.classmates.util.FirebaseUtil;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
@@ -41,14 +36,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); // This needs to be at the top
-
-        Toolbar my_toolbar = (Toolbar) findViewById(R.id.myToolbar);
-        setSupportActionBar(my_toolbar);
-        toolbar = getSupportActionBar();
-
         navigationView = findViewById(R.id.navigation); // Initialize after setContentView
         navigationView.setOnItemSelectedListener(selectedListener);
-        toolbar.setTitle("FindMyClassmates");
 
         initializeFragments();
 
@@ -60,9 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.top, menu);
-        MenuItem menuItem = menu.findItem(R.id.profile_image);
-        profileAvatar = (ImageView) findViewById(R.id.tool_bar_profile_image);
+        profileAvatar = findViewById(R.id.tool_bar_profile_image);
         FirebaseUtil.getProfilePic(getUserID()).getDownloadUrl()
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
@@ -70,12 +57,6 @@ public class MainActivity extends AppCompatActivity {
                         Glide.with(this).load(uri).apply(RequestOptions.circleCropTransform()).into(this.profileAvatar);
                     }
                 });
-        profileAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Toast.makeText(MainActivity.this, "profile clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -97,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private BottomNavigationView.OnItemSelectedListener selectedListener = new BottomNavigationView.OnItemSelectedListener() {
+    private final BottomNavigationView.OnItemSelectedListener selectedListener = new BottomNavigationView.OnItemSelectedListener() {
         @SuppressLint("NonConstantResourceId")
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -112,27 +93,22 @@ public class MainActivity extends AppCompatActivity {
 
             switch (menuItem.getItemId()) {
                 case R.id.nav_home:
-                    toolbar.setTitle("FindMyClassmates");
                     fragmentTransaction.show(homeFragment);
                     break;
 
                 case R.id.nav_profile:
-                    toolbar.setTitle("FindMyClassmates");
                     fragmentTransaction.show(profileFragment);
                     break;
 
                 case R.id.nav_classes:
-                    toolbar.setTitle("FindMyClassmates");
                     fragmentTransaction.show(classesFragment);
                     break;
 
                 case R.id.nav_chats:
-                    toolbar.setTitle("FindMyClassmates");
                     fragmentTransaction.show(chatsFragment);
                     break;
 
                 case R.id.nav_post:
-                    toolbar.setTitle("FindMyClassmates");
                     fragmentTransaction.show(postFragment);
                     break;
 
