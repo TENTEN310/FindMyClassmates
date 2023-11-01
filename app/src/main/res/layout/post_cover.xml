@@ -31,11 +31,10 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/profile_pic_image_view">
                 <TextView
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="12dp"
                     android:id="@+id/user_name_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8sp"
                     android:textSize="25sp"
                     android:textStyle="bold"
                     tools:text="User name" />
@@ -44,9 +43,7 @@
                     android:id="@+id/dateTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8sp"
                     android:textSize="15sp"
-                    android:textStyle="bold"
                     tools:text="2022/3/28 9:30PM" />
             </RelativeLayout>
         </RelativeLayout>

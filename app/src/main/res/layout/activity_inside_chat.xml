@@ -19,7 +19,7 @@
             android:src="@drawable/back"
             android:layout_marginEnd="15dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            app:tint="@color/white"
+            app:tint="#403d39"
             android:layout_centerVertical="true"
             android:id="@+id/back_btn"/>
 
