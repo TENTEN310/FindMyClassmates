@@ -312,6 +312,8 @@ public class ClassDetail extends AppCompatActivity {
                 addComments(classes, comment, overallRating, workloadRating, attendanceRating, lateRating);
                 // Close the popup
                 dialog.dismiss();
+                TextView emptyReview = findViewById(R.id.emptyReview);
+                emptyReview.setVisibility(View.GONE);
             }
         });
     }

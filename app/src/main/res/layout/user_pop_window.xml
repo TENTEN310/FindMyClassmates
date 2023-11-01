@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="@drawable/rounded_pop_window"
+    android:backgroundTint="@color/white"
     android:elevation="2dp">
 
     <LinearLayout
@@ -81,7 +82,7 @@
                 android:layout_below="@id/Major"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/blue"
+                android:backgroundTint="@color/coolLightGreen"
                 android:background="@drawable/rounded_for_recycle"
                 android:textColor="@color/white"
                 android:text="Message" />

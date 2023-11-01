@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/pink"
+        android:background="#e9edc9"
         android:padding="10dp"
         android:minHeight="?attr/actionBarSize"
         android:id="@+id/toolbar">
@@ -22,7 +22,7 @@
             android:src="@drawable/back"
             android:layout_marginEnd="15dp"
             android:background="@android:color/transparent"
-            app:tint="@color/white"
+            app:tint="#403d39"
             android:layout_centerVertical="true"
             android:id="@+id/back_btn"/>
 
@@ -32,8 +32,7 @@
             android:text="CSCI310"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginStart="10dp"
+            android:textColor="#403d39"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/back_btn"
             android:id="@+id/class_name" />
@@ -117,6 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+
                         android:text="Professor:"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
@@ -166,13 +166,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:background="@drawable/rounded_for_recycle"
                         android:padding="10dp"
                         android:paddingHorizontal="10dp"
                         android:text="Chao WangChao WangChao WangChao WangChao WangChao
                 WangChao WangChao WangChao WangChao WangChao Wang"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="10dp"
+                        android:background="@drawable/rounded_for_recycle"
+                        android:backgroundTint="#fefae0"
+                        android:text="Click to see the Roster" />
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -230,6 +240,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/rounded_for_recycle"
+                                android:backgroundTint="#fefae0"
                                 android:layout_marginHorizontal="10dp"
                                 android:layout_marginVertical="10dp"
                                 android:text="Upload More Material" />
@@ -252,22 +263,8 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <Button
-                                android:id="@+id/button"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/rounded_for_recycle"
-                                android:layout_marginHorizontal="10dp"
-                                android:layout_marginVertical="10dp"
-                                android:text="Click to see the Roster" />
                         </LinearLayout>
                     </RelativeLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="10dp"
-                        android:background="?android:attr/listDivider" />
 
                     <RelativeLayout
                         android:id="@+id/comments_container"
@@ -285,6 +282,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginVertical="10dp"
                                 android:background="@drawable/rounded_for_recycle"
+                                android:backgroundTint="#fefae0"
                                 android:layout_marginHorizontal="10dp"
                                 android:text="Add A Review" />
 

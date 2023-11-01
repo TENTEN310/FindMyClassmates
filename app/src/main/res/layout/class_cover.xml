@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="@drawable/rounded_for_recycle"
+    android:backgroundTint="@color/beige"
     android:elevation="2dp">
 
     <LinearLayout
@@ -46,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8sp"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 tools:text="2023 Fall" />
 
             <TextView
@@ -54,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 tools:text="/" />
 
             <TextView
@@ -62,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 tools:text="Professor:" />
         </LinearLayout>
     </LinearLayout>

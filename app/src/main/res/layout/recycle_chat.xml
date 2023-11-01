@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/round_textedit"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="#edede9"
         android:paddingHorizontal="20dp"
         android:layout_marginEnd="80dp"
         android:id="@+id/left_chat_layout"
@@ -16,16 +16,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:textSize="18sp"
-            android:text="Hello,tis is side and efhiwufhwieufhiweuhfuiwuehfiuwehfiweufhi"
+            android:textColor="@color/black"
+            android:text="Hello,tis is side and "
             android:id="@+id/left_chat_textview"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/round_textedit"
-        android:backgroundTint="@color/darkPink"
+        android:backgroundTint="#606c38"
         android:layout_alignParentEnd="true"
         android:paddingHorizontal="20dp"
         android:layout_marginStart="80dp"
@@ -35,7 +35,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:id="@+id/right_chat_textview"/>
+            android:id="@+id/right_chat_textview"
+            android:text="Hello"/>
     </LinearLayout>
 
 </RelativeLayout>

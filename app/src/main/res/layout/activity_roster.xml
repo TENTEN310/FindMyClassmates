@@ -10,20 +10,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/pink"
+        android:background="#e9edc9"
         android:padding="10dp"
         android:minHeight="?attr/actionBarSize"
         android:id="@+id/main_toolbar">
 
         <ImageButton
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/back"
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="15dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:layout_centerVertical="true"
-            android:id="@+id/back_btn"
-            app:tint="@color/white" />
+            android:src="@drawable/back"
+            app:tint="#403d39" />
 
 
         <TextView
@@ -31,9 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/back_btn"
             android:text="Roster"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="#403d39"
             android:layout_centerVertical="true"/>
 
     </RelativeLayout>

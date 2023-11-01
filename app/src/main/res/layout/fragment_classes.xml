@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/pink"
+        android:background="#e9edc9"
         android:padding="10dp"
         android:minHeight="?attr/actionBarSize"
         android:id="@+id/main_toolbar">
@@ -17,9 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Traveler's Classroom"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="#403d39"
             android:layout_marginStart="10dp"
             android:layout_centerVertical="true"/>
 

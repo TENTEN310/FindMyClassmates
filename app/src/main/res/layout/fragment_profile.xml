@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout2"
@@ -34,6 +33,7 @@
             android:text="Tommy Trojan"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:textColor="#403d39"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/profile_image" />
 
@@ -41,7 +41,6 @@
             android:id="@+id/changeUsername"
             android:layout_width="40dp"
             android:layout_height="43dp"
-            android:layout_marginTop="12dp"
             android:clickable="true"
             android:padding="10dp"
             android:src="@drawable/ic_edit"
@@ -57,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="40dp"
 
             android:text="tommytrojan@usc.edu"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-
+            android:layout_marginTop="2dp"
             android:text="XXXX XXXX"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/majorYearText" />
@@ -91,6 +90,7 @@
             android:layout_marginTop="20dp"
             android:text="ClassList"
             android:textSize="20dp"
+            android:textColor="#403d39"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.051"
@@ -102,8 +102,8 @@
             android:id="@+id/classesText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="50dp"
             android:text="Private to you"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -142,10 +142,10 @@
             android:id="@+id/profilechangebtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:backgroundTint="#ccd5ae"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/baseline_change_circle_24"
-            android:backgroundTint="@color/blue"
+            android:src="@drawable/baseline_refresh_24"
             app:fabCustomSize="30dp"
             app:fabSize="auto"
             app:layout_constraintBottom_toBottomOf="@+id/profile_image"
@@ -161,8 +161,9 @@
             android:layout_height="wrap_content"
             android:padding="1dp"
             android:text="Log Out"
+            android:textColor="#403d39"
             android:textSize="13sp"
-            app:backgroundTint="#F4ABAB"
+            app:backgroundTint="@color/lightGreen"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.979"
@@ -183,10 +184,10 @@
             android:id="@+id/imageView2"
             android:layout_width="22dp"
             android:layout_height="19dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="372dp"
             android:src="@drawable/baseline_remove_red_eye_24"
             app:layout_constraintBottom_toTopOf="@+id/itemsList"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider3"
             app:layout_constraintVertical_bias="0.8" />

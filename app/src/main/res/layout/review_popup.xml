@@ -6,6 +6,7 @@
     android:layout_margin="10dp"
     android:padding="10dp"
     android:background="@drawable/rounded_pop_window"
+    android:backgroundTint="@color/white"
     android:elevation="2dp">
 
     <LinearLayout
@@ -19,7 +20,6 @@
                 android:id="@+id/Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:text="Leave a Review" />
@@ -162,7 +162,9 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="100dp"
                 android:layout_marginBottom="30dp"
-                android:background="@color/pink"
+                android:backgroundTint="@color/coolLightGreen"
+                android:background="@drawable/rounded_for_recycle"
+                android:textColor="@color/white"
                 android:text="Submit" />
 
         </LinearLayout>

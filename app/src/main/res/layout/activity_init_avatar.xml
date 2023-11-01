@@ -53,6 +53,7 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_add"
         android:contentDescription="button"
+        android:backgroundTint="@color/blue"
         android:focusable="true" />
 
     <TextView

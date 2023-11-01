@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="@drawable/rounded_for_recycle"
+    android:backgroundTint="#edede9"
     android:elevation="2dp">
 
     <LinearLayout
@@ -33,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8sp"
-                android:textSize="30sp"
+                android:textSize="26sp"
                 android:textStyle="bold"
                 tools:text="Syllabus" />
         </RelativeLayout>
@@ -47,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 tools:text="pdf" />
         </LinearLayout>
     </LinearLayout>

@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,39 +43,15 @@ public class ShowReviewResult extends FirestoreRecyclerAdapter<Comments, ShowRev
         super(options);
         this.context = context;
     }
-
-    private TextView emptyView;
-
-    public void setEmptyView(TextView view) {
-        this.emptyView = view;
-        checkEmpty();
-    }
-
-    public void setCommentsList(List<Comments> commentsList) {
-        this.commentsList = commentsList;
-        checkEmpty();
-        notifyDataSetChanged();
-    }
-
-    private void checkEmpty() {
-        if (emptyView != null) {
-            if (getItemCount() == 0) {
-                emptyView.setVisibility(View.VISIBLE);
-            } else {
-                emptyView.setVisibility(View.GONE);
-            }
-        }
-    }
     @Override
     protected void onBindViewHolder(@NonNull CommentView holder, int position, @NonNull Comments model) {
         String postId = getSnapshots().getSnapshot(position).getId();
-        String posterID = model.getUid();
+        String posterID = FirebaseUtil.getUserID();
         holder.usernameText.setText(model.getSenderId());
         holder.post_info.setText(model.getMessage());
         holder.likes.setText(String.valueOf(model.getLikes()));
         holder.dislikes.setText(String.valueOf(model.getDislikes()));
         holder.overallRating.setText(String.valueOf(model.getOverall()));
-        Log.d("TAG", "onBindViewHolder: " + model.getOverall());
         holder.workloadRating.setText(String.valueOf(model.getWorkload()));
         holder.attendanceRating.setText(String.valueOf(model.getAttendance()));
         holder.lateRating.setText(String.valueOf(model.getLate()));
@@ -87,18 +64,18 @@ public class ShowReviewResult extends FirestoreRecyclerAdapter<Comments, ShowRev
                     }
                 });
         holder.likeButton.setOnClickListener(v -> {
-            DocumentReference postRef = FirebaseUtil.getReviewCollectionReference(model.getClassName()).document(postId);
-            DocumentReference likerRef = postRef.collection("likers").document(posterID);
-            DocumentReference dislikerRef = postRef.collection("dislikers").document(posterID);
+            DocumentReference revRef = FirebaseUtil.getReviewCollectionReference(model.getClassName()).document(postId);
+            DocumentReference likerRef = revRef.collection("likers").document(posterID);
+            DocumentReference dislikerRef = revRef.collection("dislikers").document(posterID);
             dislikerRef.get().addOnSuccessListener(documentSnapshot -> {
                 if(!documentSnapshot.exists()){
                     likerRef.get().addOnSuccessListener(documentSnapshot1 -> {
                         if (documentSnapshot1.exists()) {
-                            postRef.update("likes", FieldValue.increment(-1));
+                            revRef.update("likes", FieldValue.increment(-1));
                             likerRef.delete();
                             holder.likes.setText(String.valueOf(model.getLikes() - 1));
                         } else {
-                            postRef.update("likes", FieldValue.increment(1));
+                            revRef.update("likes", FieldValue.increment(1));
                             Map<String, Boolean> liked = new HashMap<>();
                             liked.put("liked", true);
                             likerRef.set(liked);
@@ -111,18 +88,18 @@ public class ShowReviewResult extends FirestoreRecyclerAdapter<Comments, ShowRev
         });
 
         holder.dislikeButton.setOnClickListener(v -> {
-            DocumentReference postRef = FirebaseUtil.getReviewCollectionReference(model.getClassName()).document(postId);
-            DocumentReference dislikerRef = postRef.collection("dislikers").document(posterID);
-            DocumentReference likerRef = postRef.collection("likers").document(posterID);
+            DocumentReference revRef = FirebaseUtil.getReviewCollectionReference(model.getClassName()).document(postId);
+            DocumentReference dislikerRef = revRef.collection("dislikers").document(posterID);
+            DocumentReference likerRef = revRef.collection("likers").document(posterID);
             likerRef.get().addOnSuccessListener(documentSnapshot -> {
                 if (!documentSnapshot.exists()) {
                     dislikerRef.get().addOnSuccessListener(documentSnapshot1 -> {
                         if (documentSnapshot1.exists()) {
-                            postRef.update("dislikes", FieldValue.increment(-1));
+                            revRef.update("dislikes", FieldValue.increment(-1));
                             dislikerRef.delete();
                             holder.dislikes.setText(String.valueOf(model.getDislikes() - 1));
                         } else {
-                            postRef.update("dislikes", FieldValue.increment(1));
+                            revRef.update("dislikes", FieldValue.increment(1));
                             Map<String, Boolean> disliked = new HashMap<>();
                             disliked.put("disliked", true);
                             dislikerRef.set(disliked);
