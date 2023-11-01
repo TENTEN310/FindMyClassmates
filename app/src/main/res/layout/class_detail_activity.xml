@@ -32,6 +32,7 @@
             android:text="CSCI310"
             android:textSize="22sp"
             android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed-light"
             android:textColor="#403d39"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/back_btn"
@@ -76,7 +77,8 @@
                     android:text="CSCI 310: Software Engineering (4.0 units)"
                     android:textColor="@color/black"
                     android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed-light"/>
 
                 <View
                     android:id="@+id/divider"
@@ -101,7 +103,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/circular"
-                    android:backgroundTint="@color/pink"
+                    android:backgroundTint="@color/lightGreen"
                     android:src="@drawable/img" />
 
                 <LinearLayout
@@ -125,6 +127,7 @@
                         android:id="@+id/Professor_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed-light"
                         android:layout_marginLeft="10dp"
                         android:text="Chao Wang"
                         android:textColor="@color/black"
@@ -168,6 +171,7 @@
                         android:layout_margin="10dp"
                         android:padding="10dp"
                         android:paddingHorizontal="10dp"
+                        android:fontFamily="sans-serif-condensed-light"
                         android:text="Chao WangChao WangChao WangChao WangChao WangChao
                 WangChao WangChao WangChao WangChao WangChao Wang"
                         android:textColor="@color/black"

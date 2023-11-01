@@ -12,5 +12,5 @@ android:useLevel="false" >
 
 <stroke
     android:width="5dp"
-    android:color="#6DFF5722" />
+    android:color="@color/lightGreen" />
 </shape>
