@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="@drawable/rounded_for_recycle"
-    android:backgroundTint="@color/beige"
+    android:backgroundTint="#fffcf2"
     android:elevation="2dp">
 
     <LinearLayout

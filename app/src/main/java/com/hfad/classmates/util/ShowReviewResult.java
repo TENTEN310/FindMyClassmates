@@ -164,7 +164,7 @@ public class ShowReviewResult extends FirestoreRecyclerAdapter<Comments, ShowRev
 
     class CommentView extends RecyclerView.ViewHolder{
         TextView usernameText, overallRating, workloadRating, attendanceRating, lateRating;
-        TextView post_info, likes, dislikes;
+        TextView post_info, likes, dislikes, emptyView;
         ImageView profilePicture;
         ImageButton likeButton, dislikeButton;
 
@@ -181,6 +181,7 @@ public class ShowReviewResult extends FirestoreRecyclerAdapter<Comments, ShowRev
             workloadRating = itemView.findViewById(R.id.workloadRating);
             attendanceRating = itemView.findViewById(R.id.attendanceRating);
             lateRating = itemView.findViewById(R.id.lateRating);
+            emptyView = itemView.findViewById(R.id.emptyReview);
         }
     }
 }

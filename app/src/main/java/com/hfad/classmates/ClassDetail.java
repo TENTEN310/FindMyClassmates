@@ -110,6 +110,17 @@ public class ClassDetail extends AppCompatActivity {
         // update the materials list
         retrieveMaterialsFromFirebase(storagePath, findViewById(R.id.emptyMaterial));
 
+        // check if there are any reviews if there are don't show first to add review message
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String path = "/departments/" + classes.getAbv().substring(0, 4) + "/classes/" + classes.getAbv()+ "/reviews";
+        CollectionReference postsCollection = db.collection(path);
+        postsCollection.get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        TextView emptyReview = findViewById(R.id.emptyReview);
+                        emptyReview.setVisibility(View.GONE);
+                    }
+                });
         comment.setOnClickListener(v -> {
             // after clicking on comment button show review_popup
             showReviewPop();
