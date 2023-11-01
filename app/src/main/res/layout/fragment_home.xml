@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".chatsActivity.Chats">
+    tools:context=".HomeFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="@string/traveler_s_playground"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -26,14 +26,15 @@
     </RelativeLayout>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
-        android:layout_width="match_parent"
+        android:padding="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/main_toolbar">
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="0dp"
             android:layout_below="@id/main_toolbar"
-            android:padding="10dp"
             android:id="@+id/post_recycler_view"
             />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

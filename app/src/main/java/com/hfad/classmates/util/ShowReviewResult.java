@@ -1,72 +1,210 @@
 package com.hfad.classmates.util;
 
+
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.hfad.classmates.ClassDetail;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.hfad.classmates.chatsActivity.Inside_chat;
 import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.Comments;
+import com.hfad.classmates.objectClasses.ProfileInfo;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class ShowReviewResult extends RecyclerView.Adapter<ShowReviewResult.MyViewHolder>{
 
+public class ShowReviewResult extends FirestoreRecyclerAdapter<Comments, ShowReviewResult.CommentView> {
     Context context;
-    ArrayList<Comments> commentsArrayList;
-
-    public ShowReviewResult(Context context, ArrayList<Comments> commentsArrayList) {
+    private List<Comments> commentsList;
+    public ShowReviewResult(@NonNull FirestoreRecyclerOptions<Comments> options, Context context) {
+        super(options);
         this.context = context;
-        this.commentsArrayList = commentsArrayList;
     }
 
+    private TextView emptyView;
 
+    public void setEmptyView(TextView view) {
+        this.emptyView = view;
+        checkEmpty();
+    }
+
+    public void setCommentsList(List<Comments> commentsList) {
+        this.commentsList = commentsList;
+        checkEmpty();
+        notifyDataSetChanged();
+    }
+
+    private void checkEmpty() {
+        if (emptyView != null) {
+            if (getItemCount() == 0) {
+                emptyView.setVisibility(View.VISIBLE);
+            } else {
+                emptyView.setVisibility(View.GONE);
+            }
+        }
+    }
+    @Override
+    protected void onBindViewHolder(@NonNull CommentView holder, int position, @NonNull Comments model) {
+        String postId = getSnapshots().getSnapshot(position).getId();
+        String posterID = model.getUid();
+        holder.usernameText.setText(model.getSenderId());
+        holder.post_info.setText(model.getMessage());
+        holder.likes.setText(String.valueOf(model.getLikes()));
+        holder.dislikes.setText(String.valueOf(model.getDislikes()));
+        holder.overallRating.setText(String.valueOf(model.getOverall()));
+        Log.d("TAG", "onBindViewHolder: " + model.getOverall());
+        holder.workloadRating.setText(String.valueOf(model.getWorkload()));
+        holder.attendanceRating.setText(String.valueOf(model.getAttendance()));
+        holder.lateRating.setText(String.valueOf(model.getLate()));
+
+        FirebaseUtil.getProfilePic(FirebaseUtil.getUserID()).getDownloadUrl()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Uri uri = task.getResult();
+                        Glide.with(context).load(uri).apply(RequestOptions.circleCropTransform()).into(holder.profilePicture);
+                    }
+                });
+        holder.likeButton.setOnClickListener(v -> {
+            DocumentReference postRef = FirebaseUtil.getReviewCollectionReference(model.getClassName()).document(postId);
+            DocumentReference likerRef = postRef.collection("likers").document(posterID);
+            DocumentReference dislikerRef = postRef.collection("dislikers").document(posterID);
+            dislikerRef.get().addOnSuccessListener(documentSnapshot -> {
+                if(!documentSnapshot.exists()){
+                    likerRef.get().addOnSuccessListener(documentSnapshot1 -> {
+                        if (documentSnapshot1.exists()) {
+                            postRef.update("likes", FieldValue.increment(-1));
+                            likerRef.delete();
+                            holder.likes.setText(String.valueOf(model.getLikes() - 1));
+                        } else {
+                            postRef.update("likes", FieldValue.increment(1));
+                            Map<String, Boolean> liked = new HashMap<>();
+                            liked.put("liked", true);
+                            likerRef.set(liked);
+                            holder.likes.setText(String.valueOf(model.getLikes() + 1));
+                        }
+                    });
+                }
+            });
+
+        });
+
+        holder.dislikeButton.setOnClickListener(v -> {
+            DocumentReference postRef = FirebaseUtil.getReviewCollectionReference(model.getClassName()).document(postId);
+            DocumentReference dislikerRef = postRef.collection("dislikers").document(posterID);
+            DocumentReference likerRef = postRef.collection("likers").document(posterID);
+            likerRef.get().addOnSuccessListener(documentSnapshot -> {
+                if (!documentSnapshot.exists()) {
+                    dislikerRef.get().addOnSuccessListener(documentSnapshot1 -> {
+                        if (documentSnapshot1.exists()) {
+                            postRef.update("dislikes", FieldValue.increment(-1));
+                            dislikerRef.delete();
+                            holder.dislikes.setText(String.valueOf(model.getDislikes() - 1));
+                        } else {
+                            postRef.update("dislikes", FieldValue.increment(1));
+                            Map<String, Boolean> disliked = new HashMap<>();
+                            disliked.put("disliked", true);
+                            dislikerRef.set(disliked);
+                            holder.dislikes.setText(String.valueOf(model.getDislikes() + 1));
+                        }
+                    });
+                }
+            });
+        });
+
+        holder.profilePicture.setOnClickListener(v -> {
+            // Inflate the popup layout
+            View popupView = LayoutInflater.from(context).inflate(R.layout.user_pop_window, null);
+            ImageView profileImageView = popupView.findViewById(R.id.profile_image);
+            TextView userInfo = popupView.findViewById(R.id.userName);
+            TextView major = popupView.findViewById(R.id.Major);
+            TextView school = popupView.findViewById(R.id.School);
+            ImageButton close = popupView.findViewById(R.id.imageButton3);
+            close.setVisibility(View.GONE);
+            Button message = popupView.findViewById(R.id.Message);
+
+            message.setOnClickListener(v12 -> {
+                Intent intent = new Intent(context, Inside_chat.class);
+                intent.putExtra("userId", posterID);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            });
+
+            FirebaseUtil.getProfilePic(posterID).getDownloadUrl().addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    Uri uri  = task.getResult();
+                    Glide.with(context).load(uri).apply(RequestOptions.circleCropTransform()).into(profileImageView);
+                }
+            });
+
+            FirebaseUtil.getOtherUserDetails(posterID).get().addOnSuccessListener(documentSnapshot -> {
+                ProfileInfo profileInfo = documentSnapshot.toObject(ProfileInfo.class);
+                if(posterID.equals(FirebaseUtil.getUserID())){
+                    message.setEnabled(false);
+                    userInfo.setText("Myself" + "(" + profileInfo.getYear() + ")");
+                    major.setText(profileInfo.getMajor());
+                    school.setText(profileInfo.getSchool());
+                }
+                userInfo.setText(profileInfo.getUsername() + "(" + profileInfo.getYear() + ")");
+                major.setText(profileInfo.getMajor());
+                school.setText(profileInfo.getSchool());
+            });
+
+            // Create and show the PopupWindow
+            PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+        });
+
+    }
 
     @NonNull
     @Override
-    public ShowReviewResult.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View v = LayoutInflater.from(context).inflate(R.layout.review_cover, parent, false);
-
-        return new MyViewHolder(v);
+    public CommentView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.review_cover,parent,false);
+        return new CommentView(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ShowReviewResult.MyViewHolder holder, int position) {
+    class CommentView extends RecyclerView.ViewHolder{
+        TextView usernameText, overallRating, workloadRating, attendanceRating, lateRating;
+        TextView post_info, likes, dislikes;
+        ImageView profilePicture;
+        ImageButton likeButton, dislikeButton;
 
-        Comments comment = commentsArrayList.get(position); // get the comment at the position
-        holder.tvMessage.setText(comment.getMessage());
-        holder.tvSender.setText(comment.getSenderId());
-        holder.tvOverall.setText(String.valueOf(comment.getOverall()));
-        holder.tvWorkload.setText(String.valueOf(comment.getWorkload()));
-        holder.tvAttendance.setText(String.valueOf(comment.getAttendance()));
-        holder.tvLate.setText(String.valueOf(comment.getLate()));
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return commentsArrayList.size();
-    }
-
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-
-        TextView tvMessage, tvSender, tvOverall, tvWorkload, tvAttendance, tvLate;
-
-        public MyViewHolder(@NonNull View itemView) {
+        public CommentView(@NonNull View itemView) {
             super(itemView);
-            tvMessage = itemView.findViewById(R.id.commentInfo);
-            tvSender = itemView.findViewById(R.id.uname);
-            tvOverall = itemView.findViewById(R.id.overallRating);
-            tvWorkload = itemView.findViewById(R.id.workloadRating);
-            tvAttendance = itemView.findViewById(R.id.attendanceRating);
-            tvLate = itemView.findViewById(R.id.lateRating);
+            usernameText = itemView.findViewById(R.id.uname);
+            post_info = itemView.findViewById(R.id.commentInfo);
+            profilePicture = itemView.findViewById(R.id.profile_pic_image_view);
+            likes = itemView.findViewById(R.id.likes);
+            likeButton = itemView.findViewById(R.id.likeButton);
+            dislikes = itemView.findViewById(R.id.dislikes);
+            dislikeButton = itemView.findViewById(R.id.downButton);
+            overallRating = itemView.findViewById(R.id.overallRating);
+            workloadRating = itemView.findViewById(R.id.workloadRating);
+            attendanceRating = itemView.findViewById(R.id.attendanceRating);
+            lateRating = itemView.findViewById(R.id.lateRating);
         }
     }
-
 }
+

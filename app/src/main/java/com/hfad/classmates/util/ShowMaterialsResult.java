@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +22,7 @@ import com.hfad.classmates.objectClasses.Materials;
 import java.util.List;
 
 public class ShowMaterialsResult extends RecyclerView.Adapter<ShowMaterialsResult.MaterialViewHolder> {
-    private Context context;
+    private final Context context;
     private List<Materials> materialsList;
     ImageButton deleteMaterialBtn;
 

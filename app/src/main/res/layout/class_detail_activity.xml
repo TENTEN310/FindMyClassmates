@@ -231,6 +231,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/rounded_for_recycle"
                                 android:layout_marginHorizontal="10dp"
+                                android:layout_marginVertical="10dp"
                                 android:text="Upload More Material" />
                         </LinearLayout>
                     </RelativeLayout>
@@ -257,6 +258,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/rounded_for_recycle"
                                 android:layout_marginHorizontal="10dp"
+                                android:layout_marginVertical="10dp"
                                 android:text="Click to see the Roster" />
                         </LinearLayout>
                     </RelativeLayout>
@@ -281,6 +283,7 @@
                                 android:id="@+id/commentbtn"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginVertical="10dp"
                                 android:background="@drawable/rounded_for_recycle"
                                 android:layout_marginHorizontal="10dp"
                                 android:text="Add A Review" />
@@ -288,6 +291,7 @@
                             <TextView
                                 android:layout_margin="10dp"
                                 android:id="@+id/comments"
+                                android:layout_marginTop="25dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"

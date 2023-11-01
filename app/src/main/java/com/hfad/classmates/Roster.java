@@ -10,20 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hfad.classmates.objectClasses.ProfileInfo;
 import com.hfad.classmates.util.FirebaseUtil;
 import com.hfad.classmates.util.RosterUserResult;
-import com.hfad.classmates.util.SearchUserResult;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Roster extends AppCompatActivity {
     RosterUserResult rosterUserResult;

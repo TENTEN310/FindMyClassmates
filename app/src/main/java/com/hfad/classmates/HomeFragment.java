@@ -1,6 +1,5 @@
 package com.hfad.classmates;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,14 +10,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
-import com.hfad.classmates.R;
-import com.hfad.classmates.objectClasses.ChatroomsContainer;
 import com.hfad.classmates.objectClasses.Post;
-import com.hfad.classmates.util.ChatHistoryResult;
 import com.hfad.classmates.util.FirebaseUtil;
 import com.hfad.classmates.util.ShowPostResult;
 
@@ -32,16 +27,13 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_chats, container, false);
+        View view =  inflater.inflate(R.layout.fragment_home, container, false);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
-        recyclerView = view.findViewById(R.id.search_user_recycler_view);
+        recyclerView = view.findViewById(R.id.post_recycler_view);
         showPost();
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                showPost();
-                swipeRefreshLayout.setRefreshing(false);
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            showPost();
+            swipeRefreshLayout.setRefreshing(false);
         });
 
         return view;

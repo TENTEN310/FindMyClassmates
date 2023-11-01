@@ -43,13 +43,13 @@ public class Inside_chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inside_chat);
         otherProfile = FirebaseUtil.getUserModelFromIntent(getIntent());
-        back = (ImageButton)findViewById(R.id.back_btn);
-        profileAvatar = (ImageView) findViewById(R.id.profile_pic_image_view);
-        username = (TextView)findViewById(R.id.other_username);
+        back = findViewById(R.id.back_btn);
+        profileAvatar = findViewById(R.id.profile_pic_image_view);
+        username = findViewById(R.id.other_username);
         username.setText(otherProfile.getUsername());
-        send = (ImageButton)findViewById(R.id.message_send_btn);
-        messageInput = (EditText)findViewById(R.id.chat_message_input);
-        recyclerView = (RecyclerView) findViewById(R.id.chat_recycler_view);
+        send = findViewById(R.id.message_send_btn);
+        messageInput = findViewById(R.id.chat_message_input);
+        recyclerView = findViewById(R.id.chat_recycler_view);
         ChatID = FirebaseUtil.getChatroomID(FirebaseUtil.getUserID(),otherProfile.getUserID());
 
         FirebaseUtil.getProfilePic(otherProfile.getUserID()).getDownloadUrl()
@@ -81,7 +81,8 @@ public class Inside_chat extends AppCompatActivity {
 
         send.setOnClickListener(v -> {
             String message = messageInput.getText().toString().trim();
-            if(message.isEmpty()) return;
+            if(message.isEmpty()) {
+            }
             else{
                 chatroomsContainer.setLastTimestamp(Timestamp.now());
                 chatroomsContainer.setLastMessageUserID(FirebaseUtil.getUserID());
