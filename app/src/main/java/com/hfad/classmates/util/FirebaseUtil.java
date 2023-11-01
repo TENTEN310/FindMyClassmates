@@ -87,6 +87,10 @@ public class FirebaseUtil {
         return new SimpleDateFormat("HH:mm").format(timestamp.toDate());
     }
 
+    public static String reformateDateAndTime(Timestamp timestamp){
+        return new SimpleDateFormat("MM/dd/yyyy HH:mm").format(timestamp.toDate());
+    }
+
     public static StorageReference  getElseProfilePic(String otherUserId){
         return FirebaseStorage.getInstance().getReference().child("profile_pic")
                 .child(otherUserId);
