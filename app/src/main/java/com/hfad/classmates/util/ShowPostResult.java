@@ -47,7 +47,7 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
         holder.usernameText.setText(model.getUserName());
         holder.post_info.setText(model.getPostContent());
         holder.likes.setText(String.valueOf(model.getLikes()));
-
+        holder.time.setText(FirebaseUtil.reformateDateAndTime(model.getTimestamp()));
         String posterID = model.getUserID();
 
         FirebaseUtil.getProfilePic(model.getUserID()).getDownloadUrl()
@@ -130,7 +130,7 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
 
     class PostView extends RecyclerView.ViewHolder{
         TextView usernameText;
-        TextView post_info, likes;
+        TextView post_info, likes, time;
         ImageView profilePic;
         ImageButton likeButton;
 
@@ -141,6 +141,7 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
             profilePic = itemView.findViewById(R.id.profile_pic_image_view);
             likes = itemView.findViewById(R.id.likes);
             likeButton = itemView.findViewById(R.id.imageButton);
+            time = itemView.findViewById(R.id.dateTime);
         }
     }
     @Override
