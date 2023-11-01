@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
@@ -20,11 +21,14 @@ import com.hfad.classmates.objectClasses.ChatroomsContainer;
 import com.hfad.classmates.util.ChatHistoryResult;
 import com.hfad.classmates.util.FirebaseUtil;
 
+import org.w3c.dom.Text;
+
 public class Chats extends Fragment {
     ImageButton contactSearch;
     SwipeRefreshLayout swipeRefreshLayout;
     ChatHistoryResult chatHistoryResult;
     RecyclerView recyclerView;
+    TextView noChat;
 
     public Chats() {
     }
@@ -34,10 +38,12 @@ public class Chats extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_chats, container, false);
         contactSearch = view.findViewById(R.id.chat_search_btn);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        noChat = view.findViewById(R.id.emptyChat);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showHistory();
+
+                showHistory(noChat);
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -47,12 +53,12 @@ public class Chats extends Fragment {
             }
         });
         recyclerView = view.findViewById(R.id.search_user_recycler_view);
-        showHistory();
+        showHistory(noChat);
         return view;
     }
 
 
-    public void showHistory(){
+    public void showHistory(TextView noChat){
         Query query = FirebaseUtil.allChatroomCollectionReference()
                 .whereArrayContains("userIDs",FirebaseUtil.getUserID())
                 .orderBy("lastTimestamp",Query.Direction.DESCENDING);
@@ -62,6 +68,7 @@ public class Chats extends Fragment {
 
         chatHistoryResult = new ChatHistoryResult(options,getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        chatHistoryResult.setEmptyView(noChat);
         recyclerView.setAdapter(chatHistoryResult);
         chatHistoryResult.startListening();
     }
