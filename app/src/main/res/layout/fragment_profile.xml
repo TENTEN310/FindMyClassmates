@@ -117,7 +117,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemsList"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_height="260dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="1dp"
             android:scrollbars="vertical"
