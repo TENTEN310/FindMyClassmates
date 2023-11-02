@@ -55,10 +55,7 @@
             <ImageView
                 android:id="@+id/profile_image"
                 android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_toRightOf="@id/back_btn"
-                android:background="@drawable/circular"
-                android:backgroundTint="@color/white"
+                android:layout_height="match_parent"
                 android:src="@drawable/img" />
 
             <TextView

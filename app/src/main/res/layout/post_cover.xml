@@ -21,10 +21,13 @@
                 android:id="@+id/profile_pic_image_view"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/circular"
                 android:backgroundTint="@color/white"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:src="@drawable/img" />
             <RelativeLayout
                 android:layout_width="wrap_content"
