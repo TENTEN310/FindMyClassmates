@@ -34,8 +34,7 @@ public class ChatHistoryResult extends FirestoreRecyclerAdapter<ChatroomsContain
 
     @Override
     protected void onBindViewHolder(@NonNull ChatHistoryView holder, int position, @NonNull ChatroomsContainer model) {
-        Log.d("ChatHistoryResult", "onBindViewHolder called for position " + position);
-
+        Log.d("ChatHistoryResult", "onBindViewHolder: " + model.getLastMessage() + ", " + model.getLastTimestamp());
         FirebaseUtil.getOtherUserFromChatroom(model.getUserIDs())
                 .get().addOnCompleteListener(task -> {
                     if(task.isSuccessful()){

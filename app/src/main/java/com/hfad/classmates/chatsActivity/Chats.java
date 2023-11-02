@@ -90,7 +90,5 @@ public class Chats extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(chatHistoryResult!=null)
-            chatHistoryResult.notifyDataSetChanged();
     }
 }
