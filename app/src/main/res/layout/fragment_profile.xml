@@ -69,9 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
-
-
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:text="XXXX XXXX"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/usernameText" />
@@ -179,8 +177,9 @@
             android:layout_height="5dp"
             android:layout_marginTop="24dp"
             android:background="?android:attr/listDivider"
-            app:layout_constraintTop_toBottomOf="@+id/emailText"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
         <ImageView
             android:id="@+id/imageView2"
