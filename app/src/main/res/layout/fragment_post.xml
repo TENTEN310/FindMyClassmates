@@ -93,32 +93,20 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:visibility="gone" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:src="@drawable/tim"
+            android:layout_below="@id/post"/>
+
+
 
 
     </RelativeLayout>
 
 
 </RelativeLayout>
-
-
-    <!--        <ImageView-->
-    <!--            android:id="@+id/imagep"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="200dp"-->
-    <!--            android:layout_marginTop="15dp"-->
-    <!--            android:src="@drawable/ic_images" />-->
-
-    <!--        <EditText-->
-    <!--            android:id="@+id/pdes"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginTop="15dp"-->
-    <!--            android:gravity="start"-->
-    <!--            android:hint="Enter Description"-->
-    <!--            android:inputType="textCapSentences|textMultiLine"-->
-    <!--            android:minHeight="120dp"-->
-    <!--            android:padding="10dp"-->
-    <!--            android:singleLine="true" />-->
 
 
 

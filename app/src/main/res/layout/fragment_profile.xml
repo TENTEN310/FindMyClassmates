@@ -13,7 +13,7 @@
         android:layout_width="412dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/profile_background"
+        android:src="@drawable/forest2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
