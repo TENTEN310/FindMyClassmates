@@ -50,6 +50,7 @@
         <!-- Add more if needed -->
     </string-array>
     <string-array name="usc_majors">
+        <item></item>
         <item>Architecture</item>
         <item>Arts</item>
         <item>Business</item>

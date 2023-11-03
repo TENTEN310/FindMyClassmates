@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".regLogInActivity.UserInit">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="246dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/top_init" />
+
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -26,7 +38,7 @@
                 android:id="@+id/init_header"
                 android:layout_width="339dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30sp"
+                android:layout_marginTop="50sp"
                 android:baselineAligned="false"
                 android:fontFamily="sans-serif-black"
                 android:text="@string/let_s_get_to_know_more_about_you"
@@ -37,7 +49,7 @@
                 android:id="@+id/init_username_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="40sp"
                 android:gravity="center_horizontal"
                 android:text="@string/let_s_start_with_an_username"
                 android:textSize="20sp" />
@@ -137,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30sp"
                 android:background="@drawable/round_textedit"
-                android:text="@string/next" />
+                android:text="Verify your email" />
 
             <TextView
                 android:id="@+id/resentText"
