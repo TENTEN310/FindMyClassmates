@@ -26,7 +26,7 @@ Find My Classmates allows students to have a verified and accessible application
 We are providing you with an empty testing account 
 User Email `sidqian@usc.edu` Pass: `111111`
 **However, you can also use your own USC email to sign-up and log-in (suggested way)**
-If you do decide to use your personal USC email, you must verify it through an automated email that will be sent to your USC email inbox, afterwards, you may proceed to create your personal account
+If you do decide to use your personal USC email, please follow the prompts on the registration page and its steps in our app. 
 
 ## Support
 
