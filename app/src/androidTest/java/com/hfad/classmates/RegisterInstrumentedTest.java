@@ -47,7 +47,7 @@ public class RegisterInstrumentedTest {
 //    }
 
     @Test
-    public void testNoEmail() {
+    public void testRegisterNoEmail() {
         Espresso.onView(ViewMatchers.withId(R.id.RegisterButton))
                 .perform(ViewActions.click());
 
@@ -56,7 +56,7 @@ public class RegisterInstrumentedTest {
     }
 
     @Test
-    public void testInvalidEmail() {
+    public void testRegisterInvalidEmail() {
         Espresso.onView(ViewMatchers.withId(R.id.editTextTextEmailAddress))
                 .perform(ViewActions.typeText("email@email.com"), ViewActions.closeSoftKeyboard());
 
@@ -68,7 +68,7 @@ public class RegisterInstrumentedTest {
     }
 
     @Test
-    public void testNoPassword() {
+    public void testRegisterNoPassword() {
         Espresso.onView(ViewMatchers.withId(R.id.editTextTextEmailAddress))
                 .perform(ViewActions.typeText("testing@usc.edu"), ViewActions.closeSoftKeyboard());
 
@@ -80,7 +80,7 @@ public class RegisterInstrumentedTest {
     }
 
     @Test
-    public void testInvalidPassword() {
+    public void testRegisterInvalidPassword() {
         Espresso.onView(ViewMatchers.withId(R.id.editTextTextEmailAddress))
                 .perform(ViewActions.typeText("test@usc.edu"));
 
@@ -98,7 +98,7 @@ public class RegisterInstrumentedTest {
     }
 
     @Test
-    public void testNoConfirmationPassword() {
+    public void testRegisterNoConfirmationPassword() {
         Espresso.onView(ViewMatchers.withId(R.id.editTextTextEmailAddress))
                 .perform(ViewActions.typeText("test@usc.edu"));
 
@@ -113,7 +113,7 @@ public class RegisterInstrumentedTest {
     }
 
     @Test
-    public void testInvalidConfirmationPassword() {
+    public void testRegisterInvalidConfirmationPassword() {
         Espresso.onView(ViewMatchers.withId(R.id.editTextTextEmailAddress))
                 .perform(ViewActions.typeText("test@usc.edu"));
 
@@ -133,7 +133,7 @@ public class RegisterInstrumentedTest {
     // firebase deals with this on its own, states the email address is already in use
     // maybe create another instance in the app where if the user inputs an email that already exists, let them know
     @Test
-    public void testUsedEmail() {
+    public void testRegisterUsedEmail() {
         Espresso.onView(ViewMatchers.withId(R.id.editTextTextEmailAddress))
                 .perform(ViewActions.typeText("druzhini@usc.edu"));
 

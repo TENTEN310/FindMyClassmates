@@ -48,7 +48,7 @@ public class LoginInstrumentedTest {
 
         // logging in may take a while
         try {
-            Thread.sleep(2500);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
