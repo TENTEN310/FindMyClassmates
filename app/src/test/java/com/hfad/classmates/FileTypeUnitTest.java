@@ -20,10 +20,14 @@ public class FileTypeUnitTest {
     }
 
     @Test
-    public void testValidContentTypeWithLowercase() { assertEquals("JPEG", getFileType("image/jpeg")); }
+    public void testValidCasedContentType() {
+        assertEquals("JPEG", getFileType("image/jpeg"));
+        assertEquals("JPEG", getFileType("image/JPEG"));
+        assertEquals("JPEG", getFileType("image/JpEg"));
+    }
 
     @Test
-    public void testValidContentTypeWithUppercase() { assertEquals("JPEG", getFileType("image/JPEG")); }
+    public void testSingleSlashContentType() { assertEquals("Unknown", getFileType("/")); }
 
     @Test
     public void testValidContentTypeWithMultipleSlashes() { assertEquals("MPEG", getFileType("audio/mpeg/mp3")); }
@@ -32,17 +36,8 @@ public class FileTypeUnitTest {
     public void testInvalidContentType() { assertEquals("Unknown", getFileType("invalid_content_type")); }
 
     @Test
-    public void testNullContentType() {
+    public void testNullOrEmptyContentType() {
         assertEquals("Unknown", getFileType(null));
-    }
-
-    @Test
-    public void testEmptyContentType() {
         assertEquals("Unknown", getFileType(""));
-    }
-
-    @Test
-    public void testSingleSlashContentType() {
-        assertEquals("Unknown", getFileType("/"));
     }
 }
