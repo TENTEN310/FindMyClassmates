@@ -11,7 +11,7 @@ public class FileTypeUnitTest {
         if (contentType != null) {
             String[] parts = contentType.split("/");
             if (parts.length > 1) {
-                return parts[1].toUpperCase();
+                return parts[parts.length-1].toUpperCase();
             }
         }
 
@@ -30,7 +30,7 @@ public class FileTypeUnitTest {
     public void testSingleSlashContentType() { assertEquals("Unknown", getFileType("/")); }
 
     @Test
-    public void testValidContentTypeWithMultipleSlashes() { assertEquals("MPEG", getFileType("audio/mpeg/mp3")); }
+    public void testValidContentTypeWithMultipleSlashes() { assertEquals("MP3", getFileType("audio/mpeg/mp3")); }
 
     @Test
     public void testInvalidContentType() { assertEquals("Unknown", getFileType("invalid_content_type")); }

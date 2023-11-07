@@ -169,7 +169,7 @@ public class ClassDetail extends AppCompatActivity {
         if (contentType != null) {
             String[] parts = contentType.split("/");
             if (parts.length > 1) {
-                return parts[1].toUpperCase();
+                return parts[parts.length-1].toUpperCase();
             }
         }
 
