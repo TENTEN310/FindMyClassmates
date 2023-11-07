@@ -40,4 +40,9 @@ public class FileTypeUnitTest {
     public void testEmptyContentType() {
         assertEquals("Unknown", getFileType(""));
     }
+
+    @Test
+    public void testSingleSlashContentType() {
+        assertEquals("Unknown", getFileType("/"));
+    }
 }
