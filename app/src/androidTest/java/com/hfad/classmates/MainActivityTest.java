@@ -19,7 +19,7 @@ public class MainActivityTest {
     public ActivityScenarioRule<Login> loginActivityRule = new ActivityScenarioRule<>(Login.class);
 
     //login for the tests to successfully run
-    public void login() {
+    public static void login() {
         Espresso.onView(ViewMatchers.withId(R.id.SigninEmail))
                 .perform(ViewActions.typeText("druzhini@usc.edu"), ViewActions.closeSoftKeyboard());
         Espresso.onView(ViewMatchers.withId(R.id.SigninPass))
