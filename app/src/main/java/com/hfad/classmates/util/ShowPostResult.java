@@ -44,11 +44,14 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
     protected void onBindViewHolder(@NonNull PostView holder, int position, @NonNull Post model) {
         String postId = getSnapshots().getSnapshot(position).getId();
         String userId = FirebaseUtil.getUserID();
-        holder.usernameText.setText(model.getUserName());
         holder.post_info.setText(model.getPostContent());
         holder.likes.setText(String.valueOf(model.getLikes()));
         holder.time.setText(FirebaseUtil.reformateDateAndTime(model.getTimestamp()));
         String posterID = model.getUserID();
+        FirebaseUtil.getOtherUserDetails(posterID).get().addOnSuccessListener(documentSnapshot -> {
+            ProfileInfo profileInfo = documentSnapshot.toObject(ProfileInfo.class);
+            holder.usernameText.setText(profileInfo.getUsername());
+        });
 
         FirebaseUtil.getProfilePic(model.getUserID()).getDownloadUrl()
                 .addOnCompleteListener(task -> {
