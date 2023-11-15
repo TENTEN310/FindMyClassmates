@@ -104,6 +104,8 @@ public class ChatNavigationTest {
                 .perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.seach_username_input))
                 .perform(ViewActions.typeText("sidqian"), ViewActions.closeSoftKeyboard());
+        Espresso.onView(ViewMatchers.withId(R.id.search_user_btn))
+                .perform(ViewActions.click());
         //check the first recycler view item
         Espresso.onView(ViewMatchers.withId(R.id.search_user_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()));
@@ -135,6 +137,8 @@ public class ChatNavigationTest {
                 .perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.seach_username_input))
                 .perform(ViewActions.typeText("sidqian"), ViewActions.closeSoftKeyboard());
+        Espresso.onView(ViewMatchers.withId(R.id.search_user_btn))
+                .perform(ViewActions.click());
         //check the first recycler view item
         Espresso.onView(ViewMatchers.withId(R.id.search_user_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()));
