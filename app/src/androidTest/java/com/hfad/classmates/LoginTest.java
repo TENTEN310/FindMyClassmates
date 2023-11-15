@@ -10,7 +10,7 @@ import com.hfad.classmates.regLogInActivity.Login;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class LoginInstrumentedTest {
+public class LoginTest {
     @Rule
     public ActivityScenarioRule<Login> activityScenarioRule = new ActivityScenarioRule<>(Login.class);
 

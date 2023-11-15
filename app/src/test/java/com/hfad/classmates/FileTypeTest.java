@@ -4,7 +4,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 // testing getFileType from ClassDetail
-public class FileTypeUnitTest {
+public class FileTypeTest {
 
     // mocking the function here as original requires AppCompatActivity
     private String getFileType(String contentType) {

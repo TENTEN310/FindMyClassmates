@@ -15,7 +15,7 @@ import com.hfad.classmates.regLogInActivity.Register;
 import org.junit.Rule;
 
 @RunWith(AndroidJUnit4.class)
-public class RegisterInstrumentedTest {
+public class RegisterTest {
 
     @Rule
     public ActivityScenarioRule<Register> activityScenarioRule = new ActivityScenarioRule<>(Register.class);
