@@ -8,6 +8,8 @@ import com.hfad.classmates.objectClasses.ChatsContainer;
 import com.hfad.classmates.objectClasses.Classes;
 import com.hfad.classmates.objectClasses.Comments;
 import com.hfad.classmates.objectClasses.Dept;
+import com.hfad.classmates.objectClasses.Materials;
+import com.hfad.classmates.objectClasses.Post;
 import com.hfad.classmates.util.FirebaseUtil;
 
 import android.content.Intent;
@@ -323,5 +325,151 @@ public class ObjectsTest {
         Dept dept = new Dept(departmentName, abv);
         assertEquals(departmentName, dept.getDepartmentName());
         assertEquals(abv, dept.getAbv());
+    }
+
+    @Test
+    public void testMaterialConstructorAndGetters() {
+        String materialName = "Lecture Notes";
+        String fileType = "pdf";
+        String filePath = "/path/to/lecture/notes.pdf";
+
+        Materials materials = new Materials(materialName, fileType, filePath);
+
+        assertEquals(materialName, materials.getMaterialName());
+        assertEquals(fileType, materials.getFileType());
+        assertEquals(filePath, materials.getFilePath());
+    }
+
+    @Test
+    public void testUserName() {
+        String userName = "John Doe";
+        Post post = new Post();
+        post.setUserName(userName);
+        assertEquals(userName, post.getUserName());
+    }
+
+    @Test
+    public void testPostContent() {
+        String postContent = "This is a sample post content.";
+        Post post = new Post();
+        post.setPostContent(postContent);
+        assertEquals(postContent, post.getPostContent());
+    }
+
+    @Test
+    public void testPostTimestamp() {
+        Timestamp timestamp = Timestamp.now(); // Adjust according to your Timestamp implementation
+        Post post = new Post();
+        post.setTimestamp(timestamp);
+        assertEquals(timestamp, post.getTimestamp());
+    }
+
+    @Test
+    public void testUserID() {
+        String userID = "user123";
+        Post post = new Post();
+        post.setUserID(userID);
+        assertEquals(userID, post.getUserID());
+    }
+
+    @Test
+    public void testPostLikes() {
+        int likes = 100;
+        Post post = new Post();
+        post.setLikes(likes);
+        assertEquals(likes, post.getLikes());
+    }
+
+    @Test
+    public void testPostConstructor() {
+        String postContent = "This is a sample post content.";
+        Timestamp timestamp = Timestamp.now(); // Adjust according to your Timestamp implementation
+        String userID = "user123";
+        int likes = 100;
+        String userName = "John Doe";
+
+        Post post = new Post(postContent, timestamp, userID, likes, userName);
+        assertEquals(postContent, post.getPostContent());
+        assertEquals(timestamp, post.getTimestamp());
+        assertEquals(userID, post.getUserID());
+        assertEquals(likes, post.getLikes());
+        assertEquals(userName, post.getUserName());
+    }
+
+
+    @Test
+    public void testUsername() {
+        String username = "JohnDoe";
+        ProfileInfo profileInfo = new ProfileInfo();
+        profileInfo.setUsername(username);
+        assertEquals(username, profileInfo.getUsername());
+    }
+
+    @Test
+    public void testYear() {
+        String year = "Sophomore";
+        ProfileInfo profileInfo = new ProfileInfo();
+        profileInfo.setYear(year);
+        assertEquals(year, profileInfo.getYear());
+    }
+
+    @Test
+    public void testMajor() {
+        String major = "Computer Science";
+        ProfileInfo profileInfo = new ProfileInfo();
+        profileInfo.setMajor(major);
+        assertEquals(major, profileInfo.getMajor());
+    }
+
+    @Test
+    public void testSchool() {
+        String school = "Engineering School";
+        ProfileInfo profileInfo = new ProfileInfo();
+        profileInfo.setSchool(school);
+        assertEquals(school, profileInfo.getSchool());
+    }
+
+    @Test
+    public void testProfileTimestamp() {
+        Timestamp timestamp = Timestamp.now(); // Adjust according to your Timestamp implementation
+        ProfileInfo profileInfo = new ProfileInfo();
+        profileInfo.setTimestamp(timestamp);
+        assertEquals(timestamp, profileInfo.getTimestamp());
+    }
+
+    @Test
+    public void testProfileUserID() {
+        String userID = "user123";
+        ProfileInfo profileInfo = new ProfileInfo();
+        profileInfo.setUserID(userID);
+        assertEquals(userID, profileInfo.getUserID());
+    }
+
+    @Test
+    public void testUSCID() {
+        String USCID = "USC123";
+        ProfileInfo profileInfo = new ProfileInfo();
+        profileInfo.setUSCID(USCID);
+        assertEquals(USCID, profileInfo.getUSCID());
+    }
+
+    @Test
+    public void testProfileConstructor() {
+        String username = "JohnDoe";
+        String year = "Sophomore";
+        String major = "Computer Science";
+        String school = "Engineering School";
+        Timestamp timestamp = Timestamp.now(); // Adjust according to your Timestamp implementation
+        String userID = "user123";
+        String USCID = "USC123";
+
+        ProfileInfo profileInfo = new ProfileInfo(username, year, major, school, USCID, timestamp, userID);
+        assertEquals(username, profileInfo.getUsername());
+        assertEquals(year, profileInfo.getYear());
+        assertEquals(major, profileInfo.getMajor());
+        assertEquals(school, profileInfo.getSchool());
+        assertEquals(timestamp, profileInfo.getTimestamp());
+        assertEquals(userID, profileInfo.getUserID());
+        assertEquals(USCID, profileInfo.getUSCID());
     }
 }
