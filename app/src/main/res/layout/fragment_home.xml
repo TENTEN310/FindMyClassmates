@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:padding="0dp"
             android:layout_below="@id/main_toolbar"
-            android:id="@+id/post_recycler_view"
+            android:id="@+id/postHome_recycler_view"
             />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

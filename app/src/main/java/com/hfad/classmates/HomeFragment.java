@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
-        recyclerView = view.findViewById(R.id.post_recycler_view);
+        recyclerView = view.findViewById(R.id.postHome_recycler_view);
         showPost();
         swipeRefreshLayout.setOnRefreshListener(() -> {
             showPost();
