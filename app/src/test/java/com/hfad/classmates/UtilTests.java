@@ -158,5 +158,54 @@ public class UtilTests {
         String expectedDateTime = expectedFormattedDateTime(2020, Calendar.JULY, 4, 12, 0);
         assertEquals(expectedDateTime, formattedDateTime);
     }
+
+    @Test
+    public void testDifferentHashCodesOrdered() {
+        String userId1 = "userA";
+        String userId2 = "userB";
+        String expected = userId1.hashCode() < userId2.hashCode() ? "userA_userB" : "userB_userA";
+        assertEquals(expected, getChatroomID(userId1, userId2));
+    }
+
+    @Test
+    public void testSameHashCodesDifferentStrings() {
+        String userId1 = new String("userA");
+        String userId2 = new String("userA");
+        String expected = userId1.hashCode() < userId2.hashCode() ? "userA_userA" : "userA_userA";
+        assertEquals(expected, getChatroomID(userId1, userId2));
+    }
+
+    @Test
+    public void testEmptyStrings() {
+        String userId1 = "";
+        String userId2 = "";
+        String expected = userId1.hashCode() < userId2.hashCode() ? "_": "_";
+        assertEquals(expected, getChatroomID(userId1, userId2));
+    }
+
+    @Test
+    public void testNumericUserIDs() {
+        String userId1 = "123";
+        String userId2 = "456";
+        String expected = userId1.hashCode() < userId2.hashCode() ? "123_456" : "456_123";
+        assertEquals(expected, getChatroomID(userId1, userId2));
+    }
+
+    @Test
+    public void testSpecialCharacterUserIDs() {
+        String userId1 = "@user";
+        String userId2 = "#user";
+        String expected = userId1.hashCode() < userId2.hashCode() ? "@user_#user" : "#user_@user";
+        assertEquals(expected, getChatroomID(userId1, userId2));
+    }
+
+    public static String getChatroomID(String userId1, String userId2) {
+        if (userId1.hashCode() < userId2.hashCode()) {
+            return userId1 + "_" + userId2;
+        } else {
+            return userId2 + "_" + userId1;
+        }
+    }
+
 }
 

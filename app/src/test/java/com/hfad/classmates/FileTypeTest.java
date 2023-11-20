@@ -27,13 +27,19 @@ public class FileTypeTest {
     }
 
     @Test
-    public void testSingleSlashContentType() { assertEquals("Unknown", getFileType("/")); }
+    public void testSingleSlashContentType() {
+        assertEquals("Unknown", getFileType("/"));
+    }
 
     @Test
-    public void testValidContentTypeWithMultipleSlashes() { assertEquals("MP3", getFileType("audio/mpeg/mp3")); }
+    public void testValidContentTypeWithMultipleSlashes() {
+        assertEquals("MP3", getFileType("audio/mpeg/mp3"));
+    }
 
     @Test
-    public void testInvalidContentType() { assertEquals("Unknown", getFileType("invalid_content_type")); }
+    public void testInvalidContentType() {
+        assertEquals("Unknown", getFileType("invalid_content_type"));
+    }
 
     @Test
     public void testNullOrEmptyContentType() {
