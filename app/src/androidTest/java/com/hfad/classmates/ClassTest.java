@@ -50,4 +50,67 @@ public class ClassTest {
         Espresso.onView(withId(R.id.nav_classes))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
+
+    @Test
+    public void testAddClass() {
+        // Perform login
+        MainActivityTest.login();
+        // go the class page
+        Espresso.onView(ViewMatchers.withId(R.id.nav_classes)).perform(ViewActions.click());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // click on the first department in the recycler view
+        Espresso.onView(withId(R.id.post_recycler_view))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, ViewActions.click()));
+
+        // click on the first class in the recycler view to view the class detail page
+        Espresso.onView(withId(R.id.post_recycler_view))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()));
+
+        // click on the add button
+        Espresso.onView(withId(R.id.imageButton2)).perform(ViewActions.click());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //navigate to the roster page by clicking on roster button
+        Espresso.onView(withId(R.id.button)).perform(ViewActions.click());
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+        // check the recycler view
+        Espresso.onView(withId(R.id.post_recycler_view))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+    }
+
+    @Test
+    public void testRemoveClass() {
+        // Perform login
+        MainActivityTest.login();
+        // go to the profile page
+        Espresso.onView(ViewMatchers.withId(R.id.nav_profile)).perform(ViewActions.click());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // click on the first class in the class list recycler view
+        Espresso.onView(withId(R.id.itemsList))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()));
+        // remove yourself from the class currently enrolled in
+        Espresso.onView(withId(R.id.imageButton4)).perform(ViewActions.click());
+        Espresso.pressBack();
+        // check if the class is removed
+        Espresso.onView(withId(R.id.itemsList))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+    }
 }

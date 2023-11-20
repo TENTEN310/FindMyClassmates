@@ -23,6 +23,12 @@ public class ProfileTest {
     @Rule
     public ActivityScenarioRule<Login> activityScenarioRule = new ActivityScenarioRule<>(Login.class);
 
+    @Test
+    public void testAddClass(){
+        // Perform login
+        MainActivityTest.login();
+
+    }
 //    @Test
 //    public void testNameChange() {
 //        // Perform login
