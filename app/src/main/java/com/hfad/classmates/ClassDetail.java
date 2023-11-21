@@ -317,7 +317,7 @@ public class ClassDetail extends AppCompatActivity {
             CheckBox late = popupView.findViewById(R.id.lateSwitch);
             boolean lateRating = late.isChecked();
             if (comment.isEmpty()) {
-                review.setError(Double.toString(overallRating));
+                review.setError("Comment can't be empty");
             } else {
                 // Add the comment to the database
                 addComments(classes, comment, overallRating, workloadRating, attendanceRating, lateRating);

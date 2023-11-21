@@ -128,9 +128,6 @@ public class PostFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "Failed", Toast.LENGTH_LONG).show();
                 });
-
-
-
     }
 
 }

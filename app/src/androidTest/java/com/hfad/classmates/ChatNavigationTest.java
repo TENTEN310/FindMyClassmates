@@ -135,10 +135,10 @@ public class ChatNavigationTest {
                 .perform(ViewActions.typeText("test"), ViewActions.closeSoftKeyboard());
         Espresso.onView(withId(R.id.message_send_btn))
                 .perform(ViewActions.click());
-        //back to home
-        Espresso.pressBack();
-        Espresso.onView(withId(R.id.activity_main))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+
+        // get the last item in the recycler view and make sure the text is "test"
+        Espresso.onView(withId(R.id.chat_recycler_view))
+                .check(ViewAssertions.matches(ViewMatchers.hasDescendant(withText("test"))));
     }
 
 
