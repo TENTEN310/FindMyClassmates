@@ -2,6 +2,8 @@ package com.hfad.classmates.objectClasses;
 
 import com.google.firebase.Timestamp;
 
+import java.util.List;
+
 public class ProfileInfo {
     public ProfileInfo() {}
     public ProfileInfo(String username, String year, String major, String school, String USCID, Timestamp timestamp, String userID) {
@@ -12,6 +14,10 @@ public class ProfileInfo {
         this.timestamp = timestamp;
         this.userID = userID;
         this.USCID = USCID;
+    }
+
+    public List<String> getBlockList() {
+        return blockList;
     }
 
     public String getUsername() {
@@ -78,5 +84,6 @@ public class ProfileInfo {
     private String USCID;
 
     private String userID;
+    private List<String> blockList;
 
 }

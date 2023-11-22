@@ -5,10 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,6 +63,38 @@ public class ChatHistoryResult extends FirestoreRecyclerAdapter<ChatroomsContain
                                 FirebaseUtil.passUserModelAsIntent(intent,otherUserModel);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent);
+                            });
+                            //long press to delete chat
+                            holder.itemView.setOnLongClickListener(v -> {
+                                View popupView = LayoutInflater.from(context).inflate(R.layout.user_pop_action_del, null);
+                                Button block = popupView.findViewById(R.id.block);
+                                Button delete = popupView.findViewById(R.id.delete);
+
+                                FirebaseUtil.isBlocked(otherUserModel.getUserID(), isBlocked -> {
+                                    if (isBlocked) {
+                                        block.setText("Unblock");
+                                        block.setOnClickListener(v1 -> {
+                                            FirebaseUtil.removeFromBlockList(otherUserModel.getUserID());
+                                            ((ViewGroup) popupView.getParent()).removeView(popupView);
+                                        });
+                                    } else {
+                                        block.setText("Block");
+                                        block.setOnClickListener(v1 -> {
+                                            FirebaseUtil.addToBlockList(otherUserModel.getUserID());
+                                            ((ViewGroup) popupView.getParent()).removeView(popupView);
+                                        });
+                                    }
+                                });
+                                delete.setOnClickListener(v1 -> {
+                                    //delete chat
+                                    FirebaseUtil.deleteChatroom(model.getChatroomID());
+                                    ((ViewGroup) popupView.getParent()).removeView(popupView);
+                                });
+
+                                // Create and show the PopupWindow
+                                PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+                                popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+                                return false;
                             });
                         } else {
                             Log.e("ChatHistoryResult", "OtherUserModel is null for position " + position);

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -51,6 +52,22 @@ public class Inside_chat extends AppCompatActivity {
         messageInput = findViewById(R.id.chat_message_input);
         recyclerView = findViewById(R.id.chat_recycler_view);
         ChatID = FirebaseUtil.getChatroomID(FirebaseUtil.getUserID(),otherProfile.getUserID());
+
+        //if blocked disable send button
+        FirebaseUtil.isBlocked(otherProfile.getUserID(), isBlocked -> {
+            if (isBlocked) {
+                send.setEnabled(false);
+                messageInput.setEnabled(false);
+            }
+        });
+
+        FirebaseUtil.isBlockedByOther(otherProfile.getUserID(), isBlocked -> {
+            if (isBlocked) {
+                send.setEnabled(false);
+                messageInput.setEnabled(false);
+            }
+        });
+
 
         FirebaseUtil.getProfilePic(otherProfile.getUserID()).getDownloadUrl()
             .addOnCompleteListener(task2 -> {

@@ -1,11 +1,16 @@
 package com.hfad.classmates.util;
 
 import android.content.Intent;
+import android.util.Log;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -26,6 +31,16 @@ public class FirebaseUtil {
     public static DocumentReference getOtherUserDetails(String otherUserId){
         return FirebaseFirestore.getInstance().collection("users").document(otherUserId);
     }
+
+    public static void addToBlockList(String otherUserId){
+        getUserDetails().update("blockList", FieldValue.arrayUnion(otherUserId));
+    }
+
+    public static void removeFromBlockList(String otherUserId){
+        getUserDetails().update("blockList", FieldValue.arrayRemove(otherUserId));
+    }
+
+
     public static StorageReference getUserStorage(){
         return FirebaseStorage.getInstance().getReference().child("profile_pic")
                 .child(FirebaseUtil.getUserID());
@@ -37,6 +52,10 @@ public class FirebaseUtil {
 
     public static DocumentReference getChatroomReference(String chatroomId){
         return FirebaseFirestore.getInstance().collection("chatrooms").document(chatroomId);
+    }
+
+    public static void deleteChatroom(String chatroomId){
+        getChatroomReference(chatroomId).delete();
     }
 
     public static CollectionReference getDeptReference(){
@@ -151,6 +170,42 @@ public class FirebaseUtil {
             }
         }
         return dept;
+    }
+
+    public interface BlockCheckCallback {
+        void onResult(boolean isBlocked);
+    }
+
+
+    public static void isBlocked(String otherUserId, BlockCheckCallback callback) {
+        getUserDetails().get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists() && documentSnapshot.contains("blockList")) {
+                        List<String> blockList = (List<String>) documentSnapshot.get("blockList");
+                        callback.onResult(blockList != null && blockList.contains(otherUserId));
+                    } else {
+                        callback.onResult(false);
+                    }
+                })
+                .addOnFailureListener(e -> callback.onResult(false));
+    }
+
+    public interface BlockCheckCallback2 {
+        void onResult(boolean isBlockedByOther);
+    }
+
+
+    public static void isBlockedByOther(String otherUserId, BlockCheckCallback2 callback) {
+        getOtherUserDetails(otherUserId).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists() && documentSnapshot.contains("blockList")) {
+                        List<String> blockList = (List<String>) documentSnapshot.get("blockList");
+                        callback.onResult(blockList != null && blockList.contains(FirebaseAuth.getInstance().getUid()));
+                    } else {
+                        callback.onResult(false);
+                    }
+                })
+                .addOnFailureListener(e -> callback.onResult(false));
     }
 
     public static ProfileInfo getProfile(String userID){
