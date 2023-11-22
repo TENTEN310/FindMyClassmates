@@ -51,6 +51,12 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
         FirebaseUtil.getOtherUserDetails(posterID).get().addOnSuccessListener(documentSnapshot -> {
             ProfileInfo profileInfo = documentSnapshot.toObject(ProfileInfo.class);
             holder.usernameText.setText(profileInfo.getUsername());
+            if(profileInfo.getUserID().equals(userId)){
+                holder.deleteButton.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.deleteButton.setVisibility(View.GONE);
+            }
         });
 
         FirebaseUtil.getProfilePic(model.getUserID()).getDownloadUrl()
@@ -77,6 +83,10 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
                     holder.likes.setText(String.valueOf(model.getLikes() + 1));
                 }
             });
+        });
+
+        holder.deleteButton.setOnClickListener(v -> {
+            FirebaseUtil.getPostsCollectionReference().document(postId).delete();
         });
 
         holder.profilePic.setOnClickListener(v -> {
@@ -135,7 +145,7 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
         TextView usernameText;
         TextView post_info, likes, time;
         ImageView profilePic;
-        ImageButton likeButton;
+        ImageButton likeButton, deleteButton;
 
         public PostView(@NonNull View itemView) {
             super(itemView);
@@ -145,6 +155,7 @@ public class ShowPostResult extends FirestoreRecyclerAdapter<Post, ShowPostResul
             likes = itemView.findViewById(R.id.likes);
             likeButton = itemView.findViewById(R.id.imageButton);
             time = itemView.findViewById(R.id.dateTime);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
         }
     }
     @Override
