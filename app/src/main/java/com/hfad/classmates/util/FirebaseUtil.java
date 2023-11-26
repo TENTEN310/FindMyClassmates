@@ -190,12 +190,9 @@ public class FirebaseUtil {
                 .addOnFailureListener(e -> callback.onResult(false));
     }
 
-    public interface BlockCheckCallback2 {
-        void onResult(boolean isBlockedByOther);
-    }
 
 
-    public static void isBlockedByOther(String otherUserId, BlockCheckCallback2 callback) {
+    public static void isBlockedByOther(String otherUserId, BlockCheckCallback callback) {
         getOtherUserDetails(otherUserId).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists() && documentSnapshot.contains("blockList")) {
