@@ -24,8 +24,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.hfad.classmates.chatsActivity.Inside_chat;
 import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.Comments;
@@ -46,7 +48,8 @@ public class ShowReviewResult extends FirestoreRecyclerAdapter<Comments, ShowRev
     @Override
     protected void onBindViewHolder(@NonNull CommentView holder, int position, @NonNull Comments model) {
         String postId = getSnapshots().getSnapshot(position).getId();
-        String posterID = FirebaseUtil.getUserID();
+        String posterID = model.getUid();
+        String userId = FirebaseUtil.getUserID();
         holder.usernameText.setText(model.getSenderId());
         holder.post_info.setText(model.getMessage());
         holder.likes.setText(String.valueOf(model.getLikes()));
@@ -55,6 +58,16 @@ public class ShowReviewResult extends FirestoreRecyclerAdapter<Comments, ShowRev
         holder.workloadRating.setText(String.valueOf(model.getWorkload()));
         holder.attendanceRating.setText(String.valueOf(model.getAttendance()));
         holder.lateRating.setText(String.valueOf(model.getLate()));
+
+        FirebaseUtil.getOtherUserDetails(posterID).get().addOnSuccessListener(documentSnapshot -> {
+            ProfileInfo profileInfo = documentSnapshot.toObject(ProfileInfo.class);
+            if(profileInfo.getUserID().equals(userId)){
+                holder.deleteButton.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.deleteButton.setVisibility(View.GONE);
+            }
+        });
 
         FirebaseUtil.getProfilePic(FirebaseUtil.getUserID()).getDownloadUrl()
                 .addOnCompleteListener(task -> {
@@ -108,6 +121,11 @@ public class ShowReviewResult extends FirestoreRecyclerAdapter<Comments, ShowRev
                     });
                 }
             });
+        });
+
+        holder.deleteButton.setOnClickListener(v -> {
+            Toast.makeText(context, "Review Deleted", Toast.LENGTH_SHORT).show();
+            FirebaseUtil.getReviewCollectionReference(String.valueOf(model.getClassName())).document(postId).delete();
         });
 
         holder.profilePicture.setOnClickListener(v -> {
@@ -166,7 +184,7 @@ public class ShowReviewResult extends FirestoreRecyclerAdapter<Comments, ShowRev
         TextView usernameText, overallRating, workloadRating, attendanceRating, lateRating;
         TextView post_info, likes, dislikes, emptyView;
         ImageView profilePicture;
-        ImageButton likeButton, dislikeButton;
+        ImageButton likeButton, dislikeButton, deleteButton;
 
         public CommentView(@NonNull View itemView) {
             super(itemView);
@@ -182,6 +200,7 @@ public class ShowReviewResult extends FirestoreRecyclerAdapter<Comments, ShowRev
             attendanceRating = itemView.findViewById(R.id.attendanceRating);
             lateRating = itemView.findViewById(R.id.lateRating);
             emptyView = itemView.findViewById(R.id.emptyReview);
+            deleteButton = itemView.findViewById(R.id.buttonDelete);
         }
     }
 }
