@@ -69,7 +69,7 @@ public class ShowReviewResult extends FirestoreRecyclerAdapter<Comments, ShowRev
             }
         });
 
-        FirebaseUtil.getProfilePic(FirebaseUtil.getUserID()).getDownloadUrl()
+        FirebaseUtil.getProfilePic(model.getUid()).getDownloadUrl()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Uri uri = task.getResult();
