@@ -68,7 +68,6 @@ public class ChatHistoryResult extends FirestoreRecyclerAdapter<ChatroomsContain
                             holder.itemView.setOnLongClickListener(v -> {
                                 View popupView = LayoutInflater.from(context).inflate(R.layout.user_pop_action_del, null);
                                 Button block = popupView.findViewById(R.id.block);
-                                Button delete = popupView.findViewById(R.id.delete);
 
                                 FirebaseUtil.isBlocked(otherUserModel.getUserID(), isBlocked -> {
                                     if (isBlocked) {
@@ -85,12 +84,6 @@ public class ChatHistoryResult extends FirestoreRecyclerAdapter<ChatroomsContain
                                         });
                                     }
                                 });
-                                delete.setOnClickListener(v1 -> {
-                                    //delete chat
-                                    FirebaseUtil.deleteChatroom(model.getChatroomID());
-                                    ((ViewGroup) popupView.getParent()).removeView(popupView);
-                                });
-
                                 // Create and show the PopupWindow
                                 PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
                                 popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
