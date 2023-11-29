@@ -28,6 +28,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -78,6 +79,7 @@ public class ClassDetail extends AppCompatActivity {
         classAbv.setText(classes.getAbv());
         description.setText(classes.getDescription());
         back.setOnClickListener(v -> finish());
+
         //add class to user's class list
         add.setOnClickListener(v -> addClassToUserAndUserToClass(classes, add, remove));
         roster.setOnClickListener(
@@ -126,6 +128,8 @@ public class ClassDetail extends AppCompatActivity {
             showReviewPop();
         });
         showReview();
+        // update the rating when we open up the class (refreshes)
+        calculateOverallRatingSumForAllUsersFromFirestore();
     }
 
     // update our materials list
@@ -164,6 +168,7 @@ public class ClassDetail extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Failed to retrieve materials: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
+
     // get the file type based on the material name
     private String getFileType(String contentType) {
         if (contentType != null) {
@@ -176,6 +181,7 @@ public class ClassDetail extends AppCompatActivity {
         // if there is no associated file type
         return "Unknown";
     }
+
     // add the file to the database storage
     private void uploadFileWithCustomName(Uri fileUri, String customFileName, TextView emptyMaterial) {
         if (fileUri != null) {
@@ -284,14 +290,67 @@ public class ClassDetail extends AppCompatActivity {
                         postsCollection.add(finalComment)
                                 .addOnSuccessListener(documentReference -> {
                                     Toast.makeText(getApplicationContext(), "Review submitted", Toast.LENGTH_LONG).show();
+                                     // update the review value
+                                    calculateOverallRatingSumForAllUsersFromFirestore();
                                 })
                                 .addOnFailureListener(e -> {
                                     Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
                                 });
                     }
                 });
-
     }
+
+    // calculate the total rating from all of the reviews on the class
+    private void calculateOverallRatingSumForAllUsersFromFirestore() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String path = "/departments/" + classes.getAbv().substring(0, 4) + "/classes/" + classes.getAbv() + "/reviews";
+        CollectionReference reviewsCollection = db.collection(path);
+
+        reviewsCollection.get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    double overallRatingSum = 0.0;
+                    int numberOfReviews = 0;
+
+                    // calculate all the reviews from each user
+                    for (QueryDocumentSnapshot reviewSnapshot : queryDocumentSnapshots) {
+                        Double overallRating = reviewSnapshot.getDouble("overall");
+
+                        if (overallRating != null) {
+                            overallRatingSum += overallRating;
+                            numberOfReviews++;
+                        }
+                    }
+
+                    // if there are reviews, update the rating
+                    if (numberOfReviews > 0) {
+                        double averageRating = overallRatingSum / numberOfReviews;
+
+                        updateClassRatingInFirebase(averageRating);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("Error: " + e.getMessage());
+                });
+    }
+
+    private void updateClassRatingInFirebase(double newRating) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String path = "/departments/" + classes.getAbv().substring(0, 4) + "/classes/" + classes.getAbv();
+        DocumentReference classRef = db.document(path);
+
+        // update the rating for our class object
+        classes.setRating(Math.floor(newRating * 100) / 100);
+
+        // update the rating in our firebase database
+        classRef.update("rating", newRating)
+                .addOnSuccessListener(aVoid -> {
+                    System.out.println("Class rating updated successfully!");
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("Error updating class rating: " + e.getMessage());
+                });
+    }
+
     private void showReviewPop() {
         // Inflate the custom popup layout
         View popupView = getLayoutInflater().inflate(R.layout.review_popup, null);
@@ -462,7 +521,4 @@ public class ClassDetail extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
-
-
-
 }

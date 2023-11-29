@@ -17,6 +17,8 @@ import com.hfad.classmates.ClassDetail;
 import com.hfad.classmates.R;
 import com.hfad.classmates.objectClasses.Classes;
 
+import java.text.DecimalFormat;
+
 public class ShowClassResult extends FirestoreRecyclerAdapter<Classes, ShowClassResult.ClassView> {
     Context context;
     public ShowClassResult(@NonNull FirestoreRecyclerOptions<Classes> options, Context context) {
@@ -26,11 +28,16 @@ public class ShowClassResult extends FirestoreRecyclerAdapter<Classes, ShowClass
 
     @Override
     protected void onBindViewHolder(@NonNull ClassView holder, int position, @NonNull Classes model) {
+        DecimalFormat df = new DecimalFormat("#.##");
+
         holder.classname.setText(model.getAbv());
         holder.term.setText(model.getTerm());
         holder.professor.setText(model.getProfessor());
         holder.close.setVisibility(View.GONE);
         holder.divider.setText("/");
+        holder.divider2.setText("/  Rating:");
+        holder.rating.setText(df.format(model.getRating()));
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +58,7 @@ public class ShowClassResult extends FirestoreRecyclerAdapter<Classes, ShowClass
 
     class ClassView extends RecyclerView.ViewHolder{
         TextView classname;
-        TextView term, professor, divider;
+        TextView term, professor, divider, divider2, rating;
         ImageButton close;
 
         public ClassView(@NonNull View itemView) {
@@ -61,6 +68,8 @@ public class ShowClassResult extends FirestoreRecyclerAdapter<Classes, ShowClass
             professor = itemView.findViewById(R.id.extra);
             close = itemView.findViewById(R.id.imageButton3);
             divider = itemView.findViewById(R.id.Divider);
+            divider2 = itemView.findViewById(R.id.divider2);
+            rating = itemView.findViewById(R.id.rating);
         }
     }
     @Override

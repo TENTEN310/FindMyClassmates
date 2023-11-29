@@ -6,6 +6,7 @@ public class Classes {
     String name;
     String professor;
     String term;
+    double rating;
     int units;
 
     public Classes() {}
@@ -17,6 +18,7 @@ public class Classes {
         this.term = term;
         this.units = units;
         this.abv = abv;
+        this.rating = 0; //initially set this to zero, since no ratings available
     }
 
     public String getAbv() {
@@ -65,5 +67,13 @@ public class Classes {
 
     public void setUnits(int units) {
         this.units = units;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 }
