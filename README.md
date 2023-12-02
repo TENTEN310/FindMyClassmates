@@ -29,6 +29,16 @@ User Email `sidqian@usc.edu` Pass: `111111`
 If you do decide to use your personal USC email, please follow the prompts on the registration page and its steps in our app. 
 **Please keep in mind that the request to login may take more then a few seconds for the backend to render the app**
 
+## Updates @ 12/1/2023 since deliverable 2.4
+1. Block user pop up functionality
+   - User will be able to block other users from chatting with them easily with a long press to the contact with the pop up window
+2. Delete post functionality
+   - User will be able to delete the post they sent out if they want to
+3. Delete review functionality
+   - User will be able to delete the reviews they left for their classes
+4. Average rating for the class
+   - User will be able to view the average score of the class calculated by the data collected from all the user reviews
+
 ## Support
 
 If you encounter any issues or have questions, please email any one of us at `sidqian@usc.edu`, `druzhini@usc.edu`, `shiqingr@usc.edu`
