@@ -10,7 +10,7 @@ Find My Classmates allows students to have a verified and accessible application
 - **Course Info:** We have over 30 courses spanning different departments on our app, where students will be able to find detailed information about their classes
 - **Course Material:** Users are allowed to upload related course work in all types of files to our database so other students can be updated with the most relevant information
 - **User Profile:** Shows you your information along with all the courses you have added to your class roster and provides easy access to every one of them
-- **Instant Messaging:** Chat with your classmates to coordinate meet-ups or discuss class materials
+- **Instant Messaging:** Chat with your classmates to coordinate meet-ups or discuss class materials, user can also easily block other users by long press the chat with the pop-up window
 - **Posting:** Students can post their thoughts about school on our app, helping students familiarize themselves with each other and the school itself
 
 ## Installation
