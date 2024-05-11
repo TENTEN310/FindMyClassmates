@@ -1,5 +1,4 @@
-# Find My Classmates App (Team 10)
-
+# Find My Classmates App 
 ## Overview
 
 Find My Classmates allows students to have a verified and accessible application to aid them in building their class schedule. While there are similar websites available, there is no mobile application that is convenient and easy to use. Most of the reviews on these websites are not verified, resulting in skewed and inaccurate ratings. With this app, we will be able to provide verified and up-to-date information, getting rid of duplicate professors, inaccurate class descriptions, and other confusing information. Find My Classmates will streamline the process and allow students to connect with others before the classes even start, allowing them to settle in and get comfortable with school, especially if they are first-year students. 
